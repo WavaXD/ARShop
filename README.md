@@ -67,13 +67,16 @@ Use the `BLANK_README.md` to get started.
 
 ### Built With
 
-* [![Next][Next.js]][Next-url]
-* [![React][React.js]][React-url]
-* [![Vue][Vue.js]][Vue-url]
-* [![Angular][Angular.io]][Angular-url]
-* [![Svelte][Svelte.dev]][Svelte-url]
-* [![Laravel][Laravel.com]][Laravel-url]
-* [![Bootstrap][Bootstrap.com]][Bootstrap-url]
-* [![JQuery][JQuery.com]][JQuery-url]
+<div align="left">
+  <a href="https://flutter.dev/">
+    <img src="DataFiles/Icons/flutterLogo.png" alt="Logo" width="320" height="80">
+  </a><br/>
+  <a href="https://unity.com/">
+    <img src="DataFiles/Icons/unityLogo.png" alt="Logo" width="320" height="80">
+  </a><br/>
+  <a href="https://developer.vuforia.com/">
+    <img src="DataFiles/Icons/vuforiaLogo.png" alt="Logo" width="320" height="80">
+  </a><br/>
+</div>
 
 <p align="right">(<a href="#top">back to top</a>)</p>
