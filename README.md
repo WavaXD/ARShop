@@ -89,27 +89,25 @@ Leave it for future updates.
 
 Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.  >>> Leave it for future updates.
 
-_For more examples, please refer to the [Documentation](https://example.com)_
-
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
 <!-- ROADMAP -->
 ## Roadmap
 - [x] Logo
-- [] Registration
-- [] Log in
-- [] Profile
+- [ ] Registration
+- [ ] Log in
+- [ ] Profile
 - [ ] Multi-language Support
     - [ ] English
     - [ ] Thai
 ### Merchant
-- [] List and Manage the products
-- [] Scan 2D to 3D object
+- [ ] List and Manage the products
+- [ ] Scan 2D to 3D object
 ### Customer
-- [] Browse the products
-- [] Cart system
-- [] Preview products with Augmented Reality
-- [] Check out
+- [ ] Browse the products
+- [ ] Cart system
+- [ ] Preview products with Augmented Reality
+- [ ] Check out
 
 <p align="right">(<a href="#top">back to top</a>)</p>
