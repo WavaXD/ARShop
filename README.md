@@ -1,11 +1,6 @@
 <div id="top"></div>
 
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
+[![MIT License][license-shield]][https://github.com/WavaXD/ARShop/blob/main/LICENSE]
 
 # ARShop
 <!-- PROJECT LOGO -->
@@ -72,6 +67,6 @@ Use the `BLANK_README.md` to get started.
 
 ### Built With
 
-* [![Flutter][Flutter.dev]][Flutter-url]
+* [![Flutter][Flutter.dev]][Flutter.dev]
 
 <p align="right">(<a href="#top">back to top</a>)</p>
