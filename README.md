@@ -1,7 +1,5 @@
 <div id="top"></div>
 
-[![MIT License][license-shield]][https://github.com/WavaXD/ARShop/blob/main/LICENSE]
-
 # ARShop
 <!-- PROJECT LOGO -->
 <br />
@@ -37,7 +35,6 @@
     </li>
     <li><a href="#usage">Usage</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
     <li><a href="#acknowledgments">Acknowledgments</a></li>
@@ -109,5 +106,33 @@ Use this space to show useful examples of how a project can be used. Additional 
 - [ ] Cart system
 - [ ] Preview products with Augmented Reality
 - [ ] Check out
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+
+<!-- LICENSE -->
+## License
+
+Distributed under the MIT License. See `LICENSE.txt` for more information.
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+
+<!-- CONTACT -->
+## Contact
+
+Wayu Saengphithak - myjobwayu@gmail.com
+
+Siriphun Chojorhor - palm.181433@gmail.com
+
+<p align="right">(<a href="#top">back to top</a>)</p>
+
+
+<!-- ACKNOWLEDGMENTS -->
+## Acknowledgments
+
+Leave it for future updates.
+
+* [TEST](https://test.com)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
