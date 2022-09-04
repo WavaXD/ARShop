@@ -83,7 +83,7 @@ Use this space to show useful examples of how a project can be used. Additional 
     - [ ] Thai
 ### Merchant
 - [ ] List and Manage the products
-- [ ] Scan 2D to 3D object
+- [ ] Scan 2D to 3D object (Optional)
 ### Customer
 - [ ] Browse the products
 - [ ] Cart system
