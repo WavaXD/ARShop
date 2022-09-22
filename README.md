@@ -47,7 +47,7 @@
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
-A comercial app (Shop) with an augmented reality preview. For customer they can preview product with augmented reality. For merchant they can scan their product into 3D object for customer to preview with augmented reality.
+A comercial app (Shop) with an augmented reality preview. For customer they can preview product with augmented reality.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -67,7 +67,9 @@ Leave it for future updates.
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.  >>> Leave it for future updates.
+Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources. 
+
+Leave it for future updates.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -76,9 +78,9 @@ Use this space to show useful examples of how a project can be used. Additional 
 ## Roadmap
 - [x] Logo
 - [ ] Registration
-- [ ] Log in
+- [ ] Login
 - [ ] Profile
-- [ ] Multi-language Support
+- [ ] Multi-language Support (Optional)
     - [ ] English
     - [ ] Thai
 ### Merchant
@@ -86,9 +88,9 @@ Use this space to show useful examples of how a project can be used. Additional 
 - [ ] Scan 2D to 3D object (Optional)
 ### Customer
 - [ ] Browse the products
-- [ ] Cart system
-- [ ] Preview products with Augmented Reality
-- [ ] Check out
+- [ ] Cart System
+- [ ] Preview Products with Augmented Reality
+- [ ] Checkout
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
