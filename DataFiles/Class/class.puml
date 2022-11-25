@@ -200,3 +200,234 @@ class CouponDetail{
 }
 
 @enduml
+
+@startuml
+
+class Customer {
+ -int customerId
+ -String customerEmail
+ -String customerPassword
+ -String customerName
+ -String customerTel
+ -String customerGender
+ -Date customerBirthdate
+ -Boolean isAdmin
+ +Customer()
+ +int getCustomerId()
+ +String getCustomerEmail()
+ +void setCustomerEmail(customerEmail : String)
+ +String getCustomerPassword()
+ +void setCustomerPassword(customerPassword : String)
+ +String getCustomerTel()
+ +void setCustomerTel(customerTel : String)
+ +String getCustomerGender()
+ +void setCustomerGender(customerGender : String)
+ +Date getCustomerBirthdate()
+ +void setCustomerBirthdate(customerBirthdate : Date)
+ +Boolean getIsAdmin()
+ +void setIsAdmin(isAdmin : Boolean)
+ +String toString()
+}
+
+class Address{
+ -int addressId
+ -int customerId
+ -String receiverName
+ -String phone
+ -String province
+ -String district
+ -String subDistrict
+ -String detail
+ -Boolean isDefault
+ +Address()
+ +int getAddressId()
+ +String getReceiverName()
+ +void setReceiverName(receiverName : String)
+ +String getPhone()
+ +void setPhone(phone : String)
+ +String getProvince()
+ +void setProvince(province : String)
+ +String getDistrict()
+ +void setDistrict(district : String)
+ +String getSubDistrict()
+ +void setSubDistrict(subDistrict : String)
+ +String getDetail()
+ +void setDetail(detail : String)
+ +Boolean getIsDefault()
+ +void setIsDefault(isDefault : Boolean)
+ +String toString()
+}
+
+class Order{
+ -int orderId
+ -int customerId
+ -int addressId
+ -Date orderDate
+ -String orderStatus
+ +Order()
+ +int getOrderId()
+ +Date getOrderDate()
+ +void setOrderDate(orderDate : Date)
+ +String getOrderStatus()
+ +void setOrderStatus(orderStatus : String)
+ +String toString()
+}
+
+class OrderDetail{
+ -int detailId
+ -int customerId
+ -int productId
+ -int variationId
+ -int orderId
+ -int shopId
+ -int quanity
+ +OrderDetail()
+ +int getDetailId()
+ +int getQuanity()
+ +void setQuanity(quanity : int)
+}
+
+class Product{
+ -int productId
+ -String productName
+ -int productPrice
+ -int productQuanity
+ -String productDetail
+ -int shopId
+ +Product()
+ +int getProductId()
+ +String getProductname()
+ +void setProductName(productName : String)
+ +int getProductPrice()
+ +void setProductPrice(productPrice : int)
+ +int getProductQuanity()
+ +void setProductQuanity(productQuanity : int)
+ +String getProductDetail()
+ +void setProductDetail(productDetail : String)
+ +String toString()
+}
+
+class ProductPicture{
+ -int pictureId
+ -int productId
+ -String pictureName
+ +ProductPicture()
+ +int getPictureId()
+ +String getPictureName()
+ +void setPictureName(pictureName : String)
+ +String toString()
+}
+
+class Model{
+ -int modelId
+ -int productId
+ -String modelName
+ +Model()
+ +int getModelId()
+ +String getModelName()
+ +void setModelName(modelName : String)
+}
+
+class Variation{
+ -int variationId
+ -int productId
+ -String variationName
+ +Variation()
+ +int getVariationId()
+ +String getVariationName()
+ +void setVariationName(variationName : String)
+}
+
+class Category{
+ -int categoryId
+ -int shopId
+ -String categoryName
+ -Boolean isOfficial
+ +Category()
+ +int getCategoryId()
+ +String getCategoryName()
+ +void setCategoryName(categoryName : String)
+ +Boolean getIsOfficial()
+ +void setIsOfficial(isOfficial : Boolean)
+ +String toString()
+}
+
+class ProductCategory{
+ -int productCategoryId
+ -int productId
+ -int categoryId
+ +ProductCategory()
+ +int getProductCategory()
+}
+
+class Vendor{
+ -int vendorId
+ -String vendorEmail
+ -String vendorPassword
+ -String vendorName
+ -String vendorTel
+ +Vendor()
+ +int getVendorId()
+ +String getVendorEmail()
+ +void setVendorEmail(vendorEmail : String)
+ +String getVendorPassword()
+ +void setVendorPassword(vendorPassword : String)
+ +String getVendorName()
+ +void setVendorName(vendorName : String)
+ +String getVendorTel()
+ +void setVendorTel(vendorTel : String)
+ +String toString()
+}
+
+class Coupon{
+ -int couponId
+ -int vendorId
+ -int discountValue
+ -int maxDiscount
+ +Coupon()
+ +int getCouponId()
+ +int getDiscountValue()
+ +void setDiscountValue(discountValue : int)
+ +int getMaxDiscount()
+ +void setMaxDiscount(maxDiscount : int)
+ +String toString()
+}
+
+class CouponDetail{
+ -int couponDetailId
+ -int customerId
+ -int couponId
+ +CouponDetail()
+ +int getCouponDetailId()
+}
+
+interface JpaRepository{
+    
+}
+
+interface CustomerRepository{
+ 
+}
+
+class CustomerRestController <<RestController>> <<RequestMapping>>{
+ -CustomerService customerService
+ +CustomerRestController(theCustomerService : CustomerService)
+ +Iterable<Customer> findAll()
+ +Customer getCustomer(customerId : int)
+ +Customer addCustomer(theCustomer : Customer)
+ +Customer updateCustomer(theCustomer : Customer)
+ +String deleteCustomer(customerId : int)
+}
+
+interface CustomerService{
+ +Iterable<Customer>()
+ +Customer findById(customerId : int)
+ +void save(theCustomer : Customer)
+ +void deleteById(customerId : int)
+}
+
+class CustomerServiceImpl implements CustomerService{
+ -CustomerRepository CustomerRepository
+}
+
+@enduml
