@@ -27,10 +27,10 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `adderss`
+-- Table structure for table `address`
 --
 
-CREATE TABLE `adderss` (
+CREATE TABLE `address` (
   `Address_ID` int(11) NOT NULL,
   `Customer_ID` int(11) NOT NULL,
   `Receiver_Name` varchar(100) NOT NULL,
