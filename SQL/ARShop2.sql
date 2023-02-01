@@ -6,7 +6,7 @@ USE `ARShop_database`;
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 31, 2023 at 02:46 PM
+-- Generation Time: Feb 01, 2023 at 10:54 AM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 8.0.6
 
@@ -122,6 +122,13 @@ CREATE TABLE `customer` (
   `Customer_Birthdate` date NOT NULL,
   `Is_Admin` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `customer`
+--
+
+INSERT INTO `customer` (`Customer_ID`, `Customer_Email`, `Customer_Password`, `Customer_Name`, `Customer_Tel`, `Customer_Gender`, `Customer_Birthdate`, `Is_Admin`) VALUES
+(1, 'test@gmail.com', '123456789', 'firsttest lasttest', '012345678', 'Male', '2023-02-10', 1);
 
 -- --------------------------------------------------------
 
@@ -265,9 +272,9 @@ CREATE TABLE `vendor` (
 --
 
 --
--- Indexes for table `adderss`
+-- Indexes for table `address`
 --
-ALTER TABLE `adderss`
+ALTER TABLE `address`
   ADD PRIMARY KEY (`Address_ID`),
   ADD KEY `Customer_ID` (`Customer_ID`);
 
@@ -400,9 +407,9 @@ ALTER TABLE `vendor`
 --
 
 --
--- AUTO_INCREMENT for table `adderss`
+-- AUTO_INCREMENT for table `address`
 --
-ALTER TABLE `adderss`
+ALTER TABLE `address`
   MODIFY `Address_ID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -439,7 +446,7 @@ ALTER TABLE `coupondetail`
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `Customer_ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Customer_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `favorite`
@@ -494,9 +501,9 @@ ALTER TABLE `vendor`
 --
 
 --
--- Constraints for table `adderss`
+-- Constraints for table `address`
 --
-ALTER TABLE `adderss`
+ALTER TABLE `address`
   ADD CONSTRAINT `fk_address_customer_id` FOREIGN KEY (`Customer_ID`) REFERENCES `customer` (`Customer_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
@@ -572,7 +579,7 @@ ALTER TABLE `productcategory`
 -- Constraints for table `productorder`
 --
 ALTER TABLE `productorder`
-  ADD CONSTRAINT `fk_order_address_id` FOREIGN KEY (`Address_ID`) REFERENCES `adderss` (`Address_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_order_address_id` FOREIGN KEY (`Address_ID`) REFERENCES `address` (`Address_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_order_customer_id` FOREIGN KEY (`Customer_ID`) REFERENCES `customer` (`Customer_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_order_vendor_id` FOREIGN KEY (`Vendor_ID`) REFERENCES `vendor` (`Vendor_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
