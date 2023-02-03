@@ -36,8 +36,7 @@ public class Customer {
 
     public Customer(){}
 
-    public Customer(int customerID, String customerEmail, String customerPassword, String customerName, String customerTel, String customerGender, Date customerBirthdate, boolean isAdmin) {
-        this.customerID = customerID;
+    public Customer(String customerEmail, String customerPassword, String customerName, String customerTel, String customerGender, Date customerBirthdate, boolean isAdmin) {
         this.customerEmail = customerEmail;
         this.customerPassword = customerPassword;
         this.customerName = customerName;

@@ -16,8 +16,7 @@ public class Cart {
 
     public Cart(){}
 
-    public Cart(int cartID, int customerID) {
-        this.cartID = cartID;
+    public Cart(int customerID) {
         this.customerID = customerID;
     }
 

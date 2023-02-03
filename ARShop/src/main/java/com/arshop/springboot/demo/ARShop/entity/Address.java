@@ -37,8 +37,7 @@ public class Address {
 
     public Address(){}
 
-    public Address(int addressId, int customerId, String receiverName, String phone, String province, String district, String subDistrict, String detail, boolean isDefault) {
-        this.addressId = addressId;
+    public Address(int customerId, String receiverName, String phone, String province, String district, String subDistrict, String detail, boolean isDefault) {
         this.customerId = customerId;
         this.receiverName = receiverName;
         this.phone = phone;

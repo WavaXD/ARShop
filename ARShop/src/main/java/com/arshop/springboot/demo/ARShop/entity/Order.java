@@ -33,8 +33,7 @@ public class Order {
 
     public Order(){}
 
-    public Order(int orderID, int customerID, int addressID, Date orderDate, String orderStatus, String trackingNumber, int vendorID) {
-        this.orderID = orderID;
+    public Order(int customerID, int addressID, Date orderDate, String orderStatus, String trackingNumber, int vendorID) {
         this.customerID = customerID;
         this.addressID = addressID;
         this.orderDate = orderDate;
