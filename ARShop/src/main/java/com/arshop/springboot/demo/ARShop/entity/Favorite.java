@@ -16,4 +16,45 @@ public class Favorite {
 
     @Column(name="Product_ID")
     private int productID;
+
+    public Favorite() {
+    }
+
+    public Favorite(int customerID, int productID) {
+        this.customerID = customerID;
+        this.productID = productID;
+    }
+
+    public int getFavoriteID() {
+        return favoriteID;
+    }
+
+    public void setFavoriteID(int favoriteID) {
+        this.favoriteID = favoriteID;
+    }
+
+    public int getCustomerID() {
+        return customerID;
+    }
+
+    public void setCustomerID(int customerID) {
+        this.customerID = customerID;
+    }
+
+    public int getProductID() {
+        return productID;
+    }
+
+    public void setProductID(int productID) {
+        this.productID = productID;
+    }
+
+    @Override
+    public String toString() {
+        return "Favorite{" +
+                "favoriteID=" + favoriteID +
+                ", customerID=" + customerID +
+                ", productID=" + productID +
+                '}';
+    }
 }
