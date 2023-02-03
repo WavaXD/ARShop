@@ -30,6 +30,8 @@ SET time_zone = "+00:00";
 -- Table structure for table `address`
 --
 
+DROP TABLE IF EXISTS `address`;
+
 CREATE TABLE `address` (
   `Address_ID` int(11) NOT NULL,
   `Customer_ID` int(11) NOT NULL,
@@ -48,6 +50,8 @@ CREATE TABLE `address` (
 -- Table structure for table `cart`
 --
 
+DROP TABLE IF EXISTS `cart`;
+
 CREATE TABLE `cart` (
   `Cart_ID` int(11) NOT NULL,
   `Customer_ID` int(11) NOT NULL
@@ -58,6 +62,8 @@ CREATE TABLE `cart` (
 --
 -- Table structure for table `category`
 --
+
+DROP TABLE IF EXISTS `category`;
 
 CREATE TABLE `category` (
   `Category_ID` int(11) NOT NULL,
@@ -71,6 +77,8 @@ CREATE TABLE `category` (
 --
 -- Table structure for table `chat`
 --
+
+DROP TABLE IF EXISTS `chat`;
 
 CREATE TABLE `chat` (
   `Chat_ID` int(11) NOT NULL,
@@ -86,6 +94,8 @@ CREATE TABLE `chat` (
 -- Table structure for table `coupon`
 --
 
+DROP TABLE IF EXISTS `coupon`;
+
 CREATE TABLE `coupon` (
   `Coupon_ID` int(11) NOT NULL,
   `Vendor_ID` int(11) NOT NULL,
@@ -100,6 +110,8 @@ CREATE TABLE `coupon` (
 -- Table structure for table `coupondetail`
 --
 
+DROP TABLE IF EXISTS `coupondetail`;
+
 CREATE TABLE `coupondetail` (
   `CouponDetail_ID` int(11) NOT NULL,
   `Customer_ID` int(11) NOT NULL,
@@ -111,6 +123,8 @@ CREATE TABLE `coupondetail` (
 --
 -- Table structure for table `customer`
 --
+
+DROP TABLE IF EXISTS `customer`;
 
 CREATE TABLE `customer` (
   `Customer_ID` int(11) NOT NULL,
@@ -136,6 +150,8 @@ INSERT INTO `customer` (`Customer_ID`, `Customer_Email`, `Customer_Password`, `C
 -- Table structure for table `favorite`
 --
 
+DROP TABLE IF EXISTS `favorite`;
+
 CREATE TABLE `favorite` (
   `Favorite_ID` int(11) NOT NULL,
   `Customer_ID` int(11) NOT NULL,
@@ -148,6 +164,8 @@ CREATE TABLE `favorite` (
 -- Table structure for table `model`
 --
 
+DROP TABLE IF EXISTS `model`;
+
 CREATE TABLE `model` (
   `Model_ID` int(11) NOT NULL,
   `Product_ID` int(11) NOT NULL,
@@ -159,6 +177,8 @@ CREATE TABLE `model` (
 --
 -- Table structure for table `orderdetail`
 --
+
+DROP TABLE IF EXISTS `orderdetail`;
 
 CREATE TABLE `orderdetail` (
   `Detail_ID` int(11) NOT NULL,
@@ -177,6 +197,8 @@ CREATE TABLE `orderdetail` (
 -- Table structure for table `product`
 --
 
+DROP TABLE IF EXISTS `product`;
+
 CREATE TABLE `product` (
   `Product_ID` int(11) NOT NULL,
   `Product_Name` varchar(255) NOT NULL,
@@ -194,6 +216,8 @@ CREATE TABLE `product` (
 -- Table structure for table `productcategory`
 --
 
+DROP TABLE IF EXISTS `productcategory`;
+
 CREATE TABLE `productcategory` (
   `Product_Category_ID` int(11) NOT NULL,
   `Product_ID` int(11) NOT NULL,
@@ -205,6 +229,8 @@ CREATE TABLE `productcategory` (
 --
 -- Table structure for table `productorder`
 --
+
+DROP TABLE IF EXISTS `productorder`;
 
 CREATE TABLE `productorder` (
   `Order_ID` int(11) NOT NULL,
@@ -222,6 +248,8 @@ CREATE TABLE `productorder` (
 -- Table structure for table `productpicture`
 --
 
+DROP TABLE IF EXISTS `productpicture`;
+
 CREATE TABLE `productpicture` (
   `Picture_ID` int(11) NOT NULL,
   `Product_ID` int(11) NOT NULL,
@@ -233,6 +261,8 @@ CREATE TABLE `productpicture` (
 --
 -- Table structure for table `productscore`
 --
+
+DROP TABLE IF EXISTS `productscore`;
 
 CREATE TABLE `productscore` (
   `Product_Score_ID` int(11) NOT NULL,
@@ -247,6 +277,8 @@ CREATE TABLE `productscore` (
 -- Table structure for table `variation`
 --
 
+DROP TABLE IF EXISTS `variation`;
+
 CREATE TABLE `variation` (
   `Variation_ID` int(11) NOT NULL,
   `Product_ID` int(11) NOT NULL,
@@ -258,6 +290,8 @@ CREATE TABLE `variation` (
 --
 -- Table structure for table `vendor`
 --
+
+DROP TABLE IF EXISTS `vendor`;
 
 CREATE TABLE `vendor` (
   `Vendor_ID` int(11) NOT NULL,
