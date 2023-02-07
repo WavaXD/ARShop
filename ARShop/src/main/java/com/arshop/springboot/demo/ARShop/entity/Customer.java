@@ -29,6 +29,7 @@ public class Customer {
     private String customerGender;
 
     @Column(name="Customer_Birthdate")
+    @Temporal(TemporalType.DATE)
     private Date customerBirthdate;
 
     @Column(name="Is_Admin")
