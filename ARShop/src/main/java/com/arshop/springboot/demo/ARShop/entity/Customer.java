@@ -1,12 +1,26 @@
 package com.arshop.springboot.demo.ARShop.entity;
 
+import com.arshop.springboot.demo.ARShop.user.Role;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name="customer")
-public class Customer {
+public class Customer implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,96 +46,42 @@ public class Customer {
     @Temporal(TemporalType.DATE)
     private Date customerBirthdate;
 
-    @Column(name="Is_Admin")
-    private boolean isAdmin;
+    @Column(name="role")
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
-    public Customer(){}
-
-    public Customer(String customerEmail, String customerPassword, String customerName, String customerTel, String customerGender, Date customerBirthdate, boolean isAdmin) {
-        this.customerEmail = customerEmail;
-        this.customerPassword = customerPassword;
-        this.customerName = customerName;
-        this.customerTel = customerTel;
-        this.customerGender = customerGender;
-        this.customerBirthdate = customerBirthdate;
-        this.isAdmin = isAdmin;
-    }
-
-    public int getCustomerID() {
-        return customerID;
-    }
-
-    public void setCustomerID(int customerID) {
-        this.customerID = customerID;
-    }
-
-    public String getCustomerEmail() {
-        return customerEmail;
-    }
-
-    public void setCustomerEmail(String customerEmail) {
-        this.customerEmail = customerEmail;
-    }
-
-    public String getCustomerPassword() {
-        return customerPassword;
-    }
-
-    public void setCustomerPassword(String customerPassword) {
-        this.customerPassword = customerPassword;
-    }
-
-    public String getCustomerName() {
-        return customerName;
-    }
-
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
-    }
-
-    public String getCustomerTel() {
-        return customerTel;
-    }
-
-    public void setCustomerTel(String customerTel) {
-        this.customerTel = customerTel;
-    }
-
-    public String getCustomerGender() {
-        return customerGender;
-    }
-
-    public void setCustomerGender(String customerGender) {
-        this.customerGender = customerGender;
-    }
-
-    public Date getCustomerBirthdate() {
-        return customerBirthdate;
-    }
-
-    public void setCustomerBirthdate(Date customerBirthdate) {
-        this.customerBirthdate = customerBirthdate;
-    }
-
-    public boolean isAdmin() {
-        return isAdmin;
-    }
-
-    public void setAdmin(boolean admin) {
-        isAdmin = admin;
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(role.name()));
     }
 
     @Override
-    public String toString() {
-        return "Customer{" +
-                "customerID=" + customerID +
-                ", customerEmail='" + customerEmail + '\'' +
-                ", customerPassword='" + customerPassword + '\'' +
-                ", customerName='" + customerName + '\'' +
-                ", customerTel='" + customerTel + '\'' +
-                ", customerGender='" + customerGender + '\'' +
-                ", customerBirthdate=" + customerBirthdate +
-                ", isAdmin=" + isAdmin +
-                '}';
+    public String getPassword() {
+        return customerPassword;
+    }
+
+    @Override
+    public String getUsername() {
+        return customerEmail;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }
