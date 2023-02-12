@@ -102,4 +102,4 @@ flutter:
        
 
   assets:
-    - android/assets/icons/back.png
+    - asset/icon_arshop.png
