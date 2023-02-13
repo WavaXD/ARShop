@@ -43,7 +43,6 @@ public class Customer implements UserDetails {
     private String customerGender;
 
     @Column(name="Customer_Birthdate")
-    @Temporal(TemporalType.DATE)
     private Date customerBirthdate;
 
     @Column(name="role")

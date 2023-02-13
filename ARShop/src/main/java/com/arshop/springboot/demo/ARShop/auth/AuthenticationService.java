@@ -24,6 +24,9 @@ public class AuthenticationService {
                 .customerName(request.getCustomerName())
                 .customerEmail(request.getCustomerEmail())
                 .customerPassword(passwordEncoder.encode(request.getCustomerPassword()))
+                .customerTel(request.getCustomerTel())
+                .customerGender(request.getCustomerGender())
+                .customerBirthdate(request.getCustomerBirthdate())
                 .role(Role.USER)
                 .build();
         repository.save(user);
@@ -36,11 +39,11 @@ public class AuthenticationService {
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        request.getEmail(),
-                        request.getPassword()
+                        request.getCustomerEmail(),
+                        request.getCustomerPassword()
                 )
         );
-        var user = repository.findByCustomerEmail(request.getEmail())
+        var user = repository.findByCustomerEmail(request.getCustomerEmail())
                 .orElseThrow();
         var jwtToken = jwtService.generateToken(user);
         return AuthenticationResponse.builder()
