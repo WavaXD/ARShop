@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/register.dart';
 
 class login extends StatefulWidget {
   @override
@@ -7,6 +8,9 @@ class login extends StatefulWidget {
 
 class LoginPage extends State<login> {
   @override
+  bool _obscureText = true;
+  String _email = '';
+  String _password = '';
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
@@ -51,7 +55,6 @@ class LoginPage extends State<login> {
           children: [
             Padding(padding: EdgeInsets.only(top: 100.0)),
             Column(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Center(
                   child: Padding(
@@ -101,7 +104,7 @@ class LoginPage extends State<login> {
                     ),
                   ),
                 ),
-                Center(
+                Container(
                   child: Padding(
                     padding: EdgeInsets.only(top: 30.0),
                     child: Container(
@@ -110,13 +113,22 @@ class LoginPage extends State<login> {
                         style: TextStyle(
                           fontFamily: 'LINESeedSansTH',
                         ),
-                        obscureText: true,
+                        obscureText: _obscureText,
                         decoration: InputDecoration(
                             filled: true,
                             fillColor: Colors.grey[200],
-                            suffixIcon: Icon(
-                              Icons.visibility_off,
-                              color: Colors.black,
+                            suffixIcon: GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  _obscureText = !_obscureText;
+                                });
+                              },
+                              child: Icon(
+                                _obscureText
+                                    ? Icons.visibility_off
+                                    : Icons.visibility,
+                                color: Colors.black,
+                              ),
                             ),
                             prefix: Container(
                               width: 10,
@@ -140,27 +152,55 @@ class LoginPage extends State<login> {
                     ),
                   ),
                 ),
-                Center(
+                Container(
                   child: Padding(
-                    padding: EdgeInsets.only(top: 30.0),
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      child: const Text('เข้าสู่ระบบ'),
-                      style: ButtonStyle(
-                          textStyle: MaterialStateProperty.all(TextStyle(
-                            fontFamily: 'LINESeedSansTH',
-                            fontSize: 16.0,
-                          )),
-                          shape: MaterialStateProperty.all(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15),
+                    padding: const EdgeInsets.only(top: 10.0),
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(right: 55),
+                              child: InkWell(
+                                child: Text(
+                                    style: TextStyle(
+                                      fontFamily: 'LINESeedSansTH',
+                                      color: Color.fromARGB(255, 63, 81, 181),
+                                    ),
+                                    'ลืมรหัสผ่าน?'),
+                                onTap: () {},
+                              ),
                             ),
-                          ),
-                          minimumSize:
-                              MaterialStateProperty.all(const Size(300, 60)),
-                          backgroundColor: MaterialStateProperty.all(
-                            Color.fromARGB(255, 23, 43, 77),
-                          )),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Container(
+                  child: Center(
+                    child: Padding(
+                      padding: EdgeInsets.only(top: 25.0),
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        child: const Text('เข้าสู่ระบบ'),
+                        style: ButtonStyle(
+                            textStyle: MaterialStateProperty.all(TextStyle(
+                              fontFamily: 'LINESeedSansTH',
+                              fontSize: 16.0,
+                            )),
+                            shape: MaterialStateProperty.all(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                            ),
+                            minimumSize:
+                                MaterialStateProperty.all(const Size(300, 60)),
+                            backgroundColor: MaterialStateProperty.all(
+                              Color.fromARGB(255, 23, 43, 77),
+                            )),
+                      ),
                     ),
                   ),
                 ),
@@ -180,14 +220,29 @@ class LoginPage extends State<login> {
                                     fontSize: 18),
                                 'ยังไม่มีบัญชีผู้ใช้?'),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(3.0),
-                            child: Text(
-                                style: TextStyle(
-                                    color: Color.fromARGB(255, 63, 81, 181),
-                                    fontFamily: 'LINESeedSansTH',
-                                    fontSize: 16),
-                                'สมัครสมาชิก'),
+                          Container(
+                            child: Padding(
+                              padding: const EdgeInsets.all(3.0),
+                              child: Column(
+                                children: [
+                                  InkWell(
+                                    child: Text(
+                                        style: TextStyle(
+                                            color: Color.fromARGB(
+                                                255, 63, 81, 181),
+                                            fontFamily: 'LINESeedSansTH',
+                                            fontSize: 16),
+                                        'สมัครสมาชิก'),
+                                    onTap: () {
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (BuildContext context) =>
+                                                  register()));
+                                    },
+                                  )
+                                ],
+                              ),
+                            ),
                           ),
                         ],
                       )),
