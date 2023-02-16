@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_application_1/login.dart';
 import 'package:flutter_application_1/splash_page.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 void main() {
   SystemChrome.setSystemUIOverlayStyle(

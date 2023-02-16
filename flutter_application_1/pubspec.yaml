@@ -36,12 +36,18 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   flutter_launcher_icons: ^0.11.0
+  flutter_native_splash: ^2.2.16
+  
 
 flutter_icons:
   android: true
   image_path: "android/image/icon_arshop.png"
 
-
+flutter_native_splash:
+  color: "FFFFFF"
+  android12 :
+    color: "FFFFFF"
+    image: asset/icon_arshop.png
 
 dev_dependencies:
   flutter_test:
