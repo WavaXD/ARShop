@@ -1,16 +1,16 @@
 cloud:
   aws:
     credentials:
-      access-key:
-      secret-key:
+      access-key: AKIASIIN7ER5VGRTAH35
+      secret-key: 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
     region:
-      static: us-east-2
+      static: ap-southeast-1
     stack:
       auto: false
 
 application:
   bucket:
-    name: javatechiestorage
+    name: arshopimage
 
 
 spring:
@@ -22,4 +22,4 @@ spring:
       max-request-size: 10MB
 
 server:
-  port: 9090
+  port: 8080
