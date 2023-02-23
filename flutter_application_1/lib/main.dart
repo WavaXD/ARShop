@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_application_1/login.dart';
-import 'package:flutter_application_1/splash_page.dart';
+import 'package:flutter_application_1/page/login.dart';
+import 'package:flutter_application_1/page/splash_page.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(
-      SystemUiOverlayStyle(statusBarColor: Colors.transparent));
+    SystemUiOverlayStyle(statusBarColor: Colors.transparent),
+  );
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   runApp(Myapp());
 }
 
@@ -16,8 +20,8 @@ class Myapp extends StatelessWidget {
     return MaterialApp(
         title: 'ARShop',
         theme: ThemeData(
-            // useMaterial3: true,
-            ),
+          fontFamily: 'LINESeedSansTH',
+        ),
         home: SplashScreen(),
         debugShowCheckedModeBanner: false);
   }

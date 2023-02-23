@@ -1,16 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/register.dart';
+import 'package:flutter_application_1/page/home.dart';
+import 'package:flutter_application_1/page/register.dart';
+import 'package:http/http.dart' as http;
 
 class login extends StatefulWidget {
+  void getData() async {
+    final url = Uri.parse('https://fakestoreapi.com/auth/login');
+    http.Response response = await http.post(url);
+  }
+
   @override
   LoginPage createState() => LoginPage();
 }
 
 class LoginPage extends State<login> {
   @override
-  bool _obscureText = true;
-  String _email = '';
-  String _password = '';
+  TextEditingController username = TextEditingController();
+  TextEditingController password = TextEditingController();
+  final _formkey = GlobalKey<FormState>();
+
+  Future submit_login() async {
+    // if (_formkey.currentState.validate()) {}
+  }
+
+  bool hidePassword = true;
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
@@ -34,7 +47,9 @@ class LoginPage extends State<login> {
                       iconSize: 25.0,
                       color: Color.fromARGB(255, 23, 43, 77),
                       onPressed: () {
-                        // Perform menu action
+                        Navigator.of(context).pop(MaterialPageRoute(
+                          builder: (BuildContext context) => Homepage(),
+                        ));
                       },
                     ),
                   ),
@@ -51,6 +66,7 @@ class LoginPage extends State<login> {
           ),
         ),
         body: ListView(
+          key: _formkey,
           padding: EdgeInsets.only(bottom: 100.0),
           children: [
             Padding(padding: EdgeInsets.only(top: 100.0)),
@@ -75,7 +91,13 @@ class LoginPage extends State<login> {
                     padding: EdgeInsets.all(5.0),
                     child: Container(
                       width: 300.0,
-                      child: TextField(
+                      child: TextFormField(
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Please enter username';
+                          }
+                        },
+                        controller: username,
                         style: TextStyle(
                           fontFamily: 'LINESeedSansTH',
                         ),
@@ -100,6 +122,7 @@ class LoginPage extends State<login> {
                             hintText: 'ชื่อผู้ใช้',
                             hintStyle: TextStyle(
                                 color: Color.fromARGB(244, 102, 104, 115))),
+                        keyboardType: TextInputType.emailAddress,
                       ),
                     ),
                   ),
@@ -109,22 +132,28 @@ class LoginPage extends State<login> {
                     padding: EdgeInsets.only(top: 30.0),
                     child: Container(
                       width: 300.0,
-                      child: TextField(
+                      child: TextFormField(
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Please enter password';
+                          }
+                        },
+                        controller: password,
                         style: TextStyle(
                           fontFamily: 'LINESeedSansTH',
                         ),
-                        obscureText: _obscureText,
+                        obscureText: hidePassword,
                         decoration: InputDecoration(
                             filled: true,
                             fillColor: Colors.grey[200],
                             suffixIcon: GestureDetector(
                               onTap: () {
                                 setState(() {
-                                  _obscureText = !_obscureText;
+                                  hidePassword = !hidePassword;
                                 });
                               },
                               child: Icon(
-                                _obscureText
+                                hidePassword
                                     ? Icons.visibility_off
                                     : Icons.visibility,
                                 color: Colors.black,
@@ -183,7 +212,9 @@ class LoginPage extends State<login> {
                     child: Padding(
                       padding: EdgeInsets.only(top: 25.0),
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          submit_login();
+                        },
                         child: const Text('เข้าสู่ระบบ'),
                         style: ButtonStyle(
                             textStyle: MaterialStateProperty.all(TextStyle(
