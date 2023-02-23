@@ -39,7 +39,7 @@ dependencies:
   flutter_native_splash: ^2.2.16
   flutter_cache_store: ^0.8.1
   http: ^0.13.5
-  
+  gap: ^2.0.0
 
 flutter_icons:
   android: true
@@ -111,3 +111,4 @@ flutter:
 
   assets:
     - asset/icon_arshop.png
+    - asset/ads_1.jpg

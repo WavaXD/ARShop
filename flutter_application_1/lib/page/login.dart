@@ -60,7 +60,6 @@ class LoginPage extends State<login> {
             'เข้าสู่ระบบ',
             style: TextStyle(
                 color: Color.fromARGB(255, 23, 43, 77),
-                fontFamily: 'LINESeedSansTH',
                 fontWeight: FontWeight.bold,
                 fontSize: 22),
           ),
@@ -98,9 +97,6 @@ class LoginPage extends State<login> {
                           }
                         },
                         controller: username,
-                        style: TextStyle(
-                          fontFamily: 'LINESeedSansTH',
-                        ),
                         decoration: InputDecoration(
                             filled: true,
                             fillColor: Colors.grey[200],
@@ -139,9 +135,6 @@ class LoginPage extends State<login> {
                           }
                         },
                         controller: password,
-                        style: TextStyle(
-                          fontFamily: 'LINESeedSansTH',
-                        ),
                         obscureText: hidePassword,
                         decoration: InputDecoration(
                             filled: true,
@@ -194,7 +187,6 @@ class LoginPage extends State<login> {
                               child: InkWell(
                                 child: Text(
                                     style: TextStyle(
-                                      fontFamily: 'LINESeedSansTH',
                                       color: Color.fromARGB(255, 63, 81, 181),
                                     ),
                                     'ลืมรหัสผ่าน?'),
@@ -218,7 +210,6 @@ class LoginPage extends State<login> {
                         child: const Text('เข้าสู่ระบบ'),
                         style: ButtonStyle(
                             textStyle: MaterialStateProperty.all(TextStyle(
-                              fontFamily: 'LINESeedSansTH',
                               fontSize: 16.0,
                             )),
                             shape: MaterialStateProperty.all(
@@ -247,7 +238,6 @@ class LoginPage extends State<login> {
                                 style: TextStyle(
                                     color: Color.fromARGB(255, 23, 43, 77),
                                     fontWeight: FontWeight.normal,
-                                    fontFamily: 'LINESeedSansTH',
                                     fontSize: 18),
                                 'ยังไม่มีบัญชีผู้ใช้?'),
                           ),
@@ -261,7 +251,6 @@ class LoginPage extends State<login> {
                                         style: TextStyle(
                                             color: Color.fromARGB(
                                                 255, 63, 81, 181),
-                                            fontFamily: 'LINESeedSansTH',
                                             fontSize: 16),
                                         'สมัครสมาชิก'),
                                     onTap: () {

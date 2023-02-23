@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_application_1/page/login.dart';
+import 'package:flutter_application_1/page/product.dart';
 import 'package:flutter_application_1/page/register.dart';
 
 class Homepage extends StatefulWidget {
@@ -11,6 +12,13 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
+  static final List<Widget> _widgetOptions = <Widget>[
+    product_page(),
+    const Text('Favorite'),
+    const Text('Chat'),
+    const Text('Profile')
+  ];
+
   int currentTabIndex = 0;
   onTapmenu(int index) {
     setState(() {
@@ -21,57 +29,13 @@ class _HomepageState extends State<Homepage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Color.fromARGB(255, 63, 81, 181),
-          title: Container(
-            width: double.infinity,
-            height: 40,
-            decoration: BoxDecoration(
-                color: Colors.white, borderRadius: BorderRadius.circular(5)),
-            child: Center(
-              child: TextField(
-                decoration: InputDecoration(
-                    contentPadding: EdgeInsets.only(top: 5),
-                    prefixIcon: const Icon(Icons.search,
-                        color: Color.fromARGB(255, 63, 81, 181)),
-                    suffixIcon: IconButton(
-                      icon: const Icon(Icons.clear),
-                      onPressed: () {
-                        /* Clear the search field */
-                      },
-                    ),
-                    hintText: 'ค้นหาสินค้า...',
-                    hintStyle: TextStyle(
-                      color: Color.fromARGB(255, 63, 81, 181),
-                      fontFamily: 'LINESeedSansTH',
-                      fontSize: 15,
-                    ),
-                    border: InputBorder.none),
-              ),
-            ),
-          ),
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.notifications_active),
-              onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (BuildContext context) => login(),
-                ));
-              },
-            ),
-            IconButton(
-              icon: const Icon(Icons.shopping_cart),
-              onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (BuildContext context) => login(),
-                ));
-              },
-            ),
-          ],
+        body: Container(
+          child: Center(child: _widgetOptions[currentTabIndex]),
         ),
         bottomNavigationBar: BottomNavigationBar(
             onTap: onTapmenu,
             elevation: 10,
+            type: BottomNavigationBarType.shifting,
             showSelectedLabels: true,
             showUnselectedLabels: true,
             selectedItemColor: Color.fromARGB(255, 63, 81, 181),
@@ -79,19 +43,23 @@ class _HomepageState extends State<Homepage> {
             currentIndex: currentTabIndex,
             items: const [
               BottomNavigationBarItem(
-                icon: Icon(Icons.home_rounded),
+                icon: Icon(Icons.home_sharp),
+                activeIcon: Icon(Icons.home_rounded),
                 label: 'หน้าแรก',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.favorite_border_outlined),
+                activeIcon: Icon(Icons.favorite_rounded),
                 label: 'สินค้าที่ถูกใจ',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.comment_outlined),
+                activeIcon: Icon(Icons.comment_rounded),
                 label: 'กล่องข้อความ',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.account_circle_outlined),
+                activeIcon: Icon(Icons.account_circle_rounded),
                 label: 'โปรไฟล์',
               ),
             ]));
