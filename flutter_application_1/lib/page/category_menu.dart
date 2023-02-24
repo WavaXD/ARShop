@@ -54,60 +54,60 @@ class catagory_menu extends StatelessWidget {
                 children: [
                   CategoryCard(
                     icon: Icons.access_alarm,
-                    title: 'Category 1',
+                    title: 'โซฟา',
                     onTap: () {
                       print('Tapped Category 1');
                     },
                   ),
                   CategoryCard(
-                    icon: Icons.accessibility_new,
-                    title: 'Category 2',
+                    icon: Icons.chair_alt_rounded,
+                    title: 'เก้าอี้',
                     onTap: () {
                       print('Tapped Category 2');
                     },
                   ),
                   CategoryCard(
-                    icon: Icons.account_balance_wallet,
-                    title: 'Category 3',
+                    icon: Icons.table_restaurant_rounded,
+                    title: 'โต๊ะ',
                     onTap: () {
                       print('Tapped Category 3');
                     },
                   ),
                   CategoryCard(
-                    icon: Icons.ac_unit,
-                    title: 'Category 4',
+                    icon: Icons.door_sliding_rounded,
+                    title: 'ตู้และชั้นวางของ',
                     onTap: () {
                       print('Tapped Category 4');
                     },
                   ),
                   CategoryCard(
-                    icon: Icons.access_alarm,
-                    title: 'Category 5',
+                    icon: Icons.bed_rounded,
+                    title: 'เตียง',
                     onTap: () {
                       print('Tapped Category 5');
                     },
                   ),
                   CategoryCard(
                     icon: Icons.accessibility_new,
-                    title: 'Category 6',
+                    title: 'โคมไฟ',
                     onTap: () {
                       print('Tapped Category 6');
                     },
                   ),
                   CategoryCard(
                     icon: Icons.account_balance_wallet,
-                    title: 'Category 7',
+                    title: 'โทรทัศน์',
                     onTap: () {
                       print('Tapped Category 7');
                     },
                   ),
-                  CategoryCard(
-                    icon: Icons.ac_unit,
-                    title: 'Category 8',
-                    onTap: () {
-                      print('Tapped Category 8');
-                    },
-                  ),
+                  // CategoryCard(
+                  //   icon: Icons.ac_unit,
+                  //   title: 'Category 8',
+                  //   onTap: () {
+                  //     print('Tapped Category 8');
+                  //   },
+                  // ),
                 ],
               ),
             ),
@@ -132,8 +132,12 @@ class CategoryCard extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
-          Icon(icon, size: 40),
-          Text(title),
+          Icon(
+            icon,
+            size: 40,
+            color: Color.fromARGB(255, 23, 43, 77),
+          ),
+          Text(style: TextStyle(color: Color.fromARGB(255, 23, 43, 77)), title),
         ],
       ),
     );
