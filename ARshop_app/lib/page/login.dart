@@ -1,7 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:ARshop_App/page/home.dart';
-import 'package:ARshop_App/page/register.dart';
 import 'package:http/http.dart' as http;
+import 'package:ARshop_App/utils/consts.dart';
 
 class login extends StatefulWidget {
   void getData() async {
@@ -47,7 +45,7 @@ class LoginPage extends State<login> {
                       iconSize: 25.0,
                       color: Color.fromARGB(255, 23, 43, 77),
                       onPressed: () {
-                        Navigator.of(context).pop(MaterialPageRoute(
+                        Navigator.of(context).push(MaterialPageRoute(
                           builder: (BuildContext context) => Homepage(),
                         ));
                       },
@@ -98,6 +96,7 @@ class LoginPage extends State<login> {
                         },
                         controller: username,
                         decoration: InputDecoration(
+                            isDense: true,
                             filled: true,
                             fillColor: Colors.grey[200],
                             prefix: Container(
@@ -115,9 +114,8 @@ class LoginPage extends State<login> {
                               borderSide: BorderSide.none,
                               borderRadius: BorderRadius.circular(15),
                             ),
-                            hintText: 'ชื่อผู้ใช้',
-                            hintStyle: TextStyle(
-                                color: Color.fromARGB(244, 102, 104, 115))),
+                            hintText: emailHint,
+                            hintStyle: TextStyle(color: textgreyopacity)),
                         keyboardType: TextInputType.emailAddress,
                       ),
                     ),
@@ -137,6 +135,7 @@ class LoginPage extends State<login> {
                         controller: password,
                         obscureText: hidePassword,
                         decoration: InputDecoration(
+                            isDense: true,
                             filled: true,
                             fillColor: Colors.grey[200],
                             suffixIcon: GestureDetector(
@@ -167,9 +166,8 @@ class LoginPage extends State<login> {
                               borderSide: BorderSide.none,
                               borderRadius: BorderRadius.circular(15),
                             ),
-                            hintText: 'รหัสผ่าน',
-                            hintStyle: TextStyle(
-                                color: Color.fromARGB(244, 102, 104, 115))),
+                            hintText: passwordHint,
+                            hintStyle: TextStyle(color: textgreyopacity)),
                       ),
                     ),
                   ),
@@ -184,14 +182,10 @@ class LoginPage extends State<login> {
                           children: [
                             Padding(
                               padding: const EdgeInsets.only(right: 55),
-                              child: InkWell(
-                                child: Text(
-                                    style: TextStyle(
-                                      color: Color.fromARGB(255, 63, 81, 181),
-                                    ),
-                                    'ลืมรหัสผ่าน?'),
-                                onTap: () {},
-                              ),
+                              child: TextButton(
+                                  onPressed: () {},
+                                  child:
+                                      forgetpass.text.color(textnavy).make()),
                             ),
                           ],
                         ),
@@ -205,9 +199,10 @@ class LoginPage extends State<login> {
                       padding: EdgeInsets.only(top: 25.0),
                       child: ElevatedButton(
                         onPressed: () {
-                          submit_login();
+                          Navigator.of(context).pop(MaterialPageRoute(
+                              builder: (BuildContext context) => Homepage()));
                         },
-                        child: const Text('เข้าสู่ระบบ'),
+                        child: Text('เข้าสู่ระบบ'),
                         style: ButtonStyle(
                             textStyle: MaterialStateProperty.all(TextStyle(
                               fontSize: 16.0,
@@ -246,20 +241,17 @@ class LoginPage extends State<login> {
                               padding: const EdgeInsets.all(3.0),
                               child: Column(
                                 children: [
-                                  InkWell(
-                                    child: Text(
-                                        style: TextStyle(
-                                            color: Color.fromARGB(
-                                                255, 63, 81, 181),
-                                            fontSize: 16),
-                                        'สมัครสมาชิก'),
-                                    onTap: () {
-                                      Navigator.of(context).push(
-                                          MaterialPageRoute(
-                                              builder: (BuildContext context) =>
-                                                  register()));
-                                    },
-                                  )
+                                  TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                                builder:
+                                                    (BuildContext context) =>
+                                                        register()));
+                                      },
+                                      child: register_text.text
+                                          .color(textblue)
+                                          .make())
                                 ],
                               ),
                             ),

@@ -5,3 +5,7 @@ export './app_layout.dart';
 export './strings.dart';
 export 'package:velocity_x/velocity_x.dart';
 export 'package:flutter/material.dart';
+export 'package:ARshop_App/page/home.dart';
+export 'package:ARshop_App/page/register.dart';
+export 'package:ARshop_App/page/picture_ads.dart';
+export 'package:ARshop_App/utils/ads_list.dart';

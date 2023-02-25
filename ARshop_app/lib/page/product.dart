@@ -1,3 +1,4 @@
+import 'package:ARshop_App/utils/consts.dart';
 import 'package:flutter/material.dart';
 import 'package:ARshop_App/page/category_menu.dart';
 import 'package:ARshop_App/page/login.dart';
@@ -70,18 +71,41 @@ class _product_pageState extends State<product_page> {
       body: ListView(
         children: [
           Container(
+            padding: EdgeInsets.only(top: 20),
             child: Column(
               children: [
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: [
-                      card_ads(),
-                      card_ads(),
-                      card_ads(),
-                    ],
-                  ),
-                ),
+                VxSwiper.builder(
+                    aspectRatio: 16 / 9,
+                    autoPlay: true,
+                    height: 150,
+                    itemCount: slidersList.length,
+                    enlargeCenterPage: true,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        child: Image.asset(
+                          slidersList[index],
+                          fit: BoxFit.fill,
+                        )
+                            .box
+                            .rounded
+                            .clip(Clip.antiAlias)
+                            .margin(
+                              EdgeInsets.symmetric(horizontal: 0),
+                            )
+                            .make(),
+                      );
+                    }),
+
+                // SingleChildScrollView(
+                //   scrollDirection: Axis.horizontal,
+                //   child: Row(
+                //     children: [
+                //       card_ads(),
+                //       card_ads(),
+                //       card_ads(),
+                //     ],
+                //   ),
+                // ),
                 Row(
                   children: [catagory_menu()],
                 )
