@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:ARshop-App/page/login.dart';
-import 'package:ARshop-App/page/splash_page.dart';
+import 'package:ARshop_App/page/login.dart';
+import 'package:ARshop_App/page/splash_page.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 void main() {

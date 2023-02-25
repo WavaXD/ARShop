@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter_application_1/page/login.dart';
-import 'package:flutter_application_1/page/product.dart';
-import 'package:flutter_application_1/page/register.dart';
+import 'package:ARshop_App/page/login.dart';
+import 'package:ARshop_App/page/product.dart';
+import 'package:ARshop_App/page/register.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});

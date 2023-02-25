@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/page/home.dart';
-import 'package:flutter_application_1/page/register.dart';
+import 'package:ARshop_App/page/home.dart';
+import 'package:ARshop_App/page/register.dart';
 import 'package:http/http.dart' as http;
 
 class login extends StatefulWidget {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/page/login.dart';
+import 'package:ARshop_App/page/login.dart';
 
 class register extends StatelessWidget {
   const register({super.key});

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/page/category_menu.dart';
-import 'package:flutter_application_1/page/login.dart';
-import 'package:flutter_application_1/page/picture_ads.dart';
-import 'package:flutter_application_1/page/search.dart';
+import 'package:ARshop_App/page/category_menu.dart';
+import 'package:ARshop_App/page/login.dart';
+import 'package:ARshop_App/page/picture_ads.dart';
+import 'package:ARshop_App/page/search.dart';
 import 'package:gap/gap.dart';
 
 class product_page extends StatefulWidget {

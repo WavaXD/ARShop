@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/utils/app_layout.dart';
+import 'package:ARshop_App/utils/app_layout.dart';
 
 class card_ads extends StatelessWidget {
   const card_ads({super.key});
