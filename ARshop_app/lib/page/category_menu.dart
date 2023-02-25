@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/utils/app_layout.dart';
+import 'package:ARshop-App/utils/app_layout.dart';
 
 class catagory_menu extends StatelessWidget {
   const catagory_menu({Key? key});
@@ -53,7 +53,7 @@ class catagory_menu extends StatelessWidget {
                 childAspectRatio: 1,
                 children: [
                   CategoryCard(
-                    icon: Icons.access_alarm,
+                    icon: Icons.chair_rounded,
                     title: 'โซฟา',
                     onTap: () {
                       print('Tapped Category 1');
@@ -75,7 +75,7 @@ class catagory_menu extends StatelessWidget {
                   ),
                   CategoryCard(
                     icon: Icons.door_sliding_rounded,
-                    title: 'ตู้และชั้นวางของ',
+                    title: 'ตู้และชั้นวาง',
                     onTap: () {
                       print('Tapped Category 4');
                     },
@@ -134,7 +134,7 @@ class CategoryCard extends StatelessWidget {
         children: <Widget>[
           Icon(
             icon,
-            size: 40,
+            size: 35,
             color: Color.fromARGB(255, 23, 43, 77),
           ),
           Text(style: TextStyle(color: Color.fromARGB(255, 23, 43, 77)), title),
