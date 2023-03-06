@@ -129,12 +129,12 @@ class CategoryCard extends StatelessWidget {
           children: <Widget>[
             Icon(
               icon,
-              size: 32,
+              size: 30,
               color: Color.fromARGB(255, 23, 43, 77),
             ),
             Text(
                 style: TextStyle(
-                    fontSize: 16,
+                    fontSize: 15,
                     color: Color.fromARGB(255, 23, 43, 77),
                     fontFamily: 'LINESeedSansTH-Rg'),
                 title),
