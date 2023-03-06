@@ -41,6 +41,7 @@ dependencies:
   http: ^0.13.5
   gap: ^2.0.0
   velocity_x: ^3.6.0
+  flutter_rating_bar: ^4.0.0
 
 flutter_icons:
   android: true
@@ -109,7 +110,11 @@ flutter:
       fonts:
         - asset: android/assets/fonts/LINESeedSansTH_A_Bd.ttf
        
+    - family: LINESeedSansTH-Rg
+      fonts:
+        - asset: android/assets/fonts/LINESeedSansTH_A_Rg.ttf
 
   assets:
     - asset/icon_arshop.png
     - asset/ads_1.jpg
+    - asset/product.jpg

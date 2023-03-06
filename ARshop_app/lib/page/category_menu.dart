@@ -11,7 +11,7 @@ class catagory_menu extends StatelessWidget {
       width: size.width,
       height: 250,
       child: Container(
-        margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+        margin: const EdgeInsets.fromLTRB(20, 10, 20, 0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -34,7 +34,7 @@ class catagory_menu extends StatelessWidget {
                         'ดูทั้งหมด',
                         style: TextStyle(
                           color: Color.fromARGB(255, 93, 92, 93),
-                          fontSize: 14,
+                          fontSize: 16,
                         ),
                       ),
                       Icon(
@@ -53,7 +53,7 @@ class catagory_menu extends StatelessWidget {
                 childAspectRatio: 1,
                 children: [
                   CategoryCard(
-                    icon: Icons.chair_rounded,
+                    icon: Icons.chair_outlined,
                     title: 'โซฟา',
                     onTap: () {
                       print('Tapped Category 1');
@@ -67,14 +67,14 @@ class catagory_menu extends StatelessWidget {
                     },
                   ),
                   CategoryCard(
-                    icon: Icons.table_restaurant_rounded,
+                    icon: Icons.table_restaurant_outlined,
                     title: 'โต๊ะ',
                     onTap: () {
                       print('Tapped Category 3');
                     },
                   ),
                   CategoryCard(
-                    icon: Icons.door_sliding_rounded,
+                    icon: Icons.door_sliding_outlined,
                     title: 'ตู้และชั้นวาง',
                     onTap: () {
                       print('Tapped Category 4');
@@ -88,26 +88,19 @@ class catagory_menu extends StatelessWidget {
                     },
                   ),
                   CategoryCard(
-                    icon: Icons.accessibility_new,
+                    icon: Icons.light_rounded,
                     title: 'โคมไฟ',
                     onTap: () {
                       print('Tapped Category 6');
                     },
                   ),
                   CategoryCard(
-                    icon: Icons.account_balance_wallet,
+                    icon: Icons.tv_outlined,
                     title: 'โทรทัศน์',
                     onTap: () {
                       print('Tapped Category 7');
                     },
                   ),
-                  // CategoryCard(
-                  //   icon: Icons.ac_unit,
-                  //   title: 'Category 8',
-                  //   onTap: () {
-                  //     print('Tapped Category 8');
-                  //   },
-                  // ),
                 ],
               ),
             ),
@@ -127,18 +120,26 @@ class CategoryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: <Widget>[
-          Icon(
-            icon,
-            size: 35,
-            color: Color.fromARGB(255, 23, 43, 77),
-          ),
-          Text(style: TextStyle(color: Color.fromARGB(255, 23, 43, 77)), title),
-        ],
+    return TextButton(
+      onPressed: onTap,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 10),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            Icon(
+              icon,
+              size: 32,
+              color: Color.fromARGB(255, 23, 43, 77),
+            ),
+            Text(
+                style: TextStyle(
+                    fontSize: 16,
+                    color: Color.fromARGB(255, 23, 43, 77),
+                    fontFamily: 'LINESeedSansTH-Rg'),
+                title),
+          ],
+        ),
       ),
     );
   }

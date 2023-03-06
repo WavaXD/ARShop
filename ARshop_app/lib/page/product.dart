@@ -1,4 +1,5 @@
 import 'package:ARshop_App/utils/consts.dart';
+import 'package:ARshop_App/widget_common/custom_label.dart';
 import 'package:flutter/material.dart';
 import 'package:ARshop_App/page/category_menu.dart';
 import 'package:ARshop_App/page/login.dart';
@@ -95,23 +96,15 @@ class _product_pageState extends State<product_page> {
                             .make(),
                       );
                     }),
-
-                // SingleChildScrollView(
-                //   scrollDirection: Axis.horizontal,
-                //   child: Row(
-                //     children: [
-                //       card_ads(),
-                //       card_ads(),
-                //       card_ads(),
-                //     ],
-                //   ),
-                // ),
                 Row(
                   children: [catagory_menu()],
                 )
               ],
             ),
           ),
+          Container(
+            child: Column(children: [popular_product()]),
+          )
         ],
       ),
     );

@@ -202,7 +202,9 @@ class LoginPage extends State<login> {
                           Navigator.of(context).pop(MaterialPageRoute(
                               builder: (BuildContext context) => Homepage()));
                         },
-                        child: Text('เข้าสู่ระบบ'),
+                        child: Text(
+                            style: TextStyle(fontFamily: 'LINESeedSansTH-Rg'),
+                            'เข้าสู่ระบบ'),
                         style: ButtonStyle(
                             textStyle: MaterialStateProperty.all(TextStyle(
                               fontSize: 16.0,

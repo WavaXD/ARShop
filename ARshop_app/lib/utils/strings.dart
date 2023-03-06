@@ -1,5 +1,6 @@
 import 'package:ARshop_App/page/login.dart';
 import 'package:ARshop_App/page/register.dart';
+import 'package:ARshop_App/utils/consts.dart';
 
 const password_label = 'รหัสผ่าน';
 const confrim_password_label = 'ยืนยันรหัสผ่าน';
@@ -13,3 +14,7 @@ const passwordHint = 'รหัสผ่านผู้ใช้งาน';
 const forgetpass = 'ลืมรหัสผ่าน?';
 const register_text = 'สมัครสมาชิก';
 const hintpassword = '******';
+const phone_number = 'เบอร์โทร';
+const phone_number_label = 'เบอร์โทร';
+const product_popular_label = 'สินค้ายอดฮิต';
+const product_recommend_label = 'สินค้าแนะนำ';

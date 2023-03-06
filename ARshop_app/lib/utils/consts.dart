@@ -9,3 +9,4 @@ export 'package:ARshop_App/page/home.dart';
 export 'package:ARshop_App/page/register.dart';
 export 'package:ARshop_App/page/picture_ads.dart';
 export 'package:ARshop_App/utils/ads_list.dart';
+export 'package:flutter_rating_bar/flutter_rating_bar.dart';

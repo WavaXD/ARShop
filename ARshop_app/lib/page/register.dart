@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ARshop_App/page/login.dart';
 import 'package:ARshop_App/utils/consts.dart';
+import 'package:flutter/services.dart';
 
 bool hidePassword = true;
 
@@ -96,29 +97,30 @@ class register extends StatelessWidget {
                       child: Container(
                         width: 300.0,
                         child: TextFormField(
-                          decoration: InputDecoration(
-                              isDense: true,
-                              filled: true,
-                              fillColor: Colors.grey[200],
-                              prefix: Container(
-                                width: 10,
-                                height: 10,
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  width: 1.9,
-                                  color: Color.fromARGB(500, 63, 81, 181),
+                            decoration: InputDecoration(
+                                isDense: true,
+                                filled: true,
+                                fillColor: Colors.grey[200],
+                                prefix: Container(
+                                  width: 10,
+                                  height: 10,
                                 ),
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide.none,
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              hintText: example_email_hint,
-                              hintStyle: TextStyle(color: textgreyopacity)),
-                          keyboardType: TextInputType.visiblePassword,
-                        ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    width: 1.9,
+                                    color: Color.fromARGB(500, 63, 81, 181),
+                                  ),
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide.none,
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                hintText: example_email_hint,
+                                hintStyle: TextStyle(color: textgreyopacity)),
+                            keyboardType: TextInputType.emailAddress,
+                            maxLength: 255,
+                            maxLengthEnforcement: MaxLengthEnforcement.none),
                       ),
                     ),
                   ),
@@ -129,6 +131,52 @@ class register extends StatelessWidget {
                       child: Column(
                         children: [
                           username_label.text.color(textnavy).size(16).make(),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Container(
+                    child: Padding(
+                      padding: EdgeInsets.only(top: 10.0),
+                      child: Container(
+                        width: 300.0,
+                        child: TextFormField(
+                            decoration: InputDecoration(
+                                isDense: true,
+                                filled: true,
+                                fillColor: Colors.grey[200],
+                                prefix: Container(
+                                  width: 10,
+                                  height: 10,
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    width: 1.9,
+                                    color: Color.fromARGB(500, 63, 81, 181),
+                                  ),
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide.none,
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                hintText: username_label,
+                                hintStyle: TextStyle(color: textgreyopacity)),
+                            maxLength: 255,
+                            maxLengthEnforcement: MaxLengthEnforcement.none),
+                      ),
+                    ),
+                  ),
+                  Center(
+                    child: Container(
+                      alignment: Alignment.centerLeft,
+                      padding: EdgeInsets.fromLTRB(55, 10, 0, 0),
+                      child: Column(
+                        children: [
+                          phone_number_label.text
+                              .color(textnavy)
+                              .size(16)
+                              .make(),
                         ],
                       ),
                     ),
@@ -158,8 +206,11 @@ class register extends StatelessWidget {
                                 borderSide: BorderSide.none,
                                 borderRadius: BorderRadius.circular(15),
                               ),
-                              hintText: username_label,
+                              hintText: phone_number,
                               hintStyle: TextStyle(color: textgreyopacity)),
+                          keyboardType: TextInputType.phone,
+                          maxLength: 10,
+                          maxLengthEnforcement: MaxLengthEnforcement.none,
                         ),
                       ),
                     ),
@@ -181,29 +232,30 @@ class register extends StatelessWidget {
                       child: Container(
                         width: 300.0,
                         child: TextFormField(
-                          obscureText: true,
-                          decoration: InputDecoration(
-                              isDense: true,
-                              filled: true,
-                              fillColor: Colors.grey[200],
-                              prefix: Container(
-                                width: 10,
-                                height: 10,
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  width: 1.9,
-                                  color: Color.fromARGB(500, 63, 81, 181),
+                            obscureText: true,
+                            decoration: InputDecoration(
+                                isDense: true,
+                                filled: true,
+                                fillColor: Colors.grey[200],
+                                prefix: Container(
+                                  width: 10,
+                                  height: 10,
                                 ),
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide.none,
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              hintText: hintpassword,
-                              hintStyle: TextStyle(color: textgreyopacity)),
-                        ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    width: 1.9,
+                                    color: Color.fromARGB(500, 63, 81, 181),
+                                  ),
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide.none,
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                hintText: hintpassword,
+                                hintStyle: TextStyle(color: textgreyopacity)),
+                            maxLength: 255,
+                            maxLengthEnforcement: MaxLengthEnforcement.none),
                       ),
                     ),
                   ),
@@ -227,29 +279,30 @@ class register extends StatelessWidget {
                       child: Container(
                         width: 300.0,
                         child: TextFormField(
-                          obscureText: true,
-                          decoration: InputDecoration(
-                              isDense: true,
-                              filled: true,
-                              fillColor: Colors.grey[200],
-                              prefix: Container(
-                                width: 10,
-                                height: 10,
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  width: 1.9,
-                                  color: Color.fromARGB(500, 63, 81, 181),
+                            obscureText: true,
+                            decoration: InputDecoration(
+                                isDense: true,
+                                filled: true,
+                                fillColor: Colors.grey[200],
+                                prefix: Container(
+                                  width: 10,
+                                  height: 10,
                                 ),
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide.none,
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              hintText: hintpassword,
-                              hintStyle: TextStyle(color: textgreyopacity)),
-                        ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    width: 1.9,
+                                    color: Color.fromARGB(500, 63, 81, 181),
+                                  ),
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide.none,
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                hintText: hintpassword,
+                                hintStyle: TextStyle(color: textgreyopacity)),
+                            maxLength: 255,
+                            maxLengthEnforcement: MaxLengthEnforcement.none),
                       ),
                     ),
                   ),
@@ -259,7 +312,9 @@ class register extends StatelessWidget {
                         padding: EdgeInsets.only(top: 25.0),
                         child: ElevatedButton(
                           onPressed: () {},
-                          child: Text('สมัครสมาชิก'),
+                          child: Text(
+                              style: TextStyle(fontFamily: 'LINESeedSansTH-Rg'),
+                              'สมัครสมาชิก'),
                           style: ButtonStyle(
                               textStyle: MaterialStateProperty.all(TextStyle(
                                 fontSize: 16.0,
