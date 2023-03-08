@@ -21,12 +21,12 @@ public class AuthenticationService {
 
     public AuthenticationResponse register(RegisterRequest request) {
         var user = Customer.builder()
-                .customerName(request.getCustomerName())
+                //.customerName(request.getCustomerName())
                 .customerEmail(request.getCustomerEmail())
                 .customerPassword(passwordEncoder.encode(request.getCustomerPassword()))
-                .customerTel(request.getCustomerTel())
-                .customerGender(request.getCustomerGender())
-                .customerBirthdate(request.getCustomerBirthdate())
+                //.customerTel(request.getCustomerTel())
+                //.customerGender(request.getCustomerGender())
+                //.customerBirthdate(request.getCustomerBirthdate())
                 .role(Role.USER)
                 .build();
         repository.save(user);
