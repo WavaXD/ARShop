@@ -1,7 +1,9 @@
 package com.arshop.springboot.demo.ARShop.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 
+@Builder
 @Entity
 @Table(name="productscore")
 public class ProductScore {
@@ -23,7 +25,8 @@ public class ProductScore {
     public ProductScore() {
     }
 
-    public ProductScore(int customerID, int productID, int watchedTime) {
+    public ProductScore(int productScoreID, int customerID, int productID, int watchedTime) {
+        this.productScoreID = productScoreID;
         this.customerID = customerID;
         this.productID = productID;
         this.watchedTime = watchedTime;
