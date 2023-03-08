@@ -26,23 +26,24 @@ public class Product {
     @Column(name="Vendor_ID")
     private int vendorID;
 
-    @Column(name="RequestTime")
-    private int requestTime;
+    @Column(name="Product_Reach")
+    private int productReach;
 
-    @Column(name="Sold")
-    private int sold;
+    @Column(name="Sold_Quanity")
+    private int soldQuanity;
 
     public Product() {
     }
 
-    public Product(String productName, int productPrice, int productQuanity, String productDetail, int vendorID, int requestTime, int sold) {
+    public Product(int productID, String productName, int productPrice, int productQuanity, String productDetail, int vendorID, int productReach, int soldQuanity) {
+        this.productID = productID;
         this.productName = productName;
         this.productPrice = productPrice;
         this.productQuanity = productQuanity;
         this.productDetail = productDetail;
         this.vendorID = vendorID;
-        this.requestTime = requestTime;
-        this.sold = sold;
+        this.productReach = productReach;
+        this.soldQuanity = soldQuanity;
     }
 
     public int getProductID() {
@@ -93,20 +94,20 @@ public class Product {
         this.vendorID = vendorID;
     }
 
-    public int getRequestTime() {
-        return requestTime;
+    public int getProductReach() {
+        return productReach;
     }
 
-    public void setRequestTime(int requestTime) {
-        this.requestTime = requestTime;
+    public void setProductReach(int productReach) {
+        this.productReach = productReach;
     }
 
-    public int getSold() {
-        return sold;
+    public int getSoldQuanity() {
+        return soldQuanity;
     }
 
-    public void setSold(int sold) {
-        this.sold = sold;
+    public void setSoldQuanity(int soldQuanity) {
+        this.soldQuanity = soldQuanity;
     }
 
     @Override
@@ -118,8 +119,8 @@ public class Product {
                 ", productQuanity=" + productQuanity +
                 ", productDetail='" + productDetail + '\'' +
                 ", vendorID=" + vendorID +
-                ", requestTime=" + requestTime +
-                ", sold=" + sold +
+                ", productReach=" + productReach +
+                ", soldQuanity=" + soldQuanity +
                 '}';
     }
 }
