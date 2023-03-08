@@ -10,12 +10,11 @@ import com.amazonaws.util.IOUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.*;
 
 @Service
 @Slf4j
@@ -28,11 +27,22 @@ public class StorageService {
     private AmazonS3 s3Client;
 
     public String uploadFile(MultipartFile file) {
+
         File fileObj = convertMultiPartFileToFile(file);
+
+        //Check if file is image of null
+        try{
+            BufferedImage bImage = null;
+            bImage = ImageIO.read(fileObj);
+        }catch(IOException e){
+            return "Please upload image " + e.getMessage();
+        }
+
         String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
-        s3Client.putObject(new PutObjectRequest(bucketName, fileName, fileObj));
+        s3Client.putObject(new PutObjectRequest(bucketName, "images/"+fileName, fileObj));
+        String imageUrl = s3Client.getUrl(bucketName, "images/"+fileName).toString();
         fileObj.delete();
-        return fileName;
+        return s3Client.getUrl(bucketName, "images/"+fileName).toString();  // waiting for get vendor
     }
 
 
@@ -64,4 +74,6 @@ public class StorageService {
         }
         return convertedFile;
     }
+
+
 }
