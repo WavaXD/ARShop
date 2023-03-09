@@ -1,19 +1,57 @@
-import 'dart:async';
 import 'dart:convert';
-
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
+import 'package:flutter/widgets.dart';
 
-import 'api_path.dart';
-import 'userModel.dart';
+class ApiProvider {
+  final String baseUrl = 'http://localhost:8080/api/v1/';
+  String? jwtToken;
 
-class ApiProcider {
-  ApiProcider();
-  String endPoint = 'https://fakestoreapi.com/auth';
-  Future<http.Response> submit_login(String username, String password) async {
-    final url = Uri.parse('$endPoint/login');
-    var body = {"mor_2314": username, "83r5^_": password};
-    return await http.post(url, body: body);
+  Future<http.Response> post(String path,
+      {Map<String, String>? headers, Map<String, dynamic>? body}) async {
+    final requestHeaders = createHeaders(headers);
+    final response = await http.post(Uri.parse('$baseUrl$path'),
+        headers: requestHeaders, body: jsonEncode(body));
+    if (response.statusCode == 401) {
+      await refreshToken();
+      final refreshedHeaders = createHeaders(headers);
+      final refreshedResponse = await http.post(Uri.parse('$baseUrl$path'),
+          headers: refreshedHeaders, body: jsonEncode(body));
+      return refreshedResponse;
+    } else if (response.statusCode == 403) {
+      // Handle 403 error here by showing the login page
+      // For example, you could use the following line to navigate to the login page:
+      // Navigator.pushNamed(context, '/login');
+    }
+    return response;
+  }
+
+  Map<String, String> createHeaders(Map<String, String>? headers) {
+    final Map<String, String> requestHeaders = {};
+    if (jwtToken != null) {
+      requestHeaders['Authorization'] = 'Bearer $jwtToken';
+    }
+    if (headers != null) {
+      requestHeaders.addAll(headers);
+    }
+    return requestHeaders;
+  }
+
+  Future refreshToken() async {
+    final response = await http.post(Uri.parse('$baseUrl/auth/refresh-token'),
+        headers: {'Authorization': 'Bearer $jwtToken'});
+    if (response.statusCode == 200) {
+      final responseBody = jsonDecode(response.body);
+      jwtToken = responseBody['access_token'];
+    }
+  }
+
+  Future login(String username, String password) async {
+    final response = await http.post(Uri.parse('$baseUrl/auth/authenticate'),
+        body: {'email': username, 'password': password});
+    if (response.statusCode == 200) {
+      final responseBody = jsonDecode(response.body);
+      jwtToken = responseBody['access_token'];
+    }
   }
 }

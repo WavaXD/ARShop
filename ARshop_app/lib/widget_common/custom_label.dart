@@ -56,7 +56,11 @@ class popular_product extends StatelessWidget {
                     children: List.generate(
                       6, // generate 6 columns
                       (index) => TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (BuildContext context) => show_product(),
+                          ));
+                        },
                         child: SizedBox(
                           height: 200,
                           child: Column(
@@ -133,7 +137,11 @@ class popular_product extends StatelessWidget {
                     children: List.generate(
                       2, // generate 6 columns
                       (index) => TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (BuildContext context) => show_product(),
+                          ));
+                        },
                         child: SizedBox(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
