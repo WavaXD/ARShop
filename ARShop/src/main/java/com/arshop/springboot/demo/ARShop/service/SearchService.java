@@ -57,6 +57,7 @@ public class SearchService {
             detail.add(model);
 
             scoreUpdate(identifyService.extractJwt(request) , productID.getProductID());
+            addProductReach(productID.getProductID(), product.get().getProductReach());
         }
 
         return detail;
@@ -106,6 +107,16 @@ public class SearchService {
                 .build();
 
         productScoreRepository.save(scoreBuild);
+    }
+
+    public void addProductReach(int productID, int reach){
+        reach += 1;
+        var product = Product.builder()
+                .productID(productID)
+                .productReach(reach)
+                .build(); // product cannot be null will be fix tomorrow
+
+        productRepository.save(product);
     }
 
 }
