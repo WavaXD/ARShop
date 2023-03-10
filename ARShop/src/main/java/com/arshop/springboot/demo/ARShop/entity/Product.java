@@ -1,7 +1,9 @@
 package com.arshop.springboot.demo.ARShop.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 
+@Builder
 @Entity
 @Table(name="product")
 public class Product {
