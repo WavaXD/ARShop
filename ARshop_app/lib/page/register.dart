@@ -6,11 +6,20 @@ import 'package:flutter/services.dart';
 bool hidePassword = true;
 
 class register extends StatelessWidget {
-  const register({super.key});
-
+  register({super.key});
+  final apiProvider = ApiProvider();
+  final _formkey = GlobalKey<FormState>();
+  final focusNode = FocusNode();
+  final emailController = TextEditingController();
+  final usernameController = TextEditingController();
+  final passwordController = TextEditingController();
+  final confrimPasswordController = TextEditingController();
+  final telController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.white,
           elevation: 0.25,
@@ -49,332 +58,427 @@ class register extends StatelessWidget {
                 fontSize: 22),
           ),
         ),
-        body: ListView(
-          padding: EdgeInsets.only(bottom: 10.0),
-          children: [
-            Padding(padding: EdgeInsets.only(top: 50.0)),
-            Center(
-              child: Column(
-                children: <Widget>[
-                  Center(
-                    child: Padding(
-                      padding: EdgeInsets.only(bottom: 30.0),
-                      child: Container(
-                        width: 300.0,
-                        height: 100.0,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage('asset/icon_arshop.png'),
+        body: Form(
+          key: _formkey,
+          child: SingleChildScrollView(
+            padding: EdgeInsets.only(bottom: 10.0),
+            child: Column(
+              children: [
+                Padding(padding: EdgeInsets.only(top: 50.0)),
+                Center(
+                  child: Column(
+                    children: <Widget>[
+                      Center(
+                        child: Padding(
+                          padding: EdgeInsets.only(bottom: 30.0),
+                          child: Container(
+                            width: 300.0,
+                            height: 100.0,
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage('asset/icon_arshop.png'),
+                              ),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ),
-                  Center(
-                    child: Container(
-                      padding: EdgeInsets.only(bottom: 10.0),
-                      child: Column(
-                        children: [
-                          register_title.text.color(textnavy).size(30).make(),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Center(
-                    child: Container(
-                      alignment: Alignment.centerLeft,
-                      padding: EdgeInsets.fromLTRB(55, 0, 0, 0),
-                      child: Column(
-                        children: [
-                          email_label.text.color(textnavy).size(16).make(),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Center(
-                    child: Padding(
-                      padding: EdgeInsets.all(5.0),
-                      child: Container(
-                        width: 300.0,
-                        child: TextFormField(
-                            decoration: InputDecoration(
-                                isDense: true,
-                                filled: true,
-                                fillColor: Colors.grey[200],
-                                prefix: Container(
-                                  width: 10,
-                                  height: 10,
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    width: 1.9,
-                                    color: Color.fromARGB(500, 63, 81, 181),
-                                  ),
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide.none,
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                hintText: example_email_hint,
-                                hintStyle: TextStyle(color: textgreyopacity)),
-                            keyboardType: TextInputType.emailAddress,
-                            maxLength: 255,
-                            maxLengthEnforcement: MaxLengthEnforcement.none),
-                      ),
-                    ),
-                  ),
-                  Center(
-                    child: Container(
-                      alignment: Alignment.centerLeft,
-                      padding: EdgeInsets.fromLTRB(55, 10, 0, 0),
-                      child: Column(
-                        children: [
-                          username_label.text.color(textnavy).size(16).make(),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Container(
-                    child: Padding(
-                      padding: EdgeInsets.only(top: 10.0),
-                      child: Container(
-                        width: 300.0,
-                        child: TextFormField(
-                            decoration: InputDecoration(
-                                isDense: true,
-                                filled: true,
-                                fillColor: Colors.grey[200],
-                                prefix: Container(
-                                  width: 10,
-                                  height: 10,
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    width: 1.9,
-                                    color: Color.fromARGB(500, 63, 81, 181),
-                                  ),
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide.none,
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                hintText: username_label,
-                                hintStyle: TextStyle(color: textgreyopacity)),
-                            maxLength: 255,
-                            maxLengthEnforcement: MaxLengthEnforcement.none),
-                      ),
-                    ),
-                  ),
-                  Center(
-                    child: Container(
-                      alignment: Alignment.centerLeft,
-                      padding: EdgeInsets.fromLTRB(55, 10, 0, 0),
-                      child: Column(
-                        children: [
-                          phone_number_label.text
-                              .color(textnavy)
-                              .size(16)
-                              .make(),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Container(
-                    child: Padding(
-                      padding: EdgeInsets.only(top: 10.0),
-                      child: Container(
-                        width: 300.0,
-                        child: TextFormField(
-                          decoration: InputDecoration(
-                              isDense: true,
-                              filled: true,
-                              fillColor: Colors.grey[200],
-                              prefix: Container(
-                                width: 10,
-                                height: 10,
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  width: 1.9,
-                                  color: Color.fromARGB(500, 63, 81, 181),
-                                ),
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide.none,
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              hintText: phone_number,
-                              hintStyle: TextStyle(color: textgreyopacity)),
-                          keyboardType: TextInputType.phone,
-                          maxLength: 10,
-                          maxLengthEnforcement: MaxLengthEnforcement.none,
+                      Center(
+                        child: Container(
+                          padding: EdgeInsets.only(bottom: 10.0),
+                          child: Column(
+                            children: [
+                              register_title.text
+                                  .color(textnavy)
+                                  .size(30)
+                                  .make(),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  ),
-                  Center(
-                    child: Container(
-                      alignment: Alignment.centerLeft,
-                      padding: EdgeInsets.fromLTRB(55, 10, 0, 0),
-                      child: Column(
-                        children: [
-                          password_label.text.color(textnavy).size(16).make(),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Container(
-                    child: Padding(
-                      padding: EdgeInsets.only(top: 10.0),
-                      child: Container(
-                        width: 300.0,
-                        child: TextFormField(
-                            obscureText: true,
-                            decoration: InputDecoration(
-                                isDense: true,
-                                filled: true,
-                                fillColor: Colors.grey[200],
-                                prefix: Container(
-                                  width: 10,
-                                  height: 10,
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    width: 1.9,
-                                    color: Color.fromARGB(500, 63, 81, 181),
-                                  ),
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide.none,
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                hintText: hintpassword,
-                                hintStyle: TextStyle(color: textgreyopacity)),
-                            maxLength: 255,
-                            maxLengthEnforcement: MaxLengthEnforcement.none),
-                      ),
-                    ),
-                  ),
-                  Center(
-                    child: Container(
-                      alignment: Alignment.centerLeft,
-                      padding: EdgeInsets.fromLTRB(55, 10, 0, 0),
-                      child: Column(
-                        children: [
-                          confrim_password_label.text
-                              .color(textnavy)
-                              .size(16)
-                              .make(),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Container(
-                    child: Padding(
-                      padding: EdgeInsets.only(top: 10.0),
-                      child: Container(
-                        width: 300.0,
-                        child: TextFormField(
-                            obscureText: true,
-                            decoration: InputDecoration(
-                                isDense: true,
-                                filled: true,
-                                fillColor: Colors.grey[200],
-                                prefix: Container(
-                                  width: 10,
-                                  height: 10,
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    width: 1.9,
-                                    color: Color.fromARGB(500, 63, 81, 181),
-                                  ),
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide.none,
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                hintText: hintpassword,
-                                hintStyle: TextStyle(color: textgreyopacity)),
-                            maxLength: 255,
-                            maxLengthEnforcement: MaxLengthEnforcement.none),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    child: Center(
-                      child: Padding(
-                        padding: EdgeInsets.only(top: 25.0),
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          child: Text(
-                              style: TextStyle(fontFamily: 'LINESeedSansTH-Rg'),
-                              'สมัครสมาชิก'),
-                          style: ButtonStyle(
-                              textStyle: MaterialStateProperty.all(TextStyle(
-                                fontSize: 16.0,
-                              )),
-                              shape: MaterialStateProperty.all(
-                                RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                              ),
-                              minimumSize: MaterialStateProperty.all(
-                                  const Size(300, 60)),
-                              backgroundColor: MaterialStateProperty.all(
-                                Color.fromARGB(255, 23, 43, 77),
-                              )),
+                      Center(
+                        child: Container(
+                          alignment: Alignment.centerLeft,
+                          padding: EdgeInsets.fromLTRB(55, 0, 0, 0),
+                          child: Column(
+                            children: [
+                              email_label.text.color(textnavy).size(16).make(),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  ),
-                  Center(
-                    child: Padding(
-                        padding: EdgeInsets.only(top: 20.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(3.0),
+                      Center(
+                        child: Padding(
+                          padding: EdgeInsets.all(5.0),
+                          child: Container(
+                            width: 300.0,
+                            child: TextFormField(
+                                autovalidateMode:
+                                    AutovalidateMode.onUserInteraction,
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'กรุณากรอกอีเมลผู้ใช้';
+                                  } else {
+                                    return null;
+                                  }
+                                },
+                                controller: emailController,
+                                decoration: InputDecoration(
+                                    isDense: true,
+                                    filled: true,
+                                    fillColor: Colors.grey[200],
+                                    prefix: Container(
+                                      width: 10,
+                                      height: 10,
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        width: 1.9,
+                                        color: Color.fromARGB(500, 63, 81, 181),
+                                      ),
+                                      borderRadius: BorderRadius.circular(15),
+                                    ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide.none,
+                                      borderRadius: BorderRadius.circular(15),
+                                    ),
+                                    hintText: example_email_hint,
+                                    hintStyle:
+                                        TextStyle(color: textgreyopacity)),
+                                keyboardType: TextInputType.emailAddress,
+                                maxLength: 255,
+                                maxLengthEnforcement:
+                                    MaxLengthEnforcement.none),
+                          ),
+                        ),
+                      ),
+                      Center(
+                        child: Container(
+                          alignment: Alignment.centerLeft,
+                          padding: EdgeInsets.fromLTRB(55, 10, 0, 0),
+                          child: Column(
+                            children: [
+                              username_label.text
+                                  .color(textnavy)
+                                  .size(16)
+                                  .make(),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Container(
+                        child: Padding(
+                          padding: EdgeInsets.only(top: 10.0),
+                          child: Container(
+                            width: 300.0,
+                            child: TextFormField(
+                                autovalidateMode:
+                                    AutovalidateMode.onUserInteraction,
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'กรุณากรอกชื่อผู้ใช้';
+                                  } else {
+                                    return null;
+                                  }
+                                },
+                                controller: usernameController,
+                                decoration: InputDecoration(
+                                    isDense: true,
+                                    filled: true,
+                                    fillColor: Colors.grey[200],
+                                    prefix: Container(
+                                      width: 10,
+                                      height: 10,
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        width: 1.9,
+                                        color: Color.fromARGB(500, 63, 81, 181),
+                                      ),
+                                      borderRadius: BorderRadius.circular(15),
+                                    ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide.none,
+                                      borderRadius: BorderRadius.circular(15),
+                                    ),
+                                    hintText: username_label,
+                                    hintStyle:
+                                        TextStyle(color: textgreyopacity)),
+                                maxLength: 255,
+                                maxLengthEnforcement:
+                                    MaxLengthEnforcement.none),
+                          ),
+                        ),
+                      ),
+                      Center(
+                        child: Container(
+                          alignment: Alignment.centerLeft,
+                          padding: EdgeInsets.fromLTRB(55, 10, 0, 0),
+                          child: Column(
+                            children: [
+                              phone_number_label.text
+                                  .color(textnavy)
+                                  .size(16)
+                                  .make(),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Container(
+                        child: Padding(
+                          padding: EdgeInsets.only(top: 10.0),
+                          child: Container(
+                            width: 300.0,
+                            child: TextFormField(
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'กรุณากรอกเบอร์โทร';
+                                }
+                                return null;
+                              },
+                              controller: telController,
+                              decoration: InputDecoration(
+                                  isDense: true,
+                                  filled: true,
+                                  fillColor: Colors.grey[200],
+                                  prefix: Container(
+                                    width: 10,
+                                    height: 10,
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      width: 1.9,
+                                      color: Color.fromARGB(500, 63, 81, 181),
+                                    ),
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide.none,
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                  hintText: phone_number,
+                                  hintStyle: TextStyle(color: textgreyopacity)),
+                              keyboardType: TextInputType.phone,
+                              maxLength: 10,
+                              maxLengthEnforcement: MaxLengthEnforcement.none,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Center(
+                        child: Container(
+                          alignment: Alignment.centerLeft,
+                          padding: EdgeInsets.fromLTRB(55, 10, 0, 0),
+                          child: Column(
+                            children: [
+                              password_label.text
+                                  .color(textnavy)
+                                  .size(16)
+                                  .make(),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Container(
+                        child: Padding(
+                          padding: EdgeInsets.only(top: 10.0),
+                          child: Container(
+                            width: 300.0,
+                            child: TextFormField(
+                                autovalidateMode:
+                                    AutovalidateMode.onUserInteraction,
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'กรุณากรอกรหัสผ่าน';
+                                  }
+                                  return null;
+                                },
+                                obscureText: true,
+                                decoration: InputDecoration(
+                                    isDense: true,
+                                    filled: true,
+                                    fillColor: Colors.grey[200],
+                                    prefix: Container(
+                                      width: 10,
+                                      height: 10,
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        width: 1.9,
+                                        color: Color.fromARGB(500, 63, 81, 181),
+                                      ),
+                                      borderRadius: BorderRadius.circular(15),
+                                    ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide.none,
+                                      borderRadius: BorderRadius.circular(15),
+                                    ),
+                                    hintText: hintpassword,
+                                    hintStyle:
+                                        TextStyle(color: textgreyopacity)),
+                                maxLength: 255,
+                                maxLengthEnforcement:
+                                    MaxLengthEnforcement.none),
+                          ),
+                        ),
+                      ),
+                      Center(
+                        child: Container(
+                          alignment: Alignment.centerLeft,
+                          padding: EdgeInsets.fromLTRB(55, 10, 0, 0),
+                          child: Column(
+                            children: [
+                              confrim_password_label.text
+                                  .color(textnavy)
+                                  .size(16)
+                                  .make(),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Container(
+                        child: Padding(
+                          padding: EdgeInsets.only(top: 10.0),
+                          child: Container(
+                            width: 300.0,
+                            child: TextFormField(
+                                autovalidateMode:
+                                    AutovalidateMode.onUserInteraction,
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'กรุณากยืนยันรหัสผ่าน';
+                                  }
+                                  return null;
+                                },
+                                obscureText: true,
+                                decoration: InputDecoration(
+                                    isDense: true,
+                                    filled: true,
+                                    fillColor: Colors.grey[200],
+                                    prefix: Container(
+                                      width: 10,
+                                      height: 10,
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        width: 1.9,
+                                        color: Color.fromARGB(500, 63, 81, 181),
+                                      ),
+                                      borderRadius: BorderRadius.circular(15),
+                                    ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide.none,
+                                      borderRadius: BorderRadius.circular(15),
+                                    ),
+                                    hintText: hintpassword,
+                                    hintStyle:
+                                        TextStyle(color: textgreyopacity)),
+                                maxLength: 255,
+                                maxLengthEnforcement:
+                                    MaxLengthEnforcement.none),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        child: Center(
+                          child: Padding(
+                            padding: EdgeInsets.only(top: 25.0),
+                            child: ElevatedButton(
+                              onPressed: () async {
+                                if (_formkey.currentState!.validate()) {
+                                  String email = emailController.text;
+                                  String username = usernameController.text;
+                                  String telephone = telController.text;
+                                  String password = passwordController.text;
+                                  String confrimpassword =
+                                      confrimPasswordController.text;
+                                  confrimPasswordController.text;
+                                  String token = await apiProvider.register(
+                                      email,
+                                      username,
+                                      telephone,
+                                      password,
+                                      confrimpassword,
+                                      context);
+
+                                  print('Token: $token');
+
+                                  Navigator.of(context).pop(MaterialPageRoute(
+                                      builder: (BuildContext context) =>
+                                          login()));
+                                }
+                              },
                               child: Text(
                                   style: TextStyle(
-                                      color: Color.fromARGB(255, 23, 43, 77),
-                                      fontWeight: FontWeight.normal,
-                                      fontSize: 18),
-                                  'มีบัญชีผู้ใช้อยู่แล้ว?'),
+                                      fontFamily: 'LINESeedSansTH-Rg'),
+                                  'สมัครสมาชิก'),
+                              style: ButtonStyle(
+                                  textStyle:
+                                      MaterialStateProperty.all(TextStyle(
+                                    fontSize: 16.0,
+                                  )),
+                                  shape: MaterialStateProperty.all(
+                                    RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(15),
+                                    ),
+                                  ),
+                                  minimumSize: MaterialStateProperty.all(
+                                      const Size(300, 60)),
+                                  backgroundColor: MaterialStateProperty.all(
+                                    Color.fromARGB(255, 23, 43, 77),
+                                  )),
                             ),
-                            Container(
-                              child: Padding(
-                                padding: const EdgeInsets.all(3.0),
-                                child: Column(
-                                  children: [
-                                    TextButton(
-                                        onPressed: () {
-                                          Navigator.of(context).pop(
-                                              MaterialPageRoute(
-                                                  builder:
-                                                      (BuildContext context) =>
-                                                          login()));
-                                        },
-                                        child: login_text.text
-                                            .color(textblue)
-                                            .make())
-                                  ],
+                          ),
+                        ),
+                      ),
+                      Center(
+                        child: Padding(
+                            padding: EdgeInsets.only(top: 20.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(3.0),
+                                  child: Text(
+                                      style: TextStyle(
+                                          color:
+                                              Color.fromARGB(255, 23, 43, 77),
+                                          fontWeight: FontWeight.normal,
+                                          fontSize: 18),
+                                      'มีบัญชีผู้ใช้อยู่แล้ว?'),
                                 ),
-                              ),
-                            ),
-                          ],
-                        )),
+                                Container(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(3.0),
+                                    child: Column(
+                                      children: [
+                                        TextButton(
+                                            onPressed: () async {
+                                              Navigator.of(context).pop(
+                                                  MaterialPageRoute(
+                                                      builder: (BuildContext
+                                                              context) =>
+                                                          login()));
+                                            },
+                                            child: login_text.text
+                                                .color(textblue)
+                                                .make())
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            )),
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-          ],
-        ));
+          ),
+        ),
+      ),
+    );
   }
 }

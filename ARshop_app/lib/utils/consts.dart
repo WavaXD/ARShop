@@ -12,3 +12,4 @@ export 'package:ARshop_App/utils/ads_list.dart';
 export 'package:flutter_rating_bar/flutter_rating_bar.dart';
 export 'package:ARshop_App/page/show_product.dart';
 export 'package:ARshop_App/page/login.dart';
+export 'package:ARshop_App/api/api_provider.dart';

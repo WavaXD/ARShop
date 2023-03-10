@@ -2,12 +2,13 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:flutter/widgets.dart';
+import 'package:ARshop_App/utils/consts.dart';
 
 class ApiProvider {
-  final String baseUrl = 'http://localhost:8080/api/v1/';
+  final String baseUrl = 'http://localhost:8080/api/v1/auth/';
   String? jwtToken;
 
-  Future<http.Response> post(String path,
+  Future<http.Response> post(String path, BuildContext context,
       {Map<String, String>? headers, Map<String, dynamic>? body}) async {
     final requestHeaders = createHeaders(headers);
     final response = await http.post(Uri.parse('$baseUrl$path'),
@@ -19,9 +20,9 @@ class ApiProvider {
           headers: refreshedHeaders, body: jsonEncode(body));
       return refreshedResponse;
     } else if (response.statusCode == 403) {
-      // Handle 403 error here by showing the login page
-      // For example, you could use the following line to navigate to the login page:
-      // Navigator.pushNamed(context, '/login');
+      Navigator.of(context).push(MaterialPageRoute(
+        builder: (BuildContext context) => Homepage(),
+      ));
     }
     return response;
   }
@@ -46,12 +47,59 @@ class ApiProvider {
     }
   }
 
-  Future login(String username, String password) async {
-    final response = await http.post(Uri.parse('$baseUrl/auth/authenticate'),
-        body: {'email': username, 'password': password});
-    if (response.statusCode == 200) {
-      final responseBody = jsonDecode(response.body);
-      jwtToken = responseBody['access_token'];
+  Future login(String username, String password, BuildContext context) async {
+    try {
+      final response = await http.post(
+        Uri.parse('$baseUrl/authenticate'),
+        body: {'username': username, 'password': password},
+      );
+
+      if (response.statusCode == 200) {
+        final responseBody = jsonDecode(response.body);
+        jwtToken = responseBody['access_token'];
+        print('login success');
+      } else {
+        print('login Error');
+        print(baseUrl);
+        print(jwtToken);
+      }
+    } catch (e) {
+      print('Error: $e');
+      throw Exception('Unable to connect to server.');
+    }
+  }
+
+  Future register(
+      String customerEmail,
+      String customerUsername,
+      String custonerTel,
+      String customerPassword,
+      String customerconfrimPassword,
+      BuildContext context) async {
+    try {
+      final response = await http.put(
+        Uri.parse('$baseUrl/register'),
+        body: {
+          'email': customerEmail,
+          'username': customerUsername,
+          'telephone': custonerTel,
+          'password': customerPassword,
+          'confrimpassword': customerconfrimPassword
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final responseBody = jsonDecode(response.body);
+        jwtToken = responseBody['access_token'];
+        print('login success');
+      } else {
+        print('login Error');
+        print(baseUrl);
+        print(jwtToken);
+      }
+    } catch (e) {
+      print('Error: $e');
+      throw Exception('Unable to connect to server.');
     }
   }
 }

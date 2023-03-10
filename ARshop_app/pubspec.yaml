@@ -42,6 +42,7 @@ dependencies:
   gap: ^2.0.0
   velocity_x: ^3.6.0
   flutter_rating_bar: ^4.0.0
+  jwt_decoder: ^2.0.1
 
 flutter_icons:
   android: true
