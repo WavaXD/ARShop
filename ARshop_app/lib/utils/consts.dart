@@ -13,3 +13,4 @@ export 'package:flutter_rating_bar/flutter_rating_bar.dart';
 export 'package:ARshop_App/page/show_product.dart';
 export 'package:ARshop_App/page/login.dart';
 export 'package:ARshop_App/api/api_provider.dart';
+export 'package:dots_indicator/dots_indicator.dart';

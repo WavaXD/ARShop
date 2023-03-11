@@ -15,6 +15,8 @@ class register extends StatelessWidget {
   final passwordController = TextEditingController();
   final confrimPasswordController = TextEditingController();
   final telController = TextEditingController();
+  final customerBirthdateController = TextEditingController();
+  final customerGenderController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -272,6 +274,144 @@ class register extends StatelessWidget {
                           padding: EdgeInsets.fromLTRB(55, 10, 0, 0),
                           child: Column(
                             children: [
+                              birthdate_label.text
+                                  .color(textnavy)
+                                  .size(16)
+                                  .make(),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Container(
+                        child: Padding(
+                          padding: EdgeInsets.only(top: 10.0),
+                          child: Container(
+                            width: 300.0,
+                            child: TextFormField(
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'กรุณาเลือก วัน/เดือน/ปีเกิด';
+                                }
+                                return null;
+                              },
+                              onTap: () async {
+                                DateTime? date = await showDatePicker(
+                                    context: context,
+                                    initialDate: DateTime.now(),
+                                    firstDate: DateTime(1900),
+                                    lastDate: DateTime.now());
+                                if (date != null) {
+                                  String formattedDate =
+                                      "${date.year.toString().padLeft(2, '0')}-"
+                                      "${date.month.toString().padLeft(2, '0')}-"
+                                      "${date.day.toString()}";
+                                  customerBirthdateController.text =
+                                      formattedDate;
+                                }
+                              },
+                              controller: customerBirthdateController,
+                              decoration: InputDecoration(
+                                  isDense: true,
+                                  filled: true,
+                                  fillColor: Colors.grey[200],
+                                  prefix: Container(
+                                    width: 10,
+                                    height: 10,
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      width: 1.9,
+                                      color: Color.fromARGB(500, 63, 81, 181),
+                                    ),
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide.none,
+                                    borderRadius: BorderRadius.circular(15),
+                                  ),
+                                  hintText: birthdate_select_hint,
+                                  hintStyle: TextStyle(color: textgreyopacity)),
+                              keyboardType: TextInputType.datetime,
+                              maxLength: 10,
+                              maxLengthEnforcement: MaxLengthEnforcement.none,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Center(
+                        child: Container(
+                          alignment: Alignment.centerLeft,
+                          padding: EdgeInsets.fromLTRB(55, 10, 0, 0),
+                          child: Column(
+                            children: [
+                              gender_label.text.color(textnavy).size(16).make(),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Container(
+                        child: Padding(
+                          padding: EdgeInsets.only(top: 10.0),
+                          child: Container(
+                            width: 300.0,
+                            child: DropdownButtonFormField<String>(
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              validator: (value) {
+                                if (value == null) {
+                                  return 'กรุณาเลือกเพศผู้ใช้งาน';
+                                }
+                                return null;
+                              },
+                              decoration: InputDecoration(
+                                isDense: true,
+                                filled: true,
+                                fillColor: Colors.grey[200],
+                                prefix: Container(
+                                  width: 10,
+                                  height: 10,
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    width: 1.9,
+                                    color: Color.fromARGB(500, 63, 81, 181),
+                                  ),
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide.none,
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                hintText: 'เลือกเพศ',
+                                hintStyle: TextStyle(color: Colors.grey),
+                              ),
+                              items: ['ชาย', 'หญิง', 'อื่นๆ']
+                                  .map((gender) => DropdownMenuItem<String>(
+                                        value: gender,
+                                        child: Text(gender),
+                                      ))
+                                  .toList(),
+                              onChanged: (value) {
+                                if (value == 'ชาย') {
+                                  customerGenderController.text = 'male';
+                                } else if (value == 'หญิง') {
+                                  customerGenderController.text = 'female';
+                                } else {
+                                  customerGenderController.text = '';
+                                }
+                              },
+                            ),
+                          ),
+                        ),
+                      ),
+                      Center(
+                        child: Container(
+                          alignment: Alignment.centerLeft,
+                          padding: EdgeInsets.fromLTRB(55, 10, 0, 0),
+                          child: Column(
+                            children: [
                               password_label.text
                                   .color(textnavy)
                                   .size(16)
@@ -394,12 +534,18 @@ class register extends StatelessWidget {
                                   String confrimpassword =
                                       confrimPasswordController.text;
                                   confrimPasswordController.text;
+                                  String gender = customerGenderController.text;
+                                  DateTime customerBirthdate = DateTime.parse(
+                                      customerBirthdateController.text);
+
                                   String token = await apiProvider.register(
                                       email,
                                       username,
                                       telephone,
                                       password,
                                       confrimpassword,
+                                      gender,
+                                      customerBirthdate,
                                       context);
 
                                   print('Token: $token');

@@ -18,3 +18,6 @@ const phone_number = 'เบอร์โทร';
 const phone_number_label = 'เบอร์โทร';
 const product_popular_label = 'สินค้ายอดฮิต';
 const product_recommend_label = 'สินค้าแนะนำ';
+const birthdate_label = 'วันเกิด';
+const gender_label = 'เพศ';
+const birthdate_select_hint = 'เลือก วัน/เดือน/ปีเกิด';

@@ -15,6 +15,30 @@ class product_page extends StatefulWidget {
 }
 
 class _product_pageState extends State<product_page> {
+  List<String> _slidersList = [];
+  int _currentIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadSlideImages();
+  }
+
+  Future<void> _loadSlideImages() async {
+    try {
+      // Call getSlidImage to get a list of slide image URLs
+      List<String> slideImageUrls = await ApiProvider().getSlideImages('123');
+
+      // Update the state with the slide image URLs
+      setState(() {
+        _slidersList = slideImageUrls;
+      });
+    } catch (e) {
+      // Handle the error
+      print(e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,18 +77,30 @@ class _product_pageState extends State<product_page> {
         actions: [
           IconButton(
             icon: const Icon(Icons.notifications_active),
-            onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                builder: (BuildContext context) => login(),
-              ));
+            onPressed: () async {
+              if (ApiProvider().isTokenExpired()) {
+                await Navigator.of(context).push(MaterialPageRoute(
+                  builder: (BuildContext context) => login(),
+                ));
+              } else {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (BuildContext context) => Homepage(),
+                ));
+              }
             },
           ),
           IconButton(
             icon: const Icon(Icons.shopping_cart),
-            onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                builder: (BuildContext context) => login(),
-              ));
+            onPressed: () async {
+              if (ApiProvider().isTokenExpired()) {
+                await Navigator.of(context).push(MaterialPageRoute(
+                  builder: (BuildContext context) => login(),
+                ));
+              } else {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (BuildContext context) => Homepage(),
+                ));
+              }
             },
           ),
         ],
@@ -76,26 +112,44 @@ class _product_pageState extends State<product_page> {
             child: Column(
               children: [
                 VxSwiper.builder(
-                    aspectRatio: 16 / 9,
-                    autoPlay: true,
-                    height: 150,
-                    itemCount: slidersList.length,
-                    enlargeCenterPage: true,
-                    itemBuilder: (context, index) {
-                      return Container(
-                        child: Image.asset(
-                          slidersList[index],
-                          fit: BoxFit.fill,
-                        )
-                            .box
-                            .rounded
-                            .clip(Clip.antiAlias)
-                            .margin(
-                              EdgeInsets.symmetric(horizontal: 0),
-                            )
-                            .make(),
-                      );
-                    }),
+                  aspectRatio: 16 / 9,
+                  autoPlay: true,
+                  height: 150,
+                  itemCount: slidersList.length,
+                  enlargeCenterPage: true,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      child: Image.asset(
+                        slidersList[index],
+                        fit: BoxFit.fill,
+                      )
+                          .box
+                          .rounded
+                          .clip(Clip.antiAlias)
+                          .margin(
+                            EdgeInsets.symmetric(horizontal: 0),
+                          )
+                          .make(),
+                    );
+                  },
+                  onPageChanged: (index) {
+                    setState(() {
+                      _currentIndex = index;
+                    });
+                  },
+                ),
+                Positioned(
+                    child: DotsIndicator(
+                  dotsCount: slidersList.length,
+                  position: _currentIndex.toDouble(),
+                  decorator: DotsDecorator(
+                    activeColor: textnavy,
+                    activeSize: const Size(5.0, 5.0),
+                    size: const Size(5.0, 5.0),
+                    activeShape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5.0)),
+                  ),
+                )),
                 Row(
                   children: [catagory_menu()],
                 )
