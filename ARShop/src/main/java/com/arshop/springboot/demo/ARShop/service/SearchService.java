@@ -57,7 +57,7 @@ public class SearchService {
             detail.add(model);
 
             scoreUpdate(identifyService.extractJwt(request) , productID.getProductID());
-            addProductReach(productID.getProductID(), product.get().getProductReach());
+            addProductReach(productID.getProductID(),product.get().getProductName() ,product.get().getProductReach());
         }
 
         return detail;
@@ -109,14 +109,31 @@ public class SearchService {
         productScoreRepository.save(scoreBuild);
     }
 
-    public void addProductReach(int productID, int reach){
+    public void addProductReach(int productID,String productName ,int reach){
         reach += 1;
         var product = Product.builder()
                 .productID(productID)
+                .productName(productName)
                 .productReach(reach)
-                .build(); // product cannot be null will be fix tomorrow
+                .build();
 
         productRepository.save(product);
     }
 
+    public List<Product> getPopular(HttpServletRequest request){
+        var product = productRepository.findAllWithMostSold();
+
+        return product;
+    }
+
+    public List<Product> getRecommend(HttpServletRequest request){
+
+        var recommend = productRepository.findAllWithScore(identifyService.extractJwt(request));
+
+        if(recommend.size() < 10){
+            recommend = productRepository.findAllWithMostSold();
+        }
+
+        return recommend;
+    }
 }
