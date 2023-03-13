@@ -16,6 +16,7 @@ public class RegisterRequest {
     private String customerName;
     private String customerEmail;
     private String customerPassword;
+    private String customerConfirmPassword;
     private String customerTel;
     private String customerGender;
     private Date customerBirthdate;
