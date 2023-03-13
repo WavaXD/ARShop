@@ -20,17 +20,35 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
     public AuthenticationResponse register(RegisterRequest request) {
+
+        var checkUser = repository.findByCustomerEmail(request.getCustomerEmail());
+
         var user = Customer.builder()
-                //.customerName(request.getCustomerName())
+                .customerName(request.getCustomerName())
                 .customerEmail(request.getCustomerEmail())
                 .customerPassword(passwordEncoder.encode(request.getCustomerPassword()))
-                //.customerTel(request.getCustomerTel())
-                //.customerGender(request.getCustomerGender())
-                //.customerBirthdate(request.getCustomerBirthdate())
+                .customerTel(request.getCustomerTel())
+                .customerGender(request.getCustomerGender())
+                .customerBirthdate(request.getCustomerBirthdate())
                 .role(Role.USER)
                 .build();
+
+        var jwtToken = "";
+
+        if(!checkUser.isEmpty()){
+            jwtToken = "This User is Existed Please Use Another Email ";
+            return AuthenticationResponse.builder()
+                    .token(jwtToken)
+                    .build();
+        }
+        if(!request.getCustomerPassword().equals(request.getCustomerConfirmPassword())){
+            jwtToken = "Password and Confirm password are not Matched ";
+            return AuthenticationResponse.builder()
+                    .token(jwtToken)
+                    .build();
+        }
         repository.save(user);
-        var jwtToken = jwtService.generateToken(user);
+        jwtToken = jwtService.generateToken(user);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
                 .build();
