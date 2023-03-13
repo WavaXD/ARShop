@@ -24,4 +24,14 @@ public class SearchController {
         return searchService.productDetail(productID , request);
     }
 
+    @GetMapping("/popular")
+    public List<Product> getPopular(HttpServletRequest request){
+        return searchService.getPopular(request);
+    }
+
+    @GetMapping("/recommend")
+    public List<Product> getRecommend(HttpServletRequest request){
+        return searchService.getRecommend(request);
+    }
+
 }
