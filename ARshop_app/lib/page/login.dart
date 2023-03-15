@@ -1,6 +1,10 @@
+import 'package:ARshop_App/api/API_Service.dart';
+import 'package:ARshop_App/api/config.dart';
+import 'package:ARshop_App/models/login_request.dart';
 import 'package:http/http.dart' as http;
 import 'package:ARshop_App/utils/consts.dart';
 import 'package:ARshop_App/api/api_provider.dart';
+import 'package:snippet_coder_utils/FormHelper.dart';
 
 class login extends StatefulWidget {
   @override
@@ -8,6 +12,7 @@ class login extends StatefulWidget {
 }
 
 class LoginPage extends State<login> {
+  bool isAPIcallProcess = false;
   final apiProvider = ApiProvider();
   final _formkey = GlobalKey<FormState>();
   final usernameController = TextEditingController();
@@ -22,6 +27,7 @@ class LoginPage extends State<login> {
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           backgroundColor: Colors.white,
           elevation: 0.25,
           leading: Container(
@@ -50,7 +56,6 @@ class LoginPage extends State<login> {
                   ),
                 ),
               )),
-          automaticallyImplyLeading: false,
           title: Text(
             'เข้าสู่ระบบ',
             style: TextStyle(
@@ -91,7 +96,7 @@ class LoginPage extends State<login> {
                                 AutovalidateMode.onUserInteraction,
                             validator: (value) {
                               if (value!.isEmpty) {
-                                return 'Please enter username';
+                                return 'กรุณากรอกอีเมลผู้ใช้งาน';
                               }
                               return null;
                             },
@@ -132,7 +137,7 @@ class LoginPage extends State<login> {
                                 AutovalidateMode.onUserInteraction,
                             validator: (value) {
                               if (value!.isEmpty) {
-                                return 'Please enter password';
+                                return 'กรุณากรอกรหัสผ่านผู้ใช้งาน';
                               }
                             },
                             controller: passwordController,
@@ -206,15 +211,65 @@ class LoginPage extends State<login> {
                               if (_formkey.currentState!.validate()) {
                                 String username = usernameController.text;
                                 String password = passwordController.text;
-
-                                String token = await apiProvider.login(
-                                    username, password, context);
-
-                                print('Token: $token');
-
-                                Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (BuildContext context) => Homepage(),
-                                ));
+                                setState(() {
+                                  isAPIcallProcess = true;
+                                });
+                                LoginRequest model = LoginRequest(
+                                    customerEmail: username,
+                                    customerPassword: password);
+                                APIService.login(model).then((response) => {
+                                      if (response)
+                                        {
+                                          showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) {
+                                                return AlertDialog(
+                                                  title:
+                                                      Text(Config_api.appName),
+                                                  content:
+                                                      Text("เข้าสู่ระบบสำเร็จ"),
+                                                );
+                                              }),
+                                          Future.delayed(Duration(seconds: 1),
+                                              () {
+                                            Navigator.of(context).pop();
+                                            Navigator.of(context)
+                                                .push(MaterialPageRoute(
+                                              builder: (BuildContext context) =>
+                                                  login(),
+                                            ));
+                                          })
+                                        }
+                                      else
+                                        {
+                                          showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return AlertDialog(
+                                                title: Text(Config_api.appName),
+                                                content: Text(
+                                                    "อีเมล/รหัสผ่าน ผู้ใช้งานผิดพลาด โปรดตรวจสอบ"),
+                                                actions: [
+                                                  TextButton(
+                                                    child: Text("ตกลง"),
+                                                    onPressed: () {
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                      Navigator.of(context)
+                                                          .push(
+                                                              MaterialPageRoute(
+                                                        builder: (BuildContext
+                                                                context) =>
+                                                            login(),
+                                                      ));
+                                                    },
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                          )
+                                        }
+                                    });
                               }
                             },
                             child: Text(

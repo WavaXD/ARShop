@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:ARshop_App/service/shared_service.dart';
 import 'package:ARshop_App/utils/consts.dart';
 import 'package:ARshop_App/widget_common/custom_label.dart';
 import 'package:flutter/material.dart';
@@ -43,6 +46,7 @@ class _product_pageState extends State<product_page> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         elevation: 0.25,
         backgroundColor: Color.fromARGB(255, 63, 81, 181),
         title: Container(
@@ -78,13 +82,15 @@ class _product_pageState extends State<product_page> {
           IconButton(
             icon: const Icon(Icons.notifications_active),
             onPressed: () async {
-              if (ApiProvider().isTokenExpired()) {
+              bool result = await SharedService.isLoggedIn();
+              if (result) {
                 await Navigator.of(context).push(MaterialPageRoute(
-                  builder: (BuildContext context) => login(),
+                  builder: (BuildContext context) =>
+                      Homepage(), // wait add Notification page
                 ));
               } else {
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (BuildContext context) => Homepage(),
+                await Navigator.of(context).push(MaterialPageRoute(
+                  builder: (BuildContext context) => login(),
                 ));
               }
             },
@@ -92,13 +98,15 @@ class _product_pageState extends State<product_page> {
           IconButton(
             icon: const Icon(Icons.shopping_cart),
             onPressed: () async {
-              if (ApiProvider().isTokenExpired()) {
+              bool result = await SharedService.isLoggedIn();
+              if (result) {
                 await Navigator.of(context).push(MaterialPageRoute(
-                  builder: (BuildContext context) => login(),
+                  builder: (BuildContext context) =>
+                      Homepage(), // wait add Cart page
                 ));
               } else {
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (BuildContext context) => Homepage(),
+                await Navigator.of(context).push(MaterialPageRoute(
+                  builder: (BuildContext context) => login(),
                 ));
               }
             },

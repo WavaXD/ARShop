@@ -1,3 +1,6 @@
+import 'package:ARshop_App/api/API_Service.dart';
+import 'package:ARshop_App/api/config.dart';
+import 'package:ARshop_App/models/register_request.dart';
 import 'package:flutter/material.dart';
 import 'package:ARshop_App/page/login.dart';
 import 'package:ARshop_App/utils/consts.dart';
@@ -5,15 +8,22 @@ import 'package:flutter/services.dart';
 
 bool hidePassword = true;
 
-class register extends StatelessWidget {
-  register({super.key});
+class register extends StatefulWidget {
+  const register({super.key});
+
+  @override
+  State<register> createState() => _registerState();
+}
+
+class _registerState extends State<register> {
+  bool isAPIcallProcess = false;
   final apiProvider = ApiProvider();
   final _formkey = GlobalKey<FormState>();
   final focusNode = FocusNode();
   final emailController = TextEditingController();
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
-  final confrimPasswordController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
   final telController = TextEditingController();
   final customerBirthdateController = TextEditingController();
   final customerGenderController = TextEditingController();
@@ -527,32 +537,60 @@ class register extends StatelessWidget {
                             child: ElevatedButton(
                               onPressed: () async {
                                 if (_formkey.currentState!.validate()) {
+                                  setState(() {
+                                    isAPIcallProcess = true;
+                                  });
                                   String email = emailController.text;
                                   String username = usernameController.text;
                                   String telephone = telController.text;
                                   String password = passwordController.text;
-                                  String confrimpassword =
-                                      confrimPasswordController.text;
-                                  confrimPasswordController.text;
+                                  String confirmpassword =
+                                      confirmPasswordController.text;
                                   String gender = customerGenderController.text;
-                                  DateTime customerBirthdate = DateTime.parse(
-                                      customerBirthdateController.text);
+                                  String customerBirthdate =
+                                      customerBirthdateController.text;
+                                  RegisterRequestModel model =
+                                      RegisterRequestModel(
+                                          customerEmail: email,
+                                          customerPassword: password,
+                                          customerConfirmPassword:
+                                              confirmpassword,
+                                          customerName: username,
+                                          customerTel: telephone,
+                                          customerGender: gender,
+                                          customerBirthdate: customerBirthdate);
+                                  APIService.register(model).then((response) =>
+                                      {
+                                        if (response.token != null)
+                                          {
+                                            showDialog(
+                                                context: context,
+                                                builder:
+                                                    (BuildContext context) {
+                                                  return AlertDialog(
+                                                    title: Text(
+                                                        Config_api.appName),
+                                                    content: Text(
+                                                        "สมัครสมาชิกสำเร็จ"),
+                                                  );
+                                                }),
+                                            Future.delayed(Duration(seconds: 1),
+                                                () {
+                                              Navigator.of(context).pop();
+                                              Navigator.of(context)
+                                                  .push(MaterialPageRoute(
+                                                builder:
+                                                    (BuildContext context) =>
+                                                        login(),
+                                              ));
+                                            })
+                                          }
+                                      });
 
-                                  String token = await apiProvider.register(
-                                      email,
-                                      username,
-                                      telephone,
-                                      password,
-                                      confrimpassword,
-                                      gender,
-                                      customerBirthdate,
-                                      context);
-
-                                  print('Token: $token');
-
-                                  Navigator.of(context).pop(MaterialPageRoute(
-                                      builder: (BuildContext context) =>
-                                          login()));
+                                  Navigator.of(context).pop();
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (BuildContext context) => login(),
+                                  ));
                                 }
                               },
                               child: Text(
