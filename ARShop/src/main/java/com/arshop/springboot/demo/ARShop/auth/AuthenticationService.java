@@ -54,7 +54,7 @@ public class AuthenticationService {
 
         //initialize cart for user after user in inserted
         cartService.initializeCart(temp.getCustomerID());
-        
+
         jwtToken = jwtService.generateToken(user);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
