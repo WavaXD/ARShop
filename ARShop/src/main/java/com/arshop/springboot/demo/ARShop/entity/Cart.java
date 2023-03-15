@@ -1,7 +1,9 @@
 package com.arshop.springboot.demo.ARShop.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 
+@Builder
 @Entity
 @Table(name="cart")
 public class Cart {
@@ -14,9 +16,11 @@ public class Cart {
     @Column(name="Customer_ID")
     private int customerID;
 
-    public Cart(){}
+    public Cart() {
+    }
 
-    public Cart(int customerID) {
+    public Cart(int cartID, int customerID) {
+        this.cartID = cartID;
         this.customerID = customerID;
     }
 
