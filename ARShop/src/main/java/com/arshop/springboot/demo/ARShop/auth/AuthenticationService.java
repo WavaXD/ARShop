@@ -3,8 +3,10 @@ package com.arshop.springboot.demo.ARShop.auth;
 import com.arshop.springboot.demo.ARShop.config.JwtService;
 import com.arshop.springboot.demo.ARShop.dao.CustomerRepository;
 import com.arshop.springboot.demo.ARShop.entity.Customer;
+import com.arshop.springboot.demo.ARShop.service.CartService;
 import com.arshop.springboot.demo.ARShop.user.Role;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,6 +20,7 @@ public class AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
+    private final CartService cartService;
 
     public AuthenticationResponse register(RegisterRequest request) {
 
@@ -47,7 +50,11 @@ public class AuthenticationService {
                     .token(jwtToken)
                     .build();
         }
-        repository.save(user);
+        var temp = repository.saveAndFlush(user); //get id from inserted user
+
+        //initialize cart for user after user in inserted
+        cartService.initializeCart(temp.getCustomerID());
+        
         jwtToken = jwtService.generateToken(user);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
