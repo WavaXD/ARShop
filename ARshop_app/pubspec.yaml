@@ -37,7 +37,6 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_launcher_icons: ^0.11.0
   flutter_native_splash: ^2.2.16
-  flutter_cache_store: ^0.8.1
   http: ^0.13.5
   gap: ^2.0.0
   velocity_x: ^3.6.0
@@ -45,6 +44,11 @@ dependencies:
   jwt_decoder: ^2.0.1
   dependencies:
   dots_indicator: ^2.0.0
+  shared_preferences: ^0.5.12+4
+ 
+  snippet_coder_utils: ^1.0.8
+  api_cache_manager: ^1.0.2
+
 
 
 flutter_icons:
