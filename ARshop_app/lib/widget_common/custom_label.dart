@@ -1,9 +1,34 @@
+import 'package:ARshop_App/models/popular_product_response.dart';
 import 'package:ARshop_App/utils/consts.dart';
+import 'package:ARshop_App/api/API_Service.dart';
 
-class popular_product extends StatelessWidget {
-  const popular_product({super.key});
+class popular_product extends StatefulWidget {
+  const popular_product({Key? key}) : super(key: key);
 
   @override
+  _popular_productState createState() => _popular_productState();
+}
+
+class _popular_productState extends State<popular_product> {
+  List<PopularProductResponse> popularProducts = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchPopularProducts();
+  }
+
+  Future<void> _fetchPopularProducts() async {
+    try {
+      final popularProductsData = await APIService.getPopularProduct(limit: 10);
+      setState(() {
+        popularProducts = popularProductsData;
+      });
+    } catch (e) {
+      print('Failed to fetch popular products: $e');
+    }
+  }
+
   Widget build(BuildContext context) {
     final size = AppLayout.getSize(context);
     double _initialRating = 4.5;
@@ -64,18 +89,25 @@ class popular_product extends StatelessWidget {
                         child: SizedBox(
                           height: 200,
                           child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Image.asset(
-                                img2,
-                                height: 130,
-                                width: 130,
-                                fit: BoxFit.cover,
+                              // for (var product in popularProducts)
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Image.asset(
+                                    img2,
+                                    height: 130,
+                                    width: 130,
+                                    fit: BoxFit.cover,
+                                  ),
+                                  10.heightBox,
+                                  // product.productName.text
+                                  "test".text.color(textnavy).make(),
+                                  2.heightBox,
+                                  // "${product.productPrice} บาท"
+                                  "test".text.color(textgrey).make(),
+                                ],
                               ),
-                              10.heightBox,
-                              "White Lamp".text.color(textnavy).make(),
-                              2.heightBox,
-                              "189 บาท".text.color(textgrey).make(),
                             ],
                           )
                               .box

@@ -43,4 +43,8 @@ class SharedService {
       builder: (BuildContext context) => Homepage(),
     ));
   }
+
+  static Future<void> clearLoginDetails() async {
+    await APICacheManager().deleteCache('login_details');
+  }
 }

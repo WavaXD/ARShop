@@ -40,6 +40,28 @@ class APIService {
     }
   }
 
+  static bool isTokenInvalid(int statusCode) {
+    return statusCode == 401 || statusCode == 403;
+  }
+
+  static Future<void> clearLoginDetails() async {
+    await SharedService.clearLoginDetails();
+  }
+
+  static Future<http.Response> performRequest(http.Request request) async {
+    var loginDetails = await SharedService.loginDetails();
+    if (loginDetails != null) {
+      request.headers.addAll({
+        'Authorization': 'Basic ${loginDetails.token}',
+      });
+    }
+    var response = await client.send(request);
+    if (isTokenInvalid(response.statusCode)) {
+      await clearLoginDetails();
+    }
+    return http.Response.fromStream(response);
+  }
+
 //register
   static Future<RegisterResponseModel> register(
       RegisterRequestModel model) async {
@@ -93,8 +115,8 @@ class APIService {
     );
     if (response.statusCode == 200) {
       final responseData = jsonDecode(response.body);
-      final SearchResponseModels = searchRequestModelToJson(responseData);
-      return SearchResponseModels;
+      final searchResponseModels = searchRequestModelToJson(responseData);
+      return searchResponseModels;
     } else {
       throw Exception('Failed to search product');
     }
@@ -144,7 +166,8 @@ class APIService {
   }
 
   //get_popular_product
-  static Future<List<PopularProductResponse>> getPopularProduct(model) async {
+  static Future<List<PopularProductResponse>> getPopularProduct(
+      {required int limit}) async {
     var url = Uri.http(Config_api.apiURL, Config_api.poppularProductAPI);
     var loginDetails = await SharedService.loginDetails();
     Map<String, String> requestHeaders = {

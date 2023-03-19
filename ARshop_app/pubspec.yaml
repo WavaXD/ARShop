@@ -47,6 +47,7 @@ dependencies:
   api_cache_manager: ^1.0.2
   badges: ^3.0.2
   app_upgrade_flutter_sdk: ^1.0.6
+  shared_preferences: ^2.0.18
 
 
 
