@@ -42,7 +42,6 @@ dependencies:
   velocity_x: ^3.6.0
   flutter_rating_bar: ^4.0.0
   jwt_decoder: ^2.0.1
-  dependencies:
   dots_indicator: ^2.0.0
   snippet_coder_utils: ^1.0.8
   api_cache_manager: ^1.0.2
