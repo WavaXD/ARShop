@@ -3,10 +3,16 @@ import 'dart:convert';
 import 'package:ARshop_App/api/config.dart';
 import 'package:ARshop_App/models/login_request.dart';
 import 'package:ARshop_App/models/login_response.dart';
+import 'package:ARshop_App/models/recommend_product_response.dart';
 import 'package:ARshop_App/models/register_request.dart';
 import 'package:ARshop_App/models/register_response.dart';
+import 'package:ARshop_App/models/search_request_model.dart';
+import 'package:ARshop_App/models/search_response_model.dart';
+import 'package:ARshop_App/models/product_request.dart';
+import 'package:ARshop_App/models/product_response.dart';
 import 'package:ARshop_App/service/shared_service.dart';
 import 'package:ARshop_App/utils/consts.dart';
+import 'package:ARshop_App/models/popular_product_response.dart';
 import 'package:http/http.dart' as http;
 
 class APIService {
@@ -66,11 +72,94 @@ class APIService {
     );
 
     if (response.statusCode == 200) {
-      //share
-
       return response.body;
     } else {
       return "";
+    }
+  }
+
+  //search
+  static Future<String> getSearchItem(SearchModel model) async {
+    var url = Uri.http(Config_api.apiURL, Config_api.searchAPI);
+    var loginDetails = await SharedService.loginDetails();
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Basic ${loginDetails!.token}'
+    };
+    var response = await client.post(
+      url,
+      headers: requestHeaders,
+      body: jsonEncode(model.toJson()),
+    );
+    if (response.statusCode == 200) {
+      final responseData = jsonDecode(response.body);
+      final SearchResponseModels = searchRequestModelToJson(responseData);
+      return SearchResponseModels;
+    } else {
+      throw Exception('Failed to search product');
+    }
+  }
+
+  //product detail
+  static Future<ProductDetaillResponseClass> getProductDetails(
+      int productId) async {
+    var url = Uri.http(Config_api.apiURL, Config_api.productDetailAPI,
+        {'product_id': productId.toString()});
+    var loginDetails = await SharedService.loginDetails();
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Basic ${loginDetails!.token}'
+    };
+    var response = await client.get(
+      url,
+      headers: requestHeaders,
+    );
+
+    if (response.statusCode == 200) {
+      return ProductDetaillResponseClass.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('Failed to load product details');
+    }
+  }
+
+  //get_recommed_product
+  static Future<List<RecommendProductResponse>> getRecommendProduct(
+      model) async {
+    var url = Uri.http(Config_api.apiURL, Config_api.recommendProductAPI);
+    var loginDetails = await SharedService.loginDetails();
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Basic ${loginDetails!.token}'
+    };
+    var response = await client.get(url, headers: requestHeaders);
+
+    if (response.statusCode == 200) {
+      var decodedData = jsonDecode(response.body);
+      List<RecommendProductResponse> recommendProduct =
+          recommendProductResponseFromJson(decodedData);
+      return recommendProduct;
+    } else {
+      throw Exception('Failed to load recommended products');
+    }
+  }
+
+  //get_popular_product
+  static Future<List<PopularProductResponse>> getPopularProduct(model) async {
+    var url = Uri.http(Config_api.apiURL, Config_api.poppularProductAPI);
+    var loginDetails = await SharedService.loginDetails();
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Basic ${loginDetails!.token}'
+    };
+    var response = await client.get(url, headers: requestHeaders);
+
+    if (response.statusCode == 200) {
+      var decodedData = jsonDecode(response.body);
+      List<PopularProductResponse> popularProducts =
+          popularProductResponseFromJson(decodedData);
+      return popularProducts;
+    } else {
+      throw Exception('Failed to load popular products');
     }
   }
 }

@@ -5,7 +5,8 @@ import 'package:flutter/widgets.dart';
 import 'package:ARshop_App/utils/consts.dart';
 
 class ApiProvider {
-  final String baseUrl = 'http://localhost:8080/api/v1/auth/';
+  // final String baseUrl = 'http://localhost:8080/api/v1/auth/';
+  final String baseUrl = 'http://43.206.161.98:8080/api/v1/auth';
   String? jwtToken;
 
   Future<http.Response> post(String path, BuildContext context,
@@ -63,20 +64,26 @@ class ApiProvider {
     try {
       final response = await http.post(
         Uri.parse('$baseUrl/authenticate'),
-        body: {'username': username, 'password': password},
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(
+            {'customerEmail': username, 'customerPassword': password}),
       );
 
       if (response.statusCode == 200) {
         final responseBody = jsonDecode(response.body);
-        jwtToken = responseBody['access_token'];
-        print('login success');
+        jwtToken = responseBody['token'];
+
+        return jwtToken;
       } else {
-        print('login Error');
         print(baseUrl);
         print(jwtToken);
+        return jwtToken;
       }
     } catch (e) {
       print('Error: $e');
+
       throw Exception('Unable to connect to server.');
     }
   }
@@ -85,37 +92,48 @@ class ApiProvider {
   Future register(
       String customerEmail,
       String customerName,
-      String custonerTel,
+      String customerTel,
       String customerPassword,
-      String customerconfrimPassword,
+      String customerconfirmPassword,
       String customerGender,
-      DateTime customerBirthdate,
+      String customerBirthdate,
       BuildContext context) async {
     try {
-      final response = await http.put(
-        Uri.parse('$baseUrl/register'),
-        body: {
-          'customerEmail': customerEmail,
-          'customerName': customerName,
-          'customerTel': custonerTel,
-          'customerPassword': customerPassword,
-          'customerConfrimPassword': customerconfrimPassword,
-          'customerBirthdate': customerBirthdate,
-          'customerGender': customerGender,
+      var httpUri;
+      final response = await http.post(
+        httpUri = Uri.parse('$baseUrl/register'),
+        headers: {
+          'Content-Type': 'application/json',
         },
+        body: jsonEncode({
+          'customerEmail': customerEmail,
+          'customerPassword': customerPassword,
+          'customerConfirmPassword': customerconfirmPassword,
+          'customerName': customerName,
+          'customerTel': customerTel,
+          'customerGender': customerGender,
+          'customerBirthdate': customerBirthdate,
+        }),
       );
 
       if (response.statusCode == 200) {
         final responseBody = jsonDecode(response.body);
-        jwtToken = responseBody['access_token'];
-        print('login success');
-      } else {
-        print('login Error');
-        print(baseUrl);
+        jwtToken = responseBody['token'];
+        print('register success');
+        print(httpUri);
         print(jwtToken);
+        print(response.body);
+        return jwtToken;
+      } else {
+        print('Register Error');
+        print(httpUri);
+        print(jwtToken);
+        return jwtToken;
       }
     } catch (e) {
       print('Error: $e');
+      print(jwtToken);
+      print(baseUrl);
       throw Exception('Unable to connect to server.');
     }
   }
