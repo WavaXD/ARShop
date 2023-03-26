@@ -30,13 +30,14 @@ public class SearchService {
     }
 
     public List<Product> contentSearch(Product keyword , HttpServletRequest request){
-        var product = productRepository.findByProductName(keyword.getProductName());
+        var product = productRepository.search(keyword.getProductName());
 
         if(product.size() != 0){
-            for(int i = 0; i < product.size() - 1 ; i++ ){
+            for(int i = 0; i < product.size(); i++ ){
                 scoreUpdate(identifyService.extractJwt(request), product.get(i).getProductID());
             }
         }
+
         return product;
 
     }
