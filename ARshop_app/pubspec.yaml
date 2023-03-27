@@ -48,7 +48,12 @@ dependencies:
   badges: ^3.0.2
   app_upgrade_flutter_sdk: ^1.0.6
   shared_preferences: ^2.0.18
+  group_button: ^5.2.2
+  material_symbols_icons: ^4.39.3
+  model_viewer_plus: ^1.5.0
+  arcore_flutter_plugin: ^0.1.0
 
+  
 
 
 flutter_icons:
@@ -118,7 +123,7 @@ flutter:
       fonts:
         - asset: android/assets/fonts/LINESeedSansTH_A_Bd.ttf
        
-    - family: LINESeedSansTH-Rg
+    - family: LINESeedSansTHRg
       fonts:
         - asset: android/assets/fonts/LINESeedSansTH_A_Rg.ttf
 
@@ -126,3 +131,4 @@ flutter:
     - asset/icon_arshop.png
     - asset/ads_1.jpg
     - asset/product.jpg
+    - asset/3Dmodels/sofa1_ver1_update-5.glb

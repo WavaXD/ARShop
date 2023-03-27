@@ -1,4 +1,5 @@
 import 'package:ARshop_App/models/popular_product_response.dart';
+import 'package:ARshop_App/models/recommend_product_response.dart';
 import 'package:ARshop_App/utils/consts.dart';
 import 'package:ARshop_App/api/API_Service.dart';
 
@@ -11,7 +12,7 @@ class popular_product extends StatefulWidget {
 
 class _popular_productState extends State<popular_product> {
   List<PopularProductResponse> popularProducts = [];
-
+  List<RecommendProductResponse> recommendProducts = [];
   @override
   void initState() {
     super.initState();
@@ -20,12 +21,23 @@ class _popular_productState extends State<popular_product> {
 
   Future<void> _fetchPopularProducts() async {
     try {
-      final popularProductsData = await APIService.getPopularProduct(limit: 10);
+      final popularProductsData = await APIService.getPopularProduct(limit: 12);
       setState(() {
         popularProducts = popularProductsData;
       });
     } catch (e) {
       print('Failed to fetch popular products: $e');
+    }
+  }
+
+  Future<void> _fetchRecommendProducts() async {
+    try {
+      final recommendProductsData = await APIService.getRecommendProduct(1);
+      setState(() {
+        recommendProducts = recommendProductsData;
+      });
+    } catch (e) {
+      print('Failed to fetch recommand product: $e');
     }
   }
 

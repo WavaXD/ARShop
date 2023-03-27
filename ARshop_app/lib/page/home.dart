@@ -1,3 +1,4 @@
+import 'package:ARshop_App/page/profile.dart';
 import 'package:flutter/material.dart';
 
 import 'package:ARshop_App/page/login.dart';
@@ -16,7 +17,7 @@ class _HomepageState extends State<Homepage> {
     product_page(),
     const Text('Favorite'),
     const Text('Chat'),
-    const Text('Profile')
+    profile(),
   ];
 
   int currentTabIndex = 0;
