@@ -131,4 +131,18 @@ flutter:
     - asset/icon_arshop.png
     - asset/ads_1.jpg
     - asset/product.jpg
-    - asset/3Dmodels/sofa1_ver1_update-5.glb
+    
+    - asset/3Dmodels/sofa/sofa1/
+    - asset/3Dmodels/sofa/sofa2/
+    - asset/3Dmodels/sofa/sofa3/
+
+    - asset/3Dmodels/table/table1/
+    - asset/3Dmodels/table/table2/
+    - asset/3Dmodels/table/table3/
+
+    - asset/3Dmodels/chair/chair1/
+    - asset/3Dmodels/chair/chair2/
+    - asset/3Dmodels/chair/chair3/
+
+    
+

@@ -12,7 +12,8 @@ class show_product extends StatefulWidget {
 
 class _show_productState extends State<show_product> {
   final controller = GroupButtonController();
-
+  double _initialRating = 4.5;
+  int color_type = 0;
   @override
   Widget build(BuildContext context) {
     final size = AppLayout.getSize(context);
@@ -86,16 +87,24 @@ class _show_productState extends State<show_product> {
               width: 500,
               height: 400,
               child: SizedBox(
-                child: ModelViewer(
-                  backgroundColor: Colors.white,
-                  src: 'asset/3Dmodels/sofa1_ver1_update-5.glb',
-                  ar: true,
-                  arScale: ArScale.fixed,
-                  arPlacement: ArPlacement.floor,
-                  autoRotate: false,
-                  cameraControls: true,
-                  disableZoom: true,
-                  reveal: Reveal.auto,
+                child: Container(
+                  child: VxSwiper.builder(
+                    itemCount: model_sofa.length,
+                    enlargeCenterPage: true,
+                    itemBuilder: (context, index) {
+                      return ModelViewer(
+                        backgroundColor: Colors.white,
+                        src: model_sofa[index],
+                        ar: true,
+                        arScale: ArScale.fixed,
+                        arPlacement: ArPlacement.floor,
+                        autoRotate: false,
+                        cameraControls: true,
+                        disableZoom: true,
+                        reveal: Reveal.auto,
+                      );
+                    },
+                  ),
                 ),
               ),
             ),
@@ -129,18 +138,24 @@ class _show_productState extends State<show_product> {
                   Icon(
                     MaterialSymbols.star,
                     weight: 400,
+                    size: 30,
                     fill: 1,
                     color: Colors.amber[300],
                   ),
                   Text(
                     '4.5',
-                    style: TextStyle(color: textnavy),
+                    style: TextStyle(
+                      color: textnavy,
+                      fontSize: 18,
+                    ),
                   ),
                   Padding(padding: EdgeInsets.only(left: 5)),
                   Text(
                     '(20 รีวิว)',
                     style: TextStyle(
                       color: textgrey,
+                      fontFamily: 'LINESeedSansTHRg',
+                      fontSize: 16,
                     ),
                   ),
                 ],
@@ -151,17 +166,6 @@ class _show_productState extends State<show_product> {
                 leading: Text(
                   '189 บาท',
                   style: TextStyle(color: textnavy, fontSize: 22),
-                ),
-                trailing: Wrap(
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (BuildContext context) => ShowAR()));
-                      },
-                      child: Icon(MaterialSymbols.view_in_ar),
-                    )
-                  ],
                 ),
               ),
             ),
@@ -192,8 +196,288 @@ class _show_productState extends State<show_product> {
                   ),
                 ],
               ),
-            )
+            ),
+            Container(
+              padding: EdgeInsets.only(top: 10),
+              child: Column(
+                children: [
+                  Card(
+                    elevation: 0,
+                    color: Color.fromRGBO(247, 247, 247, 100),
+                    child: Container(
+                      padding: EdgeInsets.only(top: 5, bottom: 5),
+                      child: Column(
+                        children: [
+                          ListTile(
+                            titleAlignment: ListTileTitleAlignment.threeLine,
+                            leading: InkWell(
+                              onTap: () {},
+                              child: CircleAvatar(
+                                radius: 20,
+                                backgroundImage: NetworkImage(
+                                    'https://image.makewebeasy.net/makeweb/m_750x0/e2kfIZfW0/Carpet/134233.jpg?v=202012190947'),
+                              ),
+                            ),
+                            title: InkWell(
+                              onTap: () {},
+                              child: Text(
+                                'BANN FURNITURE (บ้านเฟอร์นิเจอร์)',
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(fontSize: 12, color: textnavy),
+                              ),
+                            ),
+                            trailing: Container(
+                              width: 80,
+                              child: TextButton(
+                                onPressed: () {},
+                                style: TextButton.styleFrom(
+                                  backgroundColor: textnavy,
+                                ),
+                                child: Text(
+                                  'ดูร้านค้า',
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Row(
+              children: [
+                Padding(
+                    padding: EdgeInsets.only(
+                  left: 15,
+                )),
+                Expanded(
+                  child: Text(
+                    'รีวิว',
+                    style: TextStyle(
+                      fontSize: 22,
+                      color: Color.fromARGB(255, 23, 43, 77),
+                    ),
+                  ),
+                ),
+                TextButton(
+                  onPressed: () {},
+                  child: Row(
+                    children: [
+                      Text(
+                        'ดูทั้งหมด',
+                        style: TextStyle(
+                            color: Color.fromARGB(255, 93, 92, 93),
+                            fontSize: 16,
+                            fontFamily: 'LINESeedSansTHRg'),
+                      ),
+                      Icon(
+                        Icons.arrow_forward_ios_rounded,
+                        size: 15,
+                        color: Color.fromARGB(255, 152, 149, 151),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            Container(
+              height: 170,
+              child: Card(
+                child: InkWell(
+                  onTap: () {},
+                  child: Column(
+                    children: [
+                      ListTile(
+                        titleAlignment: ListTileTitleAlignment.threeLine,
+                        leading: CircleAvatar(
+                            radius: 20, backgroundImage: NetworkImage('')),
+                        title: Text(
+                          'Palm Siriphun',
+                          style: TextStyle(
+                              fontFamily: 'LINESeedSansTHRg',
+                              fontSize: 18,
+                              color: textnavy),
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.only(left: 15, right: 15),
+                        child: Row(
+                          children: [
+                            Text('คะแนน'),
+                            Padding(padding: EdgeInsets.only(left: 5)),
+                            RatingBar.builder(
+                              initialRating:
+                                  _initialRating, // use product rating from data
+                              minRating: 1,
+                              direction: Axis.horizontal,
+                              allowHalfRating: true,
+                              itemCount: 5,
+                              itemSize: 15.0,
+                              itemBuilder: (context, _) => Icon(
+                                Icons.star,
+                                color: Colors.amber,
+                              ),
+                              onRatingUpdate: (rating) {
+                                print(rating);
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                      ListTile(
+                        titleAlignment: ListTileTitleAlignment.threeLine,
+                        title: Text(
+                          comment,
+                          softWrap: true,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 3,
+                          style: TextStyle(
+                              fontFamily: 'LINESeedSansTHRg',
+                              fontSize: 16,
+                              color: textgrey),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            Container(
+              height: 170,
+              child: Card(
+                child: InkWell(
+                  onTap: () {},
+                  child: Column(
+                    children: [
+                      ListTile(
+                        titleAlignment: ListTileTitleAlignment.threeLine,
+                        leading: CircleAvatar(
+                          radius: 20,
+                          backgroundImage: NetworkImage(''),
+                        ),
+                        title: Text(
+                          'Palm Siriphun',
+                          style: TextStyle(
+                              fontFamily: 'LINESeedSansTHRg',
+                              fontSize: 18,
+                              color: textnavy),
+                        ),
+                      ),
+                      Container(
+                        padding: EdgeInsets.only(left: 15, right: 15),
+                        child: Row(
+                          children: [
+                            Text('คะแนน'),
+                            Padding(padding: EdgeInsets.only(left: 5)),
+                            RatingBar.builder(
+                              initialRating:
+                                  _initialRating, // use product rating from data
+                              minRating: 1,
+                              direction: Axis.horizontal,
+                              allowHalfRating: true,
+                              itemCount: 5,
+                              itemSize: 15.0,
+                              itemBuilder: (context, _) => Icon(
+                                Icons.star,
+                                color: Colors.amber,
+                              ),
+                              onRatingUpdate: (rating) {
+                                print(rating);
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                      ListTile(
+                        titleAlignment: ListTileTitleAlignment.threeLine,
+                        title: Text(
+                          comment,
+                          softWrap: true,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 3,
+                          style: TextStyle(
+                              fontFamily: 'LINESeedSansTHRg',
+                              fontSize: 16,
+                              color: textgrey),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
           ],
+        ),
+      ),
+      bottomNavigationBar: Material(
+        elevation: 10,
+        child: Container(
+          padding: EdgeInsets.only(top: 10),
+          color: Colors.white,
+          height: 70,
+          child: ListTile(
+            title: Wrap(
+              spacing: 50,
+              alignment: WrapAlignment.center,
+              children: [
+                InkWell(
+                  onTap: () {},
+                  child: Column(
+                    children: [
+                      Icon(
+                        MaterialSymbols.chat,
+                        color: textnavy,
+                        weight: 800,
+                      ),
+                      Text(
+                        'แชท',
+                        style: TextStyle(
+                            color: textnavy, fontFamily: 'LINESeedSansTHRg'),
+                      )
+                    ],
+                  ),
+                ),
+                InkWell(
+                  onTap: () {},
+                  child: Column(
+                    children: [
+                      Icon(
+                        MaterialSymbols.shopping_cart,
+                        color: textnavy,
+                        weight: 800,
+                      ),
+                      Text(
+                        'เพิ่มลงรถเข็น',
+                        style: TextStyle(
+                            color: textnavy, fontFamily: 'LINESeedSansTHRg'),
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            trailing: Column(
+              children: [
+                Container(
+                  width: 180,
+                  child: TextButton(
+                    style: TextButton.styleFrom(
+                      backgroundColor: textnavy,
+                    ),
+                    onPressed: () {},
+                    child: Text(
+                      'ซื้อเลย',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
         ),
       ),
     );

@@ -136,7 +136,7 @@ class CategoryCard extends StatelessWidget {
                 style: TextStyle(
                     fontSize: 15,
                     color: Color.fromARGB(255, 23, 43, 77),
-                    fontFamily: 'LINESeedSansTH-Rg'),
+                    fontFamily: 'LINESeedSansTHRg'),
                 title),
           ],
         ),

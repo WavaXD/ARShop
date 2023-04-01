@@ -27,3 +27,28 @@ const product_name = 'White Sofa';
 final buttons = ['ภาพรวม', 'รายละเอียดสินค้า', 'รีวิว'];
 const send_to = 'จัดส่งสินค้าไปยัง';
 const address_customer = 'เขตลาดกระบัง 10520';
+const comment =
+    'โคมไฟสวยมากเลยจ้า วัสดุดีเลยแหละ สีขาวสวยสุดๆ มินิมอลมาก คุ้มกับราคามากๆ แสงสว่างดีเลยจ้า แนะนำให้ซื้อติดโต๊ะไว้เลย';
+const model_sofa = [
+  // 'asset/3Dmodels/sofa/sofa1/sofa1_ver1_update.glb',
+  // 'asset/3Dmodels/sofa/sofa1/sofa1_ver2.glb',
+  // 'asset/3Dmodels/sofa/sofa2/sofa2_ver1.glb',
+  // 'asset/3Dmodels/sofa/sofa2/sofa2_ver2.glb',
+  // 'asset/3Dmodels/sofa/sofa3/sofa3_ver1.glb',
+  // 'asset/3Dmodels/sofa/sofa3/sofa3_ver2.glb',
+  // 'asset/3Dmodels/table/table1/table1_ver1.glb',
+  // 'asset/3Dmodels/table/table1/table1_ver2.glb',
+  // 'asset/3Dmodels/chair/chair1/chair1_ver1.glb',
+  // 'asset/3Dmodels/chair/chair1/chair1_ver2.glb',
+  // 'asset/3Dmodels/chair/chair2/chair2_ver1.glb',
+  // 'asset/3Dmodels/chair/chair2/chair2_ver2.glb',
+  // 'asset/3Dmodels/chair/chair3/chair3_ver1.glb',
+  // 'asset/3Dmodels/chair/chair3/chair3_ver2.glb',
+  // 'asset/3Dmodels/table/table1/table1_ver1.glb',
+  // 'asset/3Dmodels/table/table1/table1_ver2.glb',
+  // 'asset/3Dmodels/table/table2/table2_ver1.glb',
+  // 'asset/3Dmodels/table/table2/table2_ver2.glb',
+  // 'asset/3Dmodels/table/table3/table3_ver1.glb',
+  // 'asset/3Dmodels/table/table3/table3_ver2.glb',
+  'asset/3Dmodels/chair/chair3/Chair.glb'
+];
