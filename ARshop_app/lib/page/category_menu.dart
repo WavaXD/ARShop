@@ -129,7 +129,7 @@ class CategoryCard extends StatelessWidget {
           children: <Widget>[
             Icon(
               icon,
-              size: 30,
+              size: 29,
               color: Color.fromARGB(255, 23, 43, 77),
             ),
             Text(

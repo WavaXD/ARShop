@@ -1,7 +1,10 @@
 import 'package:ARshop_App/page/ar_preview.dart';
+import 'package:ARshop_App/page/show_reviews.dart';
 import 'package:ARshop_App/utils/consts.dart';
+import 'package:ARshop_App/widget_common/sliding_panel_info_product.dart';
 import 'package:material_symbols_icons/outlined_suffix.dart';
 import 'package:material_symbols_icons/rounded.dart';
+import 'package:ARshop_App/widget_common/sliding_panel_info_product.dart';
 
 class show_product extends StatefulWidget {
   const show_product({super.key});
@@ -12,6 +15,9 @@ class show_product extends StatefulWidget {
 
 class _show_productState extends State<show_product> {
   final controller = GroupButtonController();
+  final _panelController = PanelController();
+  int price = 1500;
+  int _currentIndex = 0;
   double _initialRating = 4.5;
   int color_type = 0;
   @override
@@ -70,29 +76,30 @@ class _show_productState extends State<show_product> {
         padding: EdgeInsets.only(left: 20, right: 20),
         child: Column(
           children: [
+            // Container(
+            //   color: Colors.white,
+            //   child: GroupButton(
+            //     buttons: buttons,
+            //     options: GroupButtonOptions(
+            //         selectedBorderColor: Colors.transparent,
+            //         selectedColor: textnavy,
+            //         borderRadius: BorderRadius.all(Radius.circular(10)),
+            //         unselectedBorderColor: textnavy,
+            //         unselectedColor: Colors.white),
+            //   ),
+            // ),
             Container(
-              color: Colors.white,
-              child: GroupButton(
-                buttons: buttons,
-                options: GroupButtonOptions(
-                    selectedBorderColor: Colors.transparent,
-                    selectedColor: textnavy,
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                    unselectedBorderColor: textnavy,
-                    unselectedColor: Colors.white),
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.all(10),
+              // padding: EdgeInsets.all(10),
               width: 500,
-              height: 400,
+              height: 300,
               child: SizedBox(
                 child: Container(
                   child: VxSwiper.builder(
                     itemCount: model_sofa.length,
-                    enlargeCenterPage: true,
+                    enlargeCenterPage: false,
                     itemBuilder: (context, index) {
                       return ModelViewer(
+                        loading: Loading.lazy,
                         backgroundColor: Colors.white,
                         src: model_sofa[index],
                         ar: true,
@@ -104,10 +111,38 @@ class _show_productState extends State<show_product> {
                         reveal: Reveal.auto,
                       );
                     },
+                    onPageChanged: (index) {
+                      setState(() {
+                        _currentIndex = index;
+                      });
+                    },
                   ),
+                  // child: ModelViewer(
+                  //   backgroundColor: Colors.white,
+                  //   src: model_sofa[0],
+                  //   ar: true,
+                  //   arScale: ArScale.fixed,
+                  //   arPlacement: ArPlacement.floor,
+                  //   autoRotate: false,
+                  //   cameraControls: true,
+                  //   disableZoom: true,
+                  //   reveal: Reveal.auto,
+                  // ),
                 ),
               ),
             ),
+            Positioned(
+                child: DotsIndicator(
+              dotsCount: model_sofa.length,
+              position: _currentIndex.toDouble(),
+              decorator: DotsDecorator(
+                activeColor: textnavy,
+                activeSize: const Size(5.0, 5.0),
+                size: const Size(5.0, 5.0),
+                activeShape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5.0)),
+              ),
+            )),
             Container(
               child: ListTile(
                 leading: Text(
@@ -128,6 +163,43 @@ class _show_productState extends State<show_product> {
                       color: textnavy,
                     ),
                   ],
+                ),
+              ),
+            ),
+            Container(
+              alignment: Alignment.centerLeft,
+              padding: EdgeInsets.only(left: 15),
+              child: Column(
+                children: [
+                  Text(
+                    'รายละเอียดสินค้า',
+                    style: TextStyle(color: textnavy, fontSize: 18),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              alignment: Alignment.centerLeft,
+              padding: EdgeInsets.only(left: 15, right: 15),
+              child: Column(
+                children: [
+                  Text(
+                    'Minimal Stand is made of by natural wood. The design that is very simple and minimal. This is truly one of the best furnitures in any family for now. With 3 different colors, you can easily select the best match for your home. ',
+                    softWrap: true,
+                    style: TextStyle(
+                        color: textgrey,
+                        fontSize: 16,
+                        fontFamily: 'LINESeedSansTHRg'),
+                  ),
+                ],
+              ),
+            ),
+
+            Container(
+              child: ListTile(
+                leading: Text(
+                  'ราคา $price บาท',
+                  style: TextStyle(color: textnavy, fontSize: 22),
                 ),
               ),
             ),
@@ -161,42 +233,7 @@ class _show_productState extends State<show_product> {
                 ],
               ),
             ),
-            Container(
-              child: ListTile(
-                leading: Text(
-                  '189 บาท',
-                  style: TextStyle(color: textnavy, fontSize: 22),
-                ),
-              ),
-            ),
-            Container(
-              alignment: Alignment.centerLeft,
-              padding: EdgeInsets.only(left: 15),
-              child: Column(
-                children: [
-                  Text(
-                    'รายละเอียดสินค้า',
-                    style: TextStyle(color: textnavy, fontSize: 18),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              alignment: Alignment.centerLeft,
-              padding: EdgeInsets.only(left: 15, right: 15),
-              child: Column(
-                children: [
-                  Text(
-                    'Minimal Stand is made of by natural wood. The design that is very simple and minimal. This is truly one of the best furnitures in any family for now. With 3 different colors, you can easily select the best match for your home. ',
-                    softWrap: true,
-                    style: TextStyle(
-                        color: textgrey,
-                        fontSize: 16,
-                        fontFamily: 'LINESeedSansTHRg'),
-                  ),
-                ],
-              ),
-            ),
+
             Container(
               padding: EdgeInsets.only(top: 10),
               child: Column(
@@ -264,7 +301,10 @@ class _show_productState extends State<show_product> {
                   ),
                 ),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (BuildContext context) => show_reviews()));
+                  },
                   child: Row(
                     children: [
                       Text(
@@ -295,70 +335,6 @@ class _show_productState extends State<show_product> {
                         titleAlignment: ListTileTitleAlignment.threeLine,
                         leading: CircleAvatar(
                             radius: 20, backgroundImage: NetworkImage('')),
-                        title: Text(
-                          'Palm Siriphun',
-                          style: TextStyle(
-                              fontFamily: 'LINESeedSansTHRg',
-                              fontSize: 18,
-                              color: textnavy),
-                        ),
-                      ),
-                      Container(
-                        padding: EdgeInsets.only(left: 15, right: 15),
-                        child: Row(
-                          children: [
-                            Text('คะแนน'),
-                            Padding(padding: EdgeInsets.only(left: 5)),
-                            RatingBar.builder(
-                              initialRating:
-                                  _initialRating, // use product rating from data
-                              minRating: 1,
-                              direction: Axis.horizontal,
-                              allowHalfRating: true,
-                              itemCount: 5,
-                              itemSize: 15.0,
-                              itemBuilder: (context, _) => Icon(
-                                Icons.star,
-                                color: Colors.amber,
-                              ),
-                              onRatingUpdate: (rating) {
-                                print(rating);
-                              },
-                            ),
-                          ],
-                        ),
-                      ),
-                      ListTile(
-                        titleAlignment: ListTileTitleAlignment.threeLine,
-                        title: Text(
-                          comment,
-                          softWrap: true,
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 3,
-                          style: TextStyle(
-                              fontFamily: 'LINESeedSansTHRg',
-                              fontSize: 16,
-                              color: textgrey),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            Container(
-              height: 170,
-              child: Card(
-                child: InkWell(
-                  onTap: () {},
-                  child: Column(
-                    children: [
-                      ListTile(
-                        titleAlignment: ListTileTitleAlignment.threeLine,
-                        leading: CircleAvatar(
-                          radius: 20,
-                          backgroundImage: NetworkImage(''),
-                        ),
                         title: Text(
                           'Palm Siriphun',
                           style: TextStyle(
@@ -442,7 +418,14 @@ class _show_productState extends State<show_product> {
                   ),
                 ),
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    showModalBottomSheet(
+                        backgroundColor: Colors.transparent,
+                        context: context,
+                        builder: (context) {
+                          return SlidingBottomSheet();
+                        });
+                  },
                   child: Column(
                     children: [
                       Icon(

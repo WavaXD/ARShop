@@ -18,3 +18,4 @@ export 'package:group_button/group_button.dart';
 export 'package:material_symbols_icons/material_symbols_icons.dart';
 export 'package:model_viewer_plus/model_viewer_plus.dart';
 export 'package:arcore_flutter_plugin/arcore_flutter_plugin.dart';
+export 'package:sliding_up_panel/sliding_up_panel.dart';

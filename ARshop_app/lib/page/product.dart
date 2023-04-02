@@ -165,6 +165,7 @@ class _product_pageState extends State<product_page> {
             ),
           ),
           Container(
+            width: MediaQuery.of(context).size.width,
             child: Column(children: [popular_product()]),
           )
         ],

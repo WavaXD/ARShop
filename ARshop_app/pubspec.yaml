@@ -52,6 +52,7 @@ dependencies:
   material_symbols_icons: ^4.39.3
   model_viewer_plus: ^1.5.0
   arcore_flutter_plugin: ^0.1.0
+  sliding_up_panel: ^2.0.0+1
 
   
 
