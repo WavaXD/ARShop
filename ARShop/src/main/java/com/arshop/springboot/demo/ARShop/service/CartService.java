@@ -21,4 +21,10 @@ public class CartService {
         cartRepository.save(cart);
     }
 
+    public int getCartID(int customerID){
+        var cart = cartRepository.findByCustomerID(customerID);
+
+        return cart.get(0).getCartID();
+    }
+
 }
