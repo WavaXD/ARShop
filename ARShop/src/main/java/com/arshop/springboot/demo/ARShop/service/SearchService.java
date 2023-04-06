@@ -1,14 +1,14 @@
 package com.arshop.springboot.demo.ARShop.service;
 
-import com.arshop.springboot.demo.ARShop.dao.ModelRepository;
-import com.arshop.springboot.demo.ARShop.dao.ProductPictureRepository;
-import com.arshop.springboot.demo.ARShop.dao.ProductRepository;
-import com.arshop.springboot.demo.ARShop.dao.ProductScoreRepository;
+import com.arshop.springboot.demo.ARShop.dao.*;
+import com.arshop.springboot.demo.ARShop.entity.Model;
 import com.arshop.springboot.demo.ARShop.entity.Product;
 import com.arshop.springboot.demo.ARShop.entity.ProductScore;
+import com.arshop.springboot.demo.ARShop.entity.Variation;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -20,13 +20,15 @@ public class SearchService {
     private final IdentifyService identifyService;
     private final ProductPictureRepository productPictureRepository;
     private final ModelRepository modelRepository;
+    private final VariationRepository variationRepository;
 
-    public SearchService(ProductRepository productRepository, ProductScoreRepository productScoreRepository, IdentifyService identifyService, ProductPictureRepository productPictureRepository, ModelRepository modelRepository) {
+    public SearchService(ProductRepository productRepository, ProductScoreRepository productScoreRepository, IdentifyService identifyService, ProductPictureRepository productPictureRepository, ModelRepository modelRepository, VariationRepository variationRepository) {
         this.productRepository = productRepository;
         this.productScoreRepository = productScoreRepository;
         this.identifyService = identifyService;
         this.productPictureRepository = productPictureRepository;
         this.modelRepository = modelRepository;
+        this.variationRepository = variationRepository;
     }
 
     public List<Product> contentSearch(Product keyword , HttpServletRequest request){
@@ -55,17 +57,39 @@ public class SearchService {
             String model = getModel(productID.getProductID());
 
             detail.add(picture);
-            detail.add(model);
+            //detail.add(model); //fix here
+            detail.add(getProductVariationAndModel(productID));
+
 
             scoreUpdate(identifyService.extractJwt(request) , productID.getProductID());
-            addProductReach(productID.getProductID(),product.get().getProductName() ,product.get().getProductReach());
+            addProductReach(productID.getProductID(),product.get().getProductName() ,product.get().getProductReach(),product.get().getVendorID());
         }
 
         return detail;
     }
 
-    public String getModel(int productID){
-        var model = modelRepository.findByProductID(productID);
+    public List getProductVariationAndModel(Product productID){
+        var variation = variationRepository.findByProductID(productID.getProductID());
+        List variationModel = new LinkedList();
+
+        if(!variation.isEmpty()){
+            for(Variation v : variation){
+                variationModel.add(v); //add variation then add model of that variation
+
+                int variationID = v.getVariationID();
+
+                var model = modelRepository.findByVariationID(variationID);
+
+                variationModel.add(model);
+
+            }
+        }
+
+        return variationModel;
+    }
+
+    public String getModel(int variationID){
+        var model = modelRepository.findByVariationID(variationID);
 
         if(model.size() != 0){
             return model.get(0).getModelName();
@@ -110,11 +134,12 @@ public class SearchService {
         productScoreRepository.save(scoreBuild);
     }
 
-    public void addProductReach(int productID,String productName ,int reach){
+    public void addProductReach(int productID,String productName ,int reach, int vendorID){
         reach += 1;
         var product = Product.builder()
                 .productID(productID)
                 .productName(productName)
+                .vendorID(vendorID)
                 .productReach(reach)
                 .build();
 
