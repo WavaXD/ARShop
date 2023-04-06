@@ -34,4 +34,5 @@ public class SearchController {
         return searchService.getRecommend(request);
     }
 
+
 }
