@@ -1,7 +1,9 @@
 package com.arshop.springboot.demo.ARShop.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 
+@Builder
 @Entity
 @Table(name="orderdetail")
 public class OrderDetail {
@@ -29,20 +31,21 @@ public class OrderDetail {
     @Column(name="Cart_ID")
     private int cartID;
 
-    @Column(name="Quanity")
-    private int quanity;
+    @Column(name="Variation_Quanity")
+    private int variationQuanity;
 
     public OrderDetail() {
     }
 
-    public OrderDetail(int customerID, int productID, int variationID, int orderID, int vendorID, int cartID, int quanity) {
+    public OrderDetail(int detailID, int customerID, int productID, int variationID, int orderID, int vendorID, int cartID, int variationQuanity) {
+        this.detailID = detailID;
         this.customerID = customerID;
         this.productID = productID;
         this.variationID = variationID;
         this.orderID = orderID;
         this.vendorID = vendorID;
         this.cartID = cartID;
-        this.quanity = quanity;
+        this.variationQuanity = variationQuanity;
     }
 
     public int getDetailID() {
@@ -101,12 +104,12 @@ public class OrderDetail {
         this.cartID = cartID;
     }
 
-    public int getQuanity() {
-        return quanity;
+    public int getVariationQuanity() {
+        return variationQuanity;
     }
 
-    public void setQuanity(int quanity) {
-        this.quanity = quanity;
+    public void setVariationQuanity(int variationQuanity) {
+        this.variationQuanity = variationQuanity;
     }
 
     @Override
@@ -119,7 +122,7 @@ public class OrderDetail {
                 ", orderID=" + orderID +
                 ", vendorID=" + vendorID +
                 ", cartID=" + cartID +
-                ", quanity=" + quanity +
+                ", variationQuanity=" + variationQuanity +
                 '}';
     }
 }
