@@ -11,8 +11,8 @@ public class Model {
     @Column(name="Model_ID")
     private int modelID;
 
-    @Column(name="Product_ID")
-    private int productID;
+    @Column(name="Variation_ID")
+    private int variationID;
 
     @Column(name="Model_Name")
     private String modelName;
@@ -20,8 +20,9 @@ public class Model {
     public Model() {
     }
 
-    public Model(int productID, String modelName) {
-        this.productID = productID;
+    public Model(int modelID, int variationID, String modelName) {
+        this.modelID = modelID;
+        this.variationID = variationID;
         this.modelName = modelName;
     }
 
@@ -33,12 +34,12 @@ public class Model {
         this.modelID = modelID;
     }
 
-    public int getProductID() {
-        return productID;
+    public int getVariationID() {
+        return variationID;
     }
 
-    public void setProductID(int productID) {
-        this.productID = productID;
+    public void setVariationID(int variationID) {
+        this.variationID = variationID;
     }
 
     public String getModelName() {
@@ -53,7 +54,7 @@ public class Model {
     public String toString() {
         return "Model{" +
                 "modelID=" + modelID +
-                ", productID=" + productID +
+                ", variationID=" + variationID +
                 ", modelName='" + modelName + '\'' +
                 '}';
     }
