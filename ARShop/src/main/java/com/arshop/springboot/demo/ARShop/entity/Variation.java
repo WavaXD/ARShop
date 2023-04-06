@@ -17,12 +17,21 @@ public class Variation {
     @Column(name="Variation_Name")
     private String variationName;
 
+    @Column(name="Variation_Price")
+    private int variationPrice;
+
+    @Column(name="Variation_Quanity")
+    private int variationQuanity;
+
     public Variation() {
     }
 
-    public Variation(int productID, String variationName) {
+    public Variation(int variationID, int productID, String variationName, int variationPrice, int variationQuanity) {
+        this.variationID = variationID;
         this.productID = productID;
         this.variationName = variationName;
+        this.variationPrice = variationPrice;
+        this.variationQuanity = variationQuanity;
     }
 
     public int getVariationID() {
@@ -49,12 +58,30 @@ public class Variation {
         this.variationName = variationName;
     }
 
+    public int getVariationPrice() {
+        return variationPrice;
+    }
+
+    public void setVariationPrice(int variationPrice) {
+        this.variationPrice = variationPrice;
+    }
+
+    public int getVariationQuanity() {
+        return variationQuanity;
+    }
+
+    public void setVariationQuanity(int variationQuanity) {
+        this.variationQuanity = variationQuanity;
+    }
+
     @Override
     public String toString() {
         return "Variation{" +
                 "variationID=" + variationID +
                 ", productID=" + productID +
                 ", variationName='" + variationName + '\'' +
+                ", variationPrice=" + variationPrice +
+                ", variationQuanity=" + variationQuanity +
                 '}';
     }
 }
