@@ -29,14 +29,10 @@ public class IdentifyService {
 
         String[] splitPayload = payload.split("(?!\\.)(?!\\@)\\W");
 
-        System.out.println(splitPayload[5]);
-
         String jwtEmail = splitPayload[5];
 
         var user = repository.findByCustomerEmail(jwtEmail)
                 .orElseThrow();
-
-        System.out.println(jwtEmail);
 
         return user.getCustomerID();
     }
