@@ -16,12 +16,6 @@ public class Product {
     @Column(name="Product_Name")
     private String productName;
 
-    @Column(name="Product_Price")
-    private int productPrice;
-
-    @Column(name="Product_Quanity")
-    private int productQuanity;
-
     @Column(name="Product_Detail")
     private String productDetail;
 
@@ -37,11 +31,9 @@ public class Product {
     public Product() {
     }
 
-    public Product(int productID, String productName, int productPrice, int productQuanity, String productDetail, int vendorID, int productReach, int soldQuanity) {
+    public Product(int productID, String productName, String productDetail, int vendorID, int productReach, int soldQuanity) {
         this.productID = productID;
         this.productName = productName;
-        this.productPrice = productPrice;
-        this.productQuanity = productQuanity;
         this.productDetail = productDetail;
         this.vendorID = vendorID;
         this.productReach = productReach;
@@ -62,22 +54,6 @@ public class Product {
 
     public void setProductName(String productName) {
         this.productName = productName;
-    }
-
-    public int getProductPrice() {
-        return productPrice;
-    }
-
-    public void setProductPrice(int productPrice) {
-        this.productPrice = productPrice;
-    }
-
-    public int getProductQuanity() {
-        return productQuanity;
-    }
-
-    public void setProductQuanity(int productQuanity) {
-        this.productQuanity = productQuanity;
     }
 
     public String getProductDetail() {
@@ -117,8 +93,6 @@ public class Product {
         return "Product{" +
                 "productID=" + productID +
                 ", productName='" + productName + '\'' +
-                ", productPrice=" + productPrice +
-                ", productQuanity=" + productQuanity +
                 ", productDetail='" + productDetail + '\'' +
                 ", vendorID=" + vendorID +
                 ", productReach=" + productReach +
