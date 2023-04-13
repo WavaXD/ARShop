@@ -17,7 +17,6 @@ class register extends StatefulWidget {
 
 class _registerState extends State<register> {
   bool isAPIcallProcess = false;
-  final apiProvider = ApiProvider();
   final _formkey = GlobalKey<FormState>();
   final focusNode = FocusNode();
   final emailController = TextEditingController();
@@ -316,7 +315,7 @@ class _registerState extends State<register> {
                                   String formattedDate =
                                       "${date.year.toString().padLeft(2, '0')}-"
                                       "${date.month.toString().padLeft(2, '0')}-"
-                                      "${date.day.toString()}";
+                                      "${date.day.toString().padLeft(2, '0')}";
                                   customerBirthdateController.text =
                                       formattedDate;
                                 }
@@ -582,6 +581,30 @@ class _registerState extends State<register> {
                                                 builder:
                                                     (BuildContext context) =>
                                                         login(),
+                                              ));
+                                            })
+                                          }
+                                        else
+                                          {
+                                            showDialog(
+                                                context: context,
+                                                builder:
+                                                    (BuildContext context) {
+                                                  return AlertDialog(
+                                                    title: Text(
+                                                        Config_api.appName),
+                                                    content: Text(
+                                                        "สมัครสมาชิกไม่สำเร็จ โปรดลองใหม่อีกครั้ง"),
+                                                  );
+                                                }),
+                                            Future.delayed(Duration(seconds: 1),
+                                                () {
+                                              Navigator.of(context).pop();
+                                              Navigator.of(context)
+                                                  .push(MaterialPageRoute(
+                                                builder:
+                                                    (BuildContext context) =>
+                                                        register(),
                                               ));
                                             })
                                           }

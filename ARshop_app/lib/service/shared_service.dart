@@ -22,7 +22,7 @@ class SharedService {
 
     if (isKeyExist) {
       var cacheData = await APICacheManager().getCacheData('login_details');
-      return loginResponseJson(cacheData.syncData);
+      return loginResponseFromJson(cacheData.syncData);
     }
   }
 

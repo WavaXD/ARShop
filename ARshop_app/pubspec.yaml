@@ -45,7 +45,7 @@ dependencies:
   dots_indicator: ^2.0.0
   snippet_coder_utils: ^1.0.8
   api_cache_manager: ^1.0.2
-  badges: ^3.0.2
+  badges: ^3.0.3
   app_upgrade_flutter_sdk: ^1.0.6
   shared_preferences: ^2.0.18
   group_button: ^5.2.2
@@ -53,6 +53,7 @@ dependencies:
   model_viewer_plus: ^1.5.0
   arcore_flutter_plugin: ^0.1.0
   sliding_up_panel: ^2.0.0+1
+  shimmer: ^2.0.0
 
   
 

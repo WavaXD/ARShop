@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:ARshop_App/api/config.dart';
 import 'package:ARshop_App/models/login_request.dart';
 import 'package:ARshop_App/models/login_response.dart';
@@ -33,7 +32,7 @@ class APIService {
 
     if (response.statusCode == 200) {
       //share
-      await SharedService.setLoginDetails(loginResponseJson(response.body));
+      await SharedService.setLoginDetails(loginResponseFromJson(response.body));
       return true;
     } else {
       return false;
@@ -52,7 +51,7 @@ class APIService {
     var loginDetails = await SharedService.loginDetails();
     if (loginDetails != null) {
       request.headers.addAll({
-        'Authorization': 'Basic ${loginDetails.token}',
+        'Authorization': 'Bearer ${loginDetails.token}',
       });
     }
     var response = await client.send(request);
@@ -84,7 +83,7 @@ class APIService {
     var loginDetails = await SharedService.loginDetails();
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
-      'Authorization': 'Basic ${loginDetails!.token}'
+      'Authorization': 'Bearer ${loginDetails!.token}'
     };
     var url = Uri.http(Config_api.apiURL, Config_api.userProfileAPI);
 
@@ -101,12 +100,13 @@ class APIService {
   }
 
   //search
-  static Future<String> getSearchItem(SearchModel model) async {
+  static Future<List<SearchResponseModel>> getSearchItem(
+      SearchModel model) async {
     var url = Uri.http(Config_api.apiURL, Config_api.searchAPI);
     var loginDetails = await SharedService.loginDetails();
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
-      'Authorization': 'Basic ${loginDetails!.token}'
+      'Authorization': 'Bearer ${loginDetails!.token}'
     };
     var response = await client.post(
       url,
@@ -114,8 +114,8 @@ class APIService {
       body: jsonEncode(model.toJson()),
     );
     if (response.statusCode == 200) {
-      final responseData = jsonDecode(response.body);
-      final searchResponseModels = searchRequestModelToJson(responseData);
+      final responseData = response.body;
+      final searchResponseModels = searchResponseModelFromJson(responseData);
       return searchResponseModels;
     } else {
       throw Exception('Failed to search product');
@@ -130,7 +130,7 @@ class APIService {
     var loginDetails = await SharedService.loginDetails();
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
-      'Authorization': 'Basic ${loginDetails!.token}'
+      'Authorization': 'Bearer ${loginDetails!.token}'
     };
     var response = await client.get(
       url,
@@ -138,7 +138,8 @@ class APIService {
     );
 
     if (response.statusCode == 200) {
-      return ProductDetaillResponseClass.fromJson(jsonDecode(response.body));
+      return ProductDetaillResponseClass.fromJson(
+          jsonDecode(json.encode(response.body)));
     } else {
       throw Exception('Failed to load product details');
     }
@@ -151,7 +152,7 @@ class APIService {
     var loginDetails = await SharedService.loginDetails();
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
-      'Authorization': 'Basic ${loginDetails!.token}'
+      'Authorization': 'Bearer ${loginDetails!.token}'
     };
     var response = await client.get(url, headers: requestHeaders);
 
@@ -172,17 +173,18 @@ class APIService {
     var loginDetails = await SharedService.loginDetails();
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
-      'Authorization': 'Basic ${loginDetails!.token}'
+      'Authorization': 'Bearer ${loginDetails!.token}'
     };
     var response = await client.get(url, headers: requestHeaders);
 
     if (response.statusCode == 200) {
       var decodedData = jsonDecode(response.body);
       List<PopularProductResponse> popularProducts =
-          popularProductResponseFromJson(decodedData);
+          popularProductResponseFromJson(json.encode(decodedData));
       return popularProducts;
     } else {
-      throw Exception('Failed to load popular products');
+      throw Exception(
+          'Failed to load popular products ${response.statusCode} ${loginDetails!.token}');
     }
   }
 }

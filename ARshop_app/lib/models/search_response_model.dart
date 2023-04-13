@@ -19,7 +19,7 @@ class SearchResponseModel {
     required this.soldQuanity,
   });
 
-  int productId;
+  int? productId;
   String productName;
   int productPrice;
   int productQuanity;
@@ -30,14 +30,14 @@ class SearchResponseModel {
 
   factory SearchResponseModel.fromJson(Map<String, dynamic> json) =>
       SearchResponseModel(
-        productId: json["productID"],
+        productId: json["productID"] ?? 0,
         productName: json["productName"],
-        productPrice: json["productPrice"],
-        productQuanity: json["productQuanity"],
-        productDetail: json["productDetail"],
-        vendorId: json["vendorID"],
-        productReach: json["productReach"],
-        soldQuanity: json["soldQuanity"],
+        productPrice: json["productPrice"] ?? 0,
+        productQuanity: json["productQuanity"] ?? 0,
+        productDetail: json["productDetail"] ?? "",
+        vendorId: json["vendorID"] ?? 0,
+        productReach: json["productReach"] ?? 0,
+        soldQuanity: json["soldQuanity"] ?? 0,
       );
 
   Map<String, dynamic> toJson() => {

@@ -50,9 +50,8 @@ class _search_pageState extends State<search_page> {
     final model = SearchModel(productName: searchText);
     try {
       final searchResult = await APIService.getSearchItem(model);
-      final searchResponseModels = searchResponseModelFromJson(searchResult);
       setState(() {
-        widget._data = searchResponseModels.map((e) => e.productName).toList();
+        widget._data = searchResult.map((e) => e.productName).toList();
       });
       _searchHistory.add(searchText);
       _saveSearchHistory();

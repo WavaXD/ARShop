@@ -3,7 +3,7 @@ import 'package:ARshop_App/api/config.dart';
 import 'package:ARshop_App/models/login_request.dart';
 import 'package:http/http.dart' as http;
 import 'package:ARshop_App/utils/consts.dart';
-import 'package:ARshop_App/api/api_provider.dart';
+
 import 'package:snippet_coder_utils/FormHelper.dart';
 
 class login extends StatefulWidget {
@@ -13,7 +13,7 @@ class login extends StatefulWidget {
 
 class LoginPage extends State<login> {
   bool isAPIcallProcess = false;
-  final apiProvider = ApiProvider();
+
   final _formkey = GlobalKey<FormState>();
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
@@ -236,7 +236,7 @@ class LoginPage extends State<login> {
                                             Navigator.of(context)
                                                 .push(MaterialPageRoute(
                                               builder: (BuildContext context) =>
-                                                  login(),
+                                                  Homepage(),
                                             ));
                                           })
                                         }
@@ -274,7 +274,7 @@ class LoginPage extends State<login> {
                             },
                             child: Text(
                                 style:
-                                    TextStyle(fontFamily: 'LINESeedSansTH-Rg'),
+                                    TextStyle(fontFamily: 'LINESeedSansTHRg'),
                                 'เข้าสู่ระบบ'),
                             style: ButtonStyle(
                                 textStyle: MaterialStateProperty.all(TextStyle(

@@ -1,6 +1,6 @@
 import 'package:ARshop_App/page/profile.dart';
 import 'package:flutter/material.dart';
-
+import 'package:ARshop_App/service/shared_service.dart';
 import 'package:ARshop_App/page/login.dart';
 import 'package:ARshop_App/page/product.dart';
 import 'package:ARshop_App/page/register.dart';
@@ -21,10 +21,23 @@ class _HomepageState extends State<Homepage> {
   ];
 
   int currentTabIndex = 0;
-  onTapmenu(int index) {
+  onTapmenu(int index) async {
+    if (index != 0) {
+      checkloginStatus();
+    }
     setState(() {
       currentTabIndex = index;
     });
+  }
+
+  Future<void> checkloginStatus() async {
+    bool result = await SharedService.isLoggedIn();
+
+    if (!result) {
+      await Navigator.of(context).push(MaterialPageRoute(
+        builder: (BuildContext context) => login(), // wait add Cart page
+      ));
+    }
   }
 
   @override
@@ -36,7 +49,7 @@ class _HomepageState extends State<Homepage> {
         bottomNavigationBar: BottomNavigationBar(
             onTap: onTapmenu,
             elevation: 10,
-            type: BottomNavigationBarType.shifting,
+            type: BottomNavigationBarType.fixed,
             showSelectedLabels: true,
             showUnselectedLabels: true,
             selectedItemColor: Color.fromARGB(255, 63, 81, 181),

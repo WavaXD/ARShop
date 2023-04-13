@@ -1,5 +1,5 @@
 import 'dart:math';
-
+import 'package:badges/badges.dart' as badges;
 import 'package:ARshop_App/service/shared_service.dart';
 import 'package:ARshop_App/utils/consts.dart';
 import 'package:ARshop_App/widget_common/custom_label.dart';
@@ -24,22 +24,6 @@ class _product_pageState extends State<product_page> {
   @override
   void initState() {
     super.initState();
-    _loadSlideImages();
-  }
-
-  Future<void> _loadSlideImages() async {
-    try {
-      // Call getSlidImage to get a list of slide image URLs
-      List<String> slideImageUrls = await ApiProvider().getSlideImages('123');
-
-      // Update the state with the slide image URLs
-      setState(() {
-        _slidersList = slideImageUrls;
-      });
-    } catch (e) {
-      // Handle the error
-      print(e);
-    }
   }
 
   @override
@@ -80,13 +64,23 @@ class _product_pageState extends State<product_page> {
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.notifications_active),
+            padding: EdgeInsets.only(right: 15),
+            icon: const badges.Badge(
+              badgeContent: Text(
+                '1',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 10,
+                    fontWeight: FontWeight.bold),
+              ),
+              child: Icon(Icons.notifications_active),
+            ),
             onPressed: () async {
               bool result = await SharedService.isLoggedIn();
               if (result) {
                 await Navigator.of(context).push(MaterialPageRoute(
                   builder: (BuildContext context) =>
-                      Homepage(), // wait add Notification page
+                      show_notification_page(), // wait add Notification page
                 ));
               } else {
                 await Navigator.of(context).push(MaterialPageRoute(
@@ -96,13 +90,23 @@ class _product_pageState extends State<product_page> {
             },
           ),
           IconButton(
-            icon: const Icon(Icons.shopping_cart),
+            padding: EdgeInsets.only(right: 10),
+            icon: badges.Badge(
+              badgeContent: Text(
+                '1',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 10,
+                    fontWeight: FontWeight.bold),
+              ),
+              child: const Icon(Icons.shopping_cart),
+            ),
             onPressed: () async {
               bool result = await SharedService.isLoggedIn();
               if (result) {
                 await Navigator.of(context).push(MaterialPageRoute(
                   builder: (BuildContext context) =>
-                      Homepage(), // wait add Cart page
+                      cart_bucket(), // wait add Cart page
                 ));
               } else {
                 await Navigator.of(context).push(MaterialPageRoute(

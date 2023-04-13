@@ -28,7 +28,7 @@ class Myapp extends StatelessWidget {
         theme: ThemeData(
           fontFamily: 'LINESeedSansTH',
         ),
-        home: SplashScreen(),
+        routes: {'/': (context) => const SplashScreen()},
         debugShowCheckedModeBanner: false);
   }
 }

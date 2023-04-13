@@ -5,6 +5,7 @@ import 'package:ARshop_App/widget_common/sliding_panel_info_product.dart';
 import 'package:material_symbols_icons/outlined_suffix.dart';
 import 'package:material_symbols_icons/rounded.dart';
 import 'package:ARshop_App/widget_common/sliding_panel_info_product.dart';
+import 'package:intl/intl.dart';
 
 class show_product extends StatefulWidget {
   const show_product({super.key});
@@ -16,12 +17,14 @@ class show_product extends StatefulWidget {
 class _show_productState extends State<show_product> {
   final controller = GroupButtonController();
   final _panelController = PanelController();
-  int price = 1500;
+  double price = 1500;
+  var formatter = NumberFormat('#,##0.00');
   int _currentIndex = 0;
   double _initialRating = 4.5;
   int color_type = 0;
   @override
   Widget build(BuildContext context) {
+    String formatted = formatter.format(price);
     final size = AppLayout.getSize(context);
     return Scaffold(
       backgroundColor: Colors.white,
@@ -198,7 +201,7 @@ class _show_productState extends State<show_product> {
             Container(
               child: ListTile(
                 leading: Text(
-                  'ราคา $price บาท',
+                  'ราคา $formatted บาท',
                   style: TextStyle(color: textnavy, fontSize: 22),
                 ),
               ),
