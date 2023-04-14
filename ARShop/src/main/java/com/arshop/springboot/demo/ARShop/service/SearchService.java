@@ -1,10 +1,7 @@
 package com.arshop.springboot.demo.ARShop.service;
 
 import com.arshop.springboot.demo.ARShop.dao.*;
-import com.arshop.springboot.demo.ARShop.entity.Model;
-import com.arshop.springboot.demo.ARShop.entity.Product;
-import com.arshop.springboot.demo.ARShop.entity.ProductScore;
-import com.arshop.springboot.demo.ARShop.entity.Variation;
+import com.arshop.springboot.demo.ARShop.entity.*;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Service;
 
@@ -56,7 +53,11 @@ public class SearchService {
             String picture = getProductPicture(productID.getProductID());
             String model = getModel(productID.getProductID());
 
-            detail.add(picture);
+            var productPicture = ProductPicture.builder()
+                            .pictureName(picture)
+                            .build();
+
+            detail.add(productPicture);
             //detail.add(model); //fix here
             detail.add(getProductVariationAndModel(productID));
 
