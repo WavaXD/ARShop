@@ -18,7 +18,12 @@ public interface ProductRepository extends JpaRepository<Product,Integer> {
     @Query("Select c from Product c Inner join ProductScore s ON c.productID = s.productID where s.customerID = :customerID ORDER BY s.watchedTime DESC LIMIT 1000")
     List<Product> findAllWithScore(int customerID);
 
+    @Query("Select c from Product c Inner join ProductScore s ON c.productID = s.productID where s.customerID = :customerID ORDER BY s.watchedTime DESC LIMIT 1000")
+    List<Product> findScoreWithImage(int customerID);
+
     @Query("Select c from Product c where c.productName like %:productName%")
     List<Product> search(String productName);
+
+    Product findByProductID(int productID);
 
 }
