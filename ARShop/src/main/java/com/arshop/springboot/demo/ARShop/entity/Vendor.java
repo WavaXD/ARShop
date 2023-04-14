@@ -1,7 +1,9 @@
 package com.arshop.springboot.demo.ARShop.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 
+@Builder
 @Entity
 @Table(name = "vendor")
 public class Vendor {
@@ -26,7 +28,8 @@ public class Vendor {
     public Vendor() {
     }
 
-    public Vendor(String vendorEmail, String vendorPassword, String vendorName, String vendorTel) {
+    public Vendor(int vendorID, String vendorEmail, String vendorPassword, String vendorName, String vendorTel) {
+        this.vendorID = vendorID;
         this.vendorEmail = vendorEmail;
         this.vendorPassword = vendorPassword;
         this.vendorName = vendorName;
