@@ -31,15 +31,28 @@ public class Order {
     @Column(name="Vendor_ID")
     private int vendorID;
 
+    @Column(name="Order_Price")
+    private float orderPrice;
+
+    @Column(name="Delivery_Co")
+    private String deliveryCo;
+
+    @Column(name="Delivery_Cost")
+    private float deliveryCost;
+
     public Order(){}
 
-    public Order(int customerID, int addressID, Date orderDate, String orderStatus, String trackingNumber, int vendorID) {
+    public Order(int orderID, int customerID, int addressID, Date orderDate, String orderStatus, String trackingNumber, int vendorID, float orderPrice, String deliveryCo, float deliveryCost) {
+        this.orderID = orderID;
         this.customerID = customerID;
         this.addressID = addressID;
         this.orderDate = orderDate;
         this.orderStatus = orderStatus;
         this.trackingNumber = trackingNumber;
         this.vendorID = vendorID;
+        this.orderPrice = orderPrice;
+        this.deliveryCo = deliveryCo;
+        this.deliveryCost = deliveryCost;
     }
 
     public int getOrderID() {
@@ -96,6 +109,30 @@ public class Order {
 
     public void setVendorID(int vendorID) {
         this.vendorID = vendorID;
+    }
+
+    public float getOrderPrice() {
+        return orderPrice;
+    }
+
+    public void setOrderPrice(float orderPrice) {
+        this.orderPrice = orderPrice;
+    }
+
+    public String getDeliveryCo() {
+        return deliveryCo;
+    }
+
+    public void setDeliveryCo(String deliveryCo) {
+        this.deliveryCo = deliveryCo;
+    }
+
+    public float getDeliveryCost() {
+        return deliveryCost;
+    }
+
+    public void setDeliveryCost(float deliveryCost) {
+        this.deliveryCost = deliveryCost;
     }
 
     @Override
