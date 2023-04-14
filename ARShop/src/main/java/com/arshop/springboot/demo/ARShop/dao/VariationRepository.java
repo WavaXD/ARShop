@@ -8,4 +8,6 @@ import java.util.List;
 public interface VariationRepository extends JpaRepository<Variation,Integer> {
 
     List<Variation> findByProductID(int productID);
+
+    Variation findByVariationID(int variationID);
 }
