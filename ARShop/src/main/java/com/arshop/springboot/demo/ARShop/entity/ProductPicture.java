@@ -1,7 +1,9 @@
 package com.arshop.springboot.demo.ARShop.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 
+@Builder
 @Entity
 @Table(name="productpicture")
 public class ProductPicture {
@@ -20,7 +22,8 @@ public class ProductPicture {
     public ProductPicture() {
     }
 
-    public ProductPicture(int productID, String pictureName) {
+    public ProductPicture(int pictureID, int productID, String pictureName) {
+        this.pictureID = pictureID;
         this.productID = productID;
         this.pictureName = pictureName;
     }
