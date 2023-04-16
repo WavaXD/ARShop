@@ -23,3 +23,5 @@ export 'package:ARshop_App/page/show_noti_page.dart';
 export 'package:ARshop_App/widget_common/popular_product.dart';
 export 'package:ARshop_App/widget_common/popular_product_card.dart';
 export 'package:shimmer/shimmer.dart';
+export 'package:ARshop_App/widget_common/recommend_product_card.dart';
+export 'package:ARshop_App/widget_common/recommend_product.dart';

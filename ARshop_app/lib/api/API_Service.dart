@@ -147,7 +147,7 @@ class APIService {
 
   //get_recommed_product
   static Future<List<RecommendProductResponse>> getRecommendProduct(
-      model) async {
+      {required int limit}) async {
     var url = Uri.http(Config_api.apiURL, Config_api.recommendProductAPI);
     var loginDetails = await SharedService.loginDetails();
     Map<String, String> requestHeaders = {
@@ -159,10 +159,11 @@ class APIService {
     if (response.statusCode == 200) {
       var decodedData = jsonDecode(response.body);
       List<RecommendProductResponse> recommendProduct =
-          recommendProductResponseFromJson(decodedData);
+          recommendProductResponseFromJson(json.encode(decodedData));
       return recommendProduct;
     } else {
-      throw Exception('Failed to load recommended products');
+      throw Exception(
+          'Failed to load popular products ${response.statusCode} ${loginDetails!.token}');
     }
   }
 

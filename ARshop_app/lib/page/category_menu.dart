@@ -49,6 +49,7 @@ class catagory_menu extends StatelessWidget {
             ),
             Expanded(
               child: GridView.count(
+                physics: NeverScrollableScrollPhysics(),
                 crossAxisCount: 4,
                 childAspectRatio: 1,
                 children: [

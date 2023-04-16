@@ -11,8 +11,8 @@ class RecommendProductResponse {
   RecommendProductResponse({
     required this.productId,
     required this.productName,
-    required this.productPrice,
-    required this.productQuanity,
+    // required this.productPrice,
+    // required this.productQuanity,
     this.productDetail,
     required this.vendorId,
     required this.productReach,
@@ -21,8 +21,8 @@ class RecommendProductResponse {
 
   int productId;
   String productName;
-  int productPrice;
-  int productQuanity;
+  // int productPrice;
+  // int productQuanity;
   dynamic productDetail;
   int vendorId;
   int productReach;
@@ -32,8 +32,8 @@ class RecommendProductResponse {
       RecommendProductResponse(
         productId: json["productID"],
         productName: json["productName"],
-        productPrice: json["productPrice"],
-        productQuanity: json["productQuanity"],
+        // productPrice: json["productPrice"],
+        // productQuanity: json["productQuanity"],
         productDetail: json["productDetail"],
         vendorId: json["vendorID"],
         productReach: json["productReach"],
@@ -43,8 +43,8 @@ class RecommendProductResponse {
   Map<String, dynamic> toJson() => {
         "productID": productId,
         "productName": productName,
-        "productPrice": productPrice,
-        "productQuanity": productQuanity,
+        // "productPrice": productPrice,
+        // "productQuanity": productQuanity,
         "productDetail": productDetail,
         "vendorID": vendorId,
         "productReach": productReach,

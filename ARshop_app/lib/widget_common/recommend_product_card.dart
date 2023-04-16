@@ -1,12 +1,10 @@
-import 'package:ARshop_App/utils/consts.dart';
-import 'package:ARshop_App/api/API_Service.dart';
-import 'package:ARshop_App/models/popular_product_response.dart';
+import 'package:flutter/material.dart';
 import 'package:ARshop_App/models/recommend_product_response.dart';
-import 'package:ARshop_App/service/shared_service.dart';
+import 'package:ARshop_App/utils/consts.dart';
 
-class PopularProductCard extends StatelessWidget {
-  final PopularProductResponse popularProducts;
-  const PopularProductCard({Key? key, required this.popularProducts})
+class RecommendProductCard extends StatelessWidget {
+  final RecommendProductResponse recommendProduct;
+  const RecommendProductCard({Key? key, required this.recommendProduct})
       : super(key: key);
 
   @override
@@ -14,24 +12,12 @@ class PopularProductCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.fromLTRB(0, 10, 5, 10),
       child: Material(
-        color: Colors.white,
         elevation: 1,
+        color: Colors.white,
         shadowColor: Colors.grey.shade300,
-        borderRadius: BorderRadius.circular(5),
+        borderRadius: BorderRadius.circular(10),
         child: InkWell(
-          onTap: () async {
-            bool result = await SharedService.isLoggedIn();
-            if (result) {
-              await Navigator.of(context).push(MaterialPageRoute(
-                builder: (BuildContext context) =>
-                    show_product(), // wait add Notification page
-              ));
-            } else {
-              await Navigator.of(context).push(MaterialPageRoute(
-                builder: (BuildContext context) => login(),
-              ));
-            }
-          },
+          onTap: () {},
           child: Container(
             padding: EdgeInsets.all(5),
             width: 100,
@@ -55,7 +41,7 @@ class PopularProductCard extends StatelessWidget {
                   // color: Colors.amber,
                   child: Container(
                     child: Text(
-                      popularProducts.productName,
+                      recommendProduct.productName,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
@@ -70,7 +56,7 @@ class PopularProductCard extends StatelessWidget {
                   // color: Colors.amber,
                   child: Container(
                     child: Text(
-                      '${popularProducts.productReach.toStringAsFixed(2)} บาท',
+                      '${recommendProduct.productReach.toStringAsFixed(2)} บาท',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(

@@ -1,29 +1,50 @@
-import 'dart:math';
+import 'package:ARshop_App/utils/consts.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:ARshop_App/service/shared_service.dart';
-import 'package:ARshop_App/utils/consts.dart';
-import 'package:ARshop_App/widget_common/custom_label.dart';
-import 'package:flutter/material.dart';
-import 'package:ARshop_App/page/category_menu.dart';
-import 'package:ARshop_App/page/login.dart';
-import 'package:ARshop_App/page/picture_ads.dart';
 import 'package:ARshop_App/page/search.dart';
-import 'package:gap/gap.dart';
+import 'package:ARshop_App/models/popular_product_response.dart';
+import 'package:ARshop_App/models/recommend_product_response.dart';
+import 'package:ARshop_App/api/API_Service.dart';
 
-class product_page extends StatefulWidget {
-  const product_page({super.key});
+class showAllRecommendProduct extends StatefulWidget {
+  const showAllRecommendProduct({super.key});
 
   @override
-  State<product_page> createState() => _product_pageState();
+  State<showAllRecommendProduct> createState() =>
+      _showAllRecommendProductState();
 }
 
-class _product_pageState extends State<product_page> {
-  List<String> _slidersList = [];
-  int _currentIndex = 0;
-
+class _showAllRecommendProductState extends State<showAllRecommendProduct> {
+  List<PopularProductResponse> popularProducts = [];
+  List<RecommendProductResponse> recommendProducts = [];
   @override
   void initState() {
     super.initState();
+    _fetchPopularProducts();
+    _fetchRecommendProducts();
+  }
+
+  Future<void> _fetchPopularProducts() async {
+    try {
+      final popularProductsData = await APIService.getPopularProduct(limit: 12);
+      setState(() {
+        popularProducts = popularProductsData;
+      });
+    } catch (e) {
+      print('Failed to fetch popular products: $e');
+    }
+  }
+
+  Future<void> _fetchRecommendProducts() async {
+    try {
+      final recommendProductsData =
+          await APIService.getRecommendProduct(limit: 12);
+      setState(() {
+        recommendProducts = recommendProductsData;
+      });
+    } catch (e) {
+      print('Failed to fetch recommand product: $e');
+    }
   }
 
   @override
@@ -117,64 +138,9 @@ class _product_pageState extends State<product_page> {
           ),
         ],
       ),
-      body: Container(
-        color: Color.fromRGBO(255, 255, 255, 1),
-        child: ListView(
-          children: [
-            Container(
-              padding: EdgeInsets.only(top: 20),
-              child: Column(
-                children: [
-                  VxSwiper.builder(
-                    aspectRatio: 16 / 9,
-                    autoPlay: true,
-                    height: 150,
-                    itemCount: slidersList.length,
-                    enlargeCenterPage: true,
-                    itemBuilder: (context, index) {
-                      return Container(
-                        child: Image.asset(
-                          slidersList[index],
-                          fit: BoxFit.fill,
-                        )
-                            .box
-                            .rounded
-                            .clip(Clip.antiAlias)
-                            .margin(
-                              EdgeInsets.symmetric(horizontal: 0),
-                            )
-                            .make(),
-                      );
-                    },
-                    onPageChanged: (index) {
-                      setState(() {
-                        _currentIndex = index;
-                      });
-                    },
-                  ),
-                  Positioned(
-                      child: DotsIndicator(
-                    dotsCount: slidersList.length,
-                    position: _currentIndex.toDouble(),
-                    decorator: DotsDecorator(
-                      activeColor: textnavy,
-                      activeSize: const Size(5.0, 5.0),
-                      size: const Size(5.0, 5.0),
-                      activeShape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5.0)),
-                    ),
-                  )),
-                  Row(
-                    children: [catagory_menu()],
-                  )
-                ],
-              ),
-            ),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              child: Column(children: [popular_product()]),
-            )
-          ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [RecommedProduct(recommendProducts: recommendProducts)],
         ),
       ),
     );

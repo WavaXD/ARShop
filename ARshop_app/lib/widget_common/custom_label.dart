@@ -1,5 +1,6 @@
 import 'package:ARshop_App/models/popular_product_response.dart';
 import 'package:ARshop_App/models/recommend_product_response.dart';
+import 'package:ARshop_App/page/show_all_popular_product.dart';
 import 'package:ARshop_App/utils/consts.dart';
 import 'package:ARshop_App/api/API_Service.dart';
 
@@ -17,6 +18,7 @@ class _popular_productState extends State<popular_product> {
   void initState() {
     super.initState();
     _fetchPopularProducts();
+    _fetchRecommendProducts();
   }
 
   Future<void> _fetchPopularProducts() async {
@@ -32,7 +34,8 @@ class _popular_productState extends State<popular_product> {
 
   Future<void> _fetchRecommendProducts() async {
     try {
-      final recommendProductsData = await APIService.getRecommendProduct(1);
+      final recommendProductsData =
+          await APIService.getRecommendProduct(limit: 12);
       setState(() {
         recommendProducts = recommendProductsData;
       });
@@ -89,105 +92,59 @@ class _popular_productState extends State<popular_product> {
                 child: Column(
                   children: [PopularProduct(popularProducts: popularProducts)],
                 )),
-            // Container(
-            //   child: Padding(
-            //     padding: const EdgeInsets.only(top: 20.0),
-            //     child: Column(
-            //       children: [
-            //         Row(
-            //           children: [
-            //             Expanded(
-            //               child: Text(
-            //                 product_recommend_label,
-            //                 style: TextStyle(
-            //                   fontSize: 25,
-            //                   color: Color.fromARGB(255, 23, 43, 77),
-            //                 ),
-            //               ),
-            //             ),
-            //             TextButton(
-            //               onPressed: () {},
-            //               child: Row(
-            //                 children: [
-            //                   Text(
-            //                     'ดูทั้งหมด',
-            //                     style: TextStyle(
-            //                       color: Color.fromARGB(255, 93, 92, 93),
-            //                       fontSize: 16,
-            //                     ),
-            //                   ),
-            //                   Icon(
-            //                     Icons.arrow_forward_ios_rounded,
-            //                     size: 15,
-            //                     color: Color.fromARGB(255, 152, 149, 151),
-            //                   ),
-            //                 ],
-            //               ),
-            //             ),
-            //           ],
-            //         ),
-            //       ],
-            //     ),
-            //   ),
-            // ),
-            // Container(
-            //   child: Column(
-            //     children: List.generate(
-            //       6, // generate 2 rows
-            //       (index) => Row(
-            //         children: List.generate(
-            //           2, // generate 6 columns
-            //           (index) => TextButton(
-            //             onPressed: () {
-            //               Navigator.of(context).push(MaterialPageRoute(
-            //                 builder: (BuildContext context) => show_product(),
-            //               ));
-            //             },
-            //             child: SizedBox(
-            //               child: Column(
-            //                 crossAxisAlignment: CrossAxisAlignment.start,
-            //                 children: [
-            //                   Image.asset(
-            //                     img2,
-            //                     height: 160,
-            //                     width: 160,
-            //                     fit: BoxFit.cover,
-            //                   ),
-            //                   10.heightBox,
-            //                   "White Lamp".text.color(textnavy).make(),
-            //                   2.heightBox,
-            //                   "189 บาท".text.color(textgrey).make(),
-            //                   1.heightBox,
-            //                   RatingBar.builder(
-            //                     initialRating:
-            //                         _initialRating, // use product rating from data
-            //                     minRating: 1,
-            //                     direction: Axis.horizontal,
-            //                     allowHalfRating: true,
-            //                     itemCount: 5,
-            //                     itemSize: 15.0,
-            //                     itemPadding:
-            //                         EdgeInsets.symmetric(horizontal: 1.0),
-            //                     itemBuilder: (context, _) => Icon(
-            //                       Icons.star,
-            //                       color: Colors.amber,
-            //                     ),
-            //                     onRatingUpdate: (rating) {
-            //                       print(rating);
-            //                     },
-            //                   ),
-            //                 ],
-            //               )
-            //                   .box
-            //                   .margin(EdgeInsets.symmetric(horizontal: 4))
-            //                   .make(),
-            //             ),
-            //           ),
-            //         ),
-            //       ),
-            //     ),
-            //   ),
-            // ),
+            Container(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 20.0),
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            product_recommend_label,
+                            style: TextStyle(
+                              fontSize: 25,
+                              color: Color.fromARGB(255, 23, 43, 77),
+                            ),
+                          ),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (BuildContext context) =>
+                                    showAllRecommendProduct()));
+                          },
+                          child: Row(
+                            children: [
+                              Text(
+                                'ดูทั้งหมด',
+                                style: TextStyle(
+                                  color: Color.fromARGB(255, 93, 92, 93),
+                                  fontSize: 16,
+                                ),
+                              ),
+                              Icon(
+                                Icons.arrow_forward_ios_rounded,
+                                size: 15,
+                                color: Color.fromARGB(255, 152, 149, 151),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            SingleChildScrollView(
+              physics: BouncingScrollPhysics(),
+              child: Column(
+                children: [
+                  RecommedProduct(recommendProducts: recommendProducts)
+                ],
+              ),
+            ),
           ],
         ),
       ),
