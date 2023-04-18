@@ -26,3 +26,4 @@ export 'package:shimmer/shimmer.dart';
 export 'package:ARshop_App/widget_common/recommend_product_card.dart';
 export 'package:ARshop_App/widget_common/recommend_product.dart';
 export 'package:ARshop_App/widget_common/notification_list.dart';
+export 'package:flutter_spinkit/flutter_spinkit.dart';

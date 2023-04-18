@@ -101,7 +101,9 @@ class _show_productState extends State<show_product> {
             } else if (snapshot.hasError) {
               return Text("Error: ${snapshot.error}");
             }
-            return CircularProgressIndicator();
+            return CircularProgressIndicator(
+              color: textnavy,
+            );
           },
         ),
         actions: [
@@ -192,9 +194,14 @@ class _show_productState extends State<show_product> {
                   if (snapshot.hasData) {
                     final product_name = snapshot.data!.product.productName;
                     return ListTile(
-                      leading: Text(
-                        product_name,
-                        style: TextStyle(fontSize: 30, color: textnavy),
+                      leading: Container(
+                        width: 300,
+                        child: Text(
+                          product_name,
+                          style: TextStyle(fontSize: 22, color: textnavy),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
                       trailing: Wrap(
                         spacing: 15,
@@ -215,7 +222,9 @@ class _show_productState extends State<show_product> {
                   } else if (snapshot.hasError) {
                     return Text("Error: ${snapshot.error}");
                   }
-                  return CircularProgressIndicator();
+                  return CircularProgressIndicator(
+                    color: textnavy,
+                  );
                 },
               ),
             ),
@@ -258,7 +267,9 @@ class _show_productState extends State<show_product> {
                   } else if (snapshot.hasError) {
                     return Text("Error: ${snapshot.error}");
                   }
-                  return CircularProgressIndicator();
+                  return CircularProgressIndicator(
+                    color: textnavy,
+                  );
                 }),
 
             FutureBuilder(
@@ -278,7 +289,9 @@ class _show_productState extends State<show_product> {
                   } else if (snapshot.hasError) {
                     print('Error : ${snapshot.error}');
                   }
-                  return CircularProgressIndicator();
+                  return CircularProgressIndicator(
+                    color: textnavy,
+                  );
                 }),
             Container(
               child: Row(

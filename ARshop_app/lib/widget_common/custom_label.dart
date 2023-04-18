@@ -1,8 +1,10 @@
 import 'package:ARshop_App/models/popular_product_response.dart';
 import 'package:ARshop_App/models/recommend_product_response.dart';
-import 'package:ARshop_App/page/show_all_popular_product.dart';
+import 'package:ARshop_App/page/show_all_recommend_product.dart';
 import 'package:ARshop_App/utils/consts.dart';
 import 'package:ARshop_App/api/API_Service.dart';
+
+import '../page/show_all_popular_product.dart';
 
 class popular_product extends StatefulWidget {
   const popular_product({Key? key}) : super(key: key);
@@ -12,6 +14,7 @@ class popular_product extends StatefulWidget {
 }
 
 class _popular_productState extends State<popular_product> {
+  bool isLoading = true;
   List<PopularProductResponse> popularProducts = [];
   List<RecommendProductResponse> recommendProducts = [];
   @override
@@ -26,6 +29,7 @@ class _popular_productState extends State<popular_product> {
       final popularProductsData = await APIService.getPopularProduct(limit: 12);
       setState(() {
         popularProducts = popularProductsData;
+        isLoading = false;
       });
     } catch (e) {
       print('Failed to fetch popular products: $e');
@@ -38,6 +42,7 @@ class _popular_productState extends State<popular_product> {
           await APIService.getRecommendProduct(limit: 12);
       setState(() {
         recommendProducts = recommendProductsData;
+        isLoading = false;
       });
     } catch (e) {
       print('Failed to fetch recommand product: $e');
@@ -67,7 +72,11 @@ class _popular_productState extends State<popular_product> {
                   ),
                 ),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (BuildContext context) =>
+                            showAllPopularProduct()));
+                  },
                   child: Row(
                     children: [
                       Text(
@@ -87,11 +96,16 @@ class _popular_productState extends State<popular_product> {
                 ),
               ],
             ),
-            SingleChildScrollView(
-                physics: BouncingScrollPhysics(),
-                child: Column(
-                  children: [PopularProduct(popularProducts: popularProducts)],
-                )),
+            if (isLoading)
+              Center(child: CircularProgressIndicator(color: textnavy))
+            else
+              SingleChildScrollView(
+                  physics: BouncingScrollPhysics(),
+                  child: Column(
+                    children: [
+                      PopularProduct(popularProducts: popularProducts)
+                    ],
+                  )),
             Container(
               child: Padding(
                 padding: const EdgeInsets.only(top: 20.0),
@@ -137,14 +151,17 @@ class _popular_productState extends State<popular_product> {
                 ),
               ),
             ),
-            SingleChildScrollView(
-              physics: BouncingScrollPhysics(),
-              child: Column(
-                children: [
-                  RecommedProduct(recommendProducts: recommendProducts)
-                ],
+            if (isLoading)
+              Center(child: CircularProgressIndicator(color: textnavy))
+            else
+              SingleChildScrollView(
+                physics: BouncingScrollPhysics(),
+                child: Column(
+                  children: [
+                    RecommedProduct(recommendProducts: recommendProducts)
+                  ],
+                ),
               ),
-            ),
           ],
         ),
       ),

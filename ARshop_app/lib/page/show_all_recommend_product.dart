@@ -6,16 +6,15 @@ import 'package:ARshop_App/models/popular_product_response.dart';
 import 'package:ARshop_App/models/recommend_product_response.dart';
 import 'package:ARshop_App/api/API_Service.dart';
 
-import '../widget_common/popular_product_all.dart';
-
-class showAllPopularProduct extends StatefulWidget {
-  const showAllPopularProduct({super.key});
+class showAllRecommendProduct extends StatefulWidget {
+  const showAllRecommendProduct({super.key});
 
   @override
-  State<showAllPopularProduct> createState() => _showAllPopularProductState();
+  State<showAllRecommendProduct> createState() =>
+      _showAllRecommendProductState();
 }
 
-class _showAllPopularProductState extends State<showAllPopularProduct> {
+class _showAllRecommendProductState extends State<showAllRecommendProduct> {
   List<PopularProductResponse> popularProducts = [];
   List<RecommendProductResponse> recommendProducts = [];
   bool isLoading = true;
@@ -44,6 +43,7 @@ class _showAllPopularProductState extends State<showAllPopularProduct> {
           await APIService.getRecommendProduct(limit: 12);
       setState(() {
         recommendProducts = recommendProductsData;
+        isLoading = false;
       });
     } catch (e) {
       print('Failed to fetch recommand product: $e');
@@ -86,7 +86,7 @@ class _showAllPopularProductState extends State<showAllPopularProduct> {
               ),
             )),
         title: Text(
-          'สินค้ายอดฮิต',
+          'สินค้าแนะนำ',
           style: TextStyle(color: textnavy),
         ),
         actions: [
@@ -141,7 +141,7 @@ class _showAllPopularProductState extends State<showAllPopularProduct> {
                 padding: const EdgeInsets.all(20),
                 child: Column(
                   children: [
-                    AllPopularProduct(popularProducts: popularProducts)
+                    RecommedProduct(recommendProducts: recommendProducts)
                   ],
                 ),
               ),

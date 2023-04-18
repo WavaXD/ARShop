@@ -44,7 +44,7 @@ class PopularProductCard extends StatelessWidget {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
                       child: Image.network(
-                        'https://arshopimage.s3.ap-southeast-1.amazonaws.com/images/sofa.png',
+                        popularProducts.productPicture.pictureName,
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -76,7 +76,7 @@ class PopularProductCard extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                           color: textgrey,
-                          fontSize: 18,
+                          fontSize: 14,
                           fontFamily: 'LINESeedSansTHRg'),
                     ),
                   ),

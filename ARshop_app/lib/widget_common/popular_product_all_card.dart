@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:ARshop_App/models/recommend_product_response.dart';
 import 'package:ARshop_App/utils/consts.dart';
 
-class RecommendProductCard extends StatelessWidget {
-  final RecommendProductResponse recommendProduct;
-  const RecommendProductCard({Key? key, required this.recommendProduct})
+import '../models/popular_product_response.dart';
+
+class AllPopularProductCard extends StatelessWidget {
+  final PopularProductResponse popularProducts;
+  const AllPopularProductCard({Key? key, required this.popularProducts})
       : super(key: key);
 
   @override
@@ -25,7 +27,8 @@ class RecommendProductCard extends StatelessWidget {
               await Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(
                   builder: (BuildContext context) => show_product(
-                      productId: recommendProduct.product.productId),
+                    productId: popularProducts.product.productId,
+                  ),
                 ),
                 (route) => false,
               );
@@ -42,7 +45,7 @@ class RecommendProductCard extends StatelessWidget {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
                       child: Image.network(
-                        recommendProduct.productPicture.pictureName,
+                        popularProducts.productPicture.pictureName,
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -54,7 +57,7 @@ class RecommendProductCard extends StatelessWidget {
                   // color: Colors.amber,
                   child: Container(
                     child: Text(
-                      recommendProduct.product.productName,
+                      popularProducts.product.productName,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
@@ -69,7 +72,7 @@ class RecommendProductCard extends StatelessWidget {
                   // color: Colors.amber,
                   child: Container(
                     child: Text(
-                      '${recommendProduct.price.toStringAsFixed(2)} บาท',
+                      '${popularProducts.price.toStringAsFixed(2)} บาท',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(

@@ -1,9 +1,12 @@
 import 'package:ARshop_App/models/recommend_product_response.dart';
 import 'package:ARshop_App/utils/consts.dart';
+import 'package:ARshop_App/widget_common/popular_product_all_card.dart';
 
-class RecommedProduct extends StatelessWidget {
-  final List<RecommendProductResponse> recommendProducts;
-  const RecommedProduct({Key? key, required this.recommendProducts})
+import '../models/popular_product_response.dart';
+
+class AllPopularProduct extends StatelessWidget {
+  final List<PopularProductResponse> popularProducts;
+  const AllPopularProduct({Key? key, required this.popularProducts})
       : super(key: key);
 
   @override
@@ -17,12 +20,12 @@ class RecommedProduct extends StatelessWidget {
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
             crossAxisSpacing: 10,
-            childAspectRatio: 0.95,
+            childAspectRatio: 2 / 3,
           ),
-          itemCount: recommendProducts.length.clamp(0, 50),
+          itemCount: popularProducts.length.clamp(0, 50),
           itemBuilder: (context, index) {
-            return RecommendProductCard(
-              recommendProduct: recommendProducts[index],
+            return AllPopularProductCard(
+              popularProducts: popularProducts[index],
             );
           }),
     );
