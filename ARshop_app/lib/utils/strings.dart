@@ -22,6 +22,7 @@ const birthdate_label = 'วันเกิด';
 const gender_label = 'เพศ';
 const birthdate_select_hint = 'เลือก วัน/เดือน/ปีเกิด';
 const profile_label = 'โปรไฟล์';
+const notification_label = 'แจ้งเตือน';
 const purchase_order_label = 'คำสั่งซื้อสินค้าของฉัน';
 const product_name = 'Sofa';
 final buttons = ['ภาพรวม', 'รายละเอียดสินค้า', 'รีวิว'];

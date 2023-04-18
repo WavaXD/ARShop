@@ -1,13 +1,124 @@
 import 'dart:convert';
 
-List<dynamic> productDetailResponseFromJson(String str) =>
-    List<dynamic>.from(json.decode(str).map((x) => x));
+ProductDetailResponse productDetailResponseFromJson(String str) =>
+    ProductDetailResponse.fromJson(json.decode(str));
 
-String productDetailResponseToJson(List<dynamic> data) =>
-    json.encode(List<dynamic>.from(data.map((x) => x)));
+String productDetailResponseToJson(ProductDetailResponse data) =>
+    json.encode(data.toJson());
 
-class PurpleProductDetailResponse {
-  PurpleProductDetailResponse({
+class ProductDetailResponse {
+  ProductDetailResponse({
+    required this.product,
+    required this.productPicture,
+    required this.variationModelContext,
+  });
+
+  Product product;
+  List<ProductPicture> productPicture;
+  List<VariationModelContext> variationModelContext;
+
+  factory ProductDetailResponse.fromJson(Map<String, dynamic> json) =>
+      ProductDetailResponse(
+        product: Product.fromJson(json["product"]),
+        productPicture: List<ProductPicture>.from(
+            json["productPicture"].map((x) => ProductPicture.fromJson(x))),
+        variationModelContext: List<VariationModelContext>.from(
+            json["variationModelContext"]
+                .map((x) => VariationModelContext.fromJson(x))),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "product": product.toJson(),
+        "productPicture":
+            List<dynamic>.from(productPicture.map((x) => x.toJson())),
+        "variationModelContext":
+            List<dynamic>.from(variationModelContext.map((x) => x.toJson())),
+      };
+}
+
+class Product {
+  Product({
+    required this.productId,
+    required this.productName,
+    this.productDetail,
+    required this.vendorId,
+    required this.productReach,
+    required this.soldQuanity,
+  });
+
+  int productId;
+  String productName;
+  dynamic productDetail;
+  int vendorId;
+  int productReach;
+  int soldQuanity;
+
+  factory Product.fromJson(Map<String, dynamic> json) => Product(
+        productId: json["productID"],
+        productName: json["productName"],
+        productDetail: json["productDetail"],
+        vendorId: json["vendorID"],
+        productReach: json["productReach"],
+        soldQuanity: json["soldQuanity"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "productID": productId,
+        "productName": productName,
+        "productDetail": productDetail,
+        "vendorID": vendorId,
+        "productReach": productReach,
+        "soldQuanity": soldQuanity,
+      };
+}
+
+class ProductPicture {
+  ProductPicture({
+    required this.pictureId,
+    required this.productId,
+    required this.pictureName,
+  });
+
+  int pictureId;
+  int productId;
+  String pictureName;
+
+  factory ProductPicture.fromJson(Map<String, dynamic> json) => ProductPicture(
+        pictureId: json["pictureID"],
+        productId: json["productID"],
+        pictureName: json["pictureName"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "pictureID": pictureId,
+        "productID": productId,
+        "pictureName": pictureName,
+      };
+}
+
+class VariationModelContext {
+  VariationModelContext({
+    required this.variation,
+    this.model,
+  });
+
+  Variation variation;
+  Model? model;
+
+  factory VariationModelContext.fromJson(Map<String, dynamic> json) =>
+      VariationModelContext(
+        variation: Variation.fromJson(json["variation"]),
+        model: json["model"] == null ? null : Model.fromJson(json["model"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "variation": variation.toJson(),
+        "model": model?.toJson(),
+      };
+}
+
+class Model {
+  Model({
     required this.modelId,
     required this.variationId,
     required this.modelName,
@@ -17,8 +128,7 @@ class PurpleProductDetailResponse {
   int variationId;
   String modelName;
 
-  factory PurpleProductDetailResponse.fromJson(Map<String, dynamic> json) =>
-      PurpleProductDetailResponse(
+  factory Model.fromJson(Map<String, dynamic> json) => Model(
         modelId: json["modelID"],
         variationId: json["variationID"],
         modelName: json["modelName"],
@@ -31,8 +141,8 @@ class PurpleProductDetailResponse {
       };
 }
 
-class FluffyProductDetailResponse {
-  FluffyProductDetailResponse({
+class Variation {
+  Variation({
     required this.variationId,
     required this.productId,
     required this.variationName,
@@ -46,8 +156,7 @@ class FluffyProductDetailResponse {
   int variationPrice;
   int variationQuanity;
 
-  factory FluffyProductDetailResponse.fromJson(Map<String, dynamic> json) =>
-      FluffyProductDetailResponse(
+  factory Variation.fromJson(Map<String, dynamic> json) => Variation(
         variationId: json["variationID"],
         productId: json["productID"],
         variationName: json["variationName"],
@@ -61,50 +170,5 @@ class FluffyProductDetailResponse {
         "variationName": variationName,
         "variationPrice": variationPrice,
         "variationQuanity": variationQuanity,
-      };
-}
-
-class TentacledProductDetailResponse {
-  TentacledProductDetailResponse({
-    required this.productId,
-    this.productName,
-    this.productDetail,
-    this.vendorId,
-    this.productReach,
-    this.soldQuanity,
-    this.pictureId,
-    this.pictureName,
-  });
-
-  int productId;
-  String? productName;
-  dynamic productDetail;
-  int? vendorId;
-  int? productReach;
-  int? soldQuanity;
-  int? pictureId;
-  String? pictureName;
-
-  factory TentacledProductDetailResponse.fromJson(Map<String, dynamic> json) =>
-      TentacledProductDetailResponse(
-        productId: json["productID"],
-        productName: json["productName"],
-        productDetail: json["productDetail"],
-        vendorId: json["vendorID"],
-        productReach: json["productReach"],
-        soldQuanity: json["soldQuanity"],
-        pictureId: json["pictureID"],
-        pictureName: json["pictureName"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "productID": productId,
-        "productName": productName,
-        "productDetail": productDetail,
-        "vendorID": vendorId,
-        "productReach": productReach,
-        "soldQuanity": soldQuanity,
-        "pictureID": pictureId,
-        "pictureName": pictureName,
       };
 }

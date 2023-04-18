@@ -1,4 +1,5 @@
 import 'package:ARshop_App/api/API_Service.dart';
+import 'package:ARshop_App/models/product_request.dart';
 import 'package:ARshop_App/models/product_response.dart';
 import 'package:ARshop_App/page/ar_preview.dart';
 import 'package:ARshop_App/page/show_reviews.dart';
@@ -21,7 +22,7 @@ class _show_productState extends State<show_product> {
   //เรียกใช้ API Service
   // late Future<PurpleProductDetailResponse> modelproducts;
   // late Future<FluffyProductDetailResponse> variationproducts;
-  late Future<TentacledProductDetailResponse> products;
+  late Future<ProductDetailResponse> products;
 
   final controller = GroupButtonController();
   final _panelController = PanelController();
@@ -34,9 +35,20 @@ class _show_productState extends State<show_product> {
   void initState() {
     // modelproducts = APIService.getModelProductDetails(widget.productId);
     // variationproducts = APIService.getVariationProductDetails(widget.productId);
-    products = APIService.getProductDetails(widget.productId);
+    products = APIService.getProductDetails(
+        ProductDetailRequest(productId: widget.productId));
+
     super.initState();
   }
+
+  // Future<void> getProductDetail() async {
+  //   final productDetailRequest =
+  //       ProductDetailRequest(productId: widget.productId);
+  //   final productDetailResponse =
+  //       TentacledProductDetailResponse(productId: productDetailRequest as int);
+  //   final response = await APIService.getProductDetails(widget.productId);
+  //   return response;
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -76,10 +88,21 @@ class _show_productState extends State<show_product> {
               ),
             )),
         automaticallyImplyLeading: false,
-        title: Text(
-          product_name,
-          style: TextStyle(
-              color: textnavy, fontWeight: FontWeight.bold, fontSize: 18),
+        title: FutureBuilder<ProductDetailResponse>(
+          future: products,
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              final product_name = snapshot.data!.product.productName;
+              return Text(
+                product_name,
+                style: TextStyle(
+                    color: textnavy, fontWeight: FontWeight.bold, fontSize: 18),
+              );
+            } else if (snapshot.hasError) {
+              return Text("Error: ${snapshot.error}");
+            }
+            return CircularProgressIndicator();
+          },
         ),
         actions: [
           IconButton(
@@ -163,28 +186,40 @@ class _show_productState extends State<show_product> {
               ),
             )),
             Container(
-              child: ListTile(
-                leading: Text(
-                  product_name,
-                  style: TextStyle(fontSize: 30, color: textnavy),
-                ),
-                trailing: Wrap(
-                  spacing: 15,
-                  children: [
-                    Icon(
-                      MaterialSymbols.share,
-                      weight: 700,
-                      color: textnavy,
-                    ),
-                    Icon(
-                      MaterialSymbols.heart_plus,
-                      weight: 700,
-                      color: textnavy,
-                    ),
-                  ],
-                ),
+              child: FutureBuilder<ProductDetailResponse>(
+                future: products,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    final product_name = snapshot.data!.product.productName;
+                    return ListTile(
+                      leading: Text(
+                        product_name,
+                        style: TextStyle(fontSize: 30, color: textnavy),
+                      ),
+                      trailing: Wrap(
+                        spacing: 15,
+                        children: [
+                          Icon(
+                            MaterialSymbols.share,
+                            weight: 700,
+                            color: textnavy,
+                          ),
+                          Icon(
+                            MaterialSymbols.heart_plus,
+                            weight: 700,
+                            color: textnavy,
+                          ),
+                        ],
+                      ),
+                    );
+                  } else if (snapshot.hasError) {
+                    return Text("Error: ${snapshot.error}");
+                  }
+                  return CircularProgressIndicator();
+                },
               ),
             ),
+
             Container(
               alignment: Alignment.centerLeft,
               padding: EdgeInsets.only(left: 15),
@@ -197,31 +232,54 @@ class _show_productState extends State<show_product> {
                 ],
               ),
             ),
-            Container(
-              alignment: Alignment.centerLeft,
-              padding: EdgeInsets.only(left: 15, right: 15),
-              child: Column(
-                children: [
-                  Text(
-                    'Minimal Stand is made of by natural wood. The design that is very simple and minimal. This is truly one of the best furnitures in any family for now. With 3 different colors, you can easily select the best match for your home. ',
-                    softWrap: true,
-                    style: TextStyle(
-                        color: textgrey,
-                        fontSize: 16,
-                        fontFamily: 'LINESeedSansTHRg'),
-                  ),
-                ],
-              ),
-            ),
+            FutureBuilder(
+                future: products,
+                builder: (context, snapshot) {
+                  final detail_product =
+                      snapshot?.data?.product.productDetail ??
+                          'ไม่มีรายละเอียดสินค้า';
+                  if (snapshot.hasData) {
+                    return Container(
+                      alignment: Alignment.centerLeft,
+                      padding: EdgeInsets.only(left: 15, right: 15),
+                      child: Column(
+                        children: [
+                          Text(
+                            detail_product,
+                            softWrap: true,
+                            style: TextStyle(
+                                color: textgrey,
+                                fontSize: 16,
+                                fontFamily: 'LINESeedSansTHRg'),
+                          ),
+                        ],
+                      ),
+                    );
+                  } else if (snapshot.hasError) {
+                    return Text("Error: ${snapshot.error}");
+                  }
+                  return CircularProgressIndicator();
+                }),
 
-            Container(
-              child: ListTile(
-                leading: Text(
-                  'ราคา $formatted บาท',
-                  style: TextStyle(color: textnavy, fontSize: 22),
-                ),
-              ),
-            ),
+            FutureBuilder(
+                future: products,
+                builder: (context, snapshot) {
+                  final detail_price = snapshot
+                      .data?.variationModelContext[0].variation.variationPrice;
+                  if (snapshot.hasData) {
+                    return Container(
+                      child: ListTile(
+                        leading: Text(
+                          'ราคา ${detail_price?.toStringAsFixed(2)} บาท',
+                          style: TextStyle(color: textnavy, fontSize: 22),
+                        ),
+                      ),
+                    );
+                  } else if (snapshot.hasError) {
+                    print('Error : ${snapshot.error}');
+                  }
+                  return CircularProgressIndicator();
+                }),
             Container(
               child: Row(
                 children: [
