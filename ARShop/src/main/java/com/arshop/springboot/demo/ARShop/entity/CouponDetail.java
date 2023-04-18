@@ -1,14 +1,16 @@
 package com.arshop.springboot.demo.ARShop.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 
+@Builder
 @Entity
 @Table(name="coupondetail")
 public class CouponDetail {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="CouponDetail_ID")
+    @Column(name="Coupon_Detail_ID")
     private int couponDetailID;
 
     @Column(name="Customer_ID")
@@ -17,10 +19,12 @@ public class CouponDetail {
     @Column(name="Coupon_ID")
     private int couponID;
 
-    public CouponDetail() {
+    public CouponDetail(){
+
     }
 
-    public CouponDetail(int customerID, int couponID) {
+    public CouponDetail(int couponDetailID, int customerID, int couponID) {
+        this.couponDetailID = couponDetailID;
         this.customerID = customerID;
         this.couponID = couponID;
     }

@@ -3,6 +3,7 @@ package com.arshop.springboot.demo.ARShop.rest;
 import com.arshop.springboot.demo.ARShop.entity.*;
 import com.arshop.springboot.demo.ARShop.service.CartService;
 import com.arshop.springboot.demo.ARShop.service.ProductDetailService;
+import com.arshop.springboot.demo.ARShop.structure.CartContext;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,7 +26,7 @@ public class CartController {
     }
 
     @GetMapping("/request")
-    public List<OrderDetail> getItems(HttpServletRequest request){
+    public List<CartContext> getItems(HttpServletRequest request){
         return cartService.getItems(request);
     }
 }

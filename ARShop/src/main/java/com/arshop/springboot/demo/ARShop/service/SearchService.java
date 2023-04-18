@@ -2,6 +2,9 @@ package com.arshop.springboot.demo.ARShop.service;
 
 import com.arshop.springboot.demo.ARShop.dao.*;
 import com.arshop.springboot.demo.ARShop.entity.*;
+import com.arshop.springboot.demo.ARShop.structure.ProductContext;
+import com.arshop.springboot.demo.ARShop.structure.ProductDetailContext;
+import com.arshop.springboot.demo.ARShop.structure.VariationModelContext;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Service;
 
@@ -28,45 +31,71 @@ public class SearchService {
         this.variationRepository = variationRepository;
     }
 
-    public List<Product> contentSearch(Product keyword , HttpServletRequest request){
+    public List<ProductContext> contentSearch(Product keyword , HttpServletRequest request){
         var product = productRepository.search(keyword.getProductName());
 
+        List<ProductContext> productContexts = new LinkedList<>();
+
         if(product.size() != 0){
+            for(Product element : product){
+                int variationPrice = variationRepository.findCheapest(element.getProductID());
+                var picture = productPictureRepository.findByProductID(element.getProductID());
+
+                var pContext = ProductContext.builder()
+                        .product(element)
+                        .price(variationPrice)
+                        .productPicture(picture.get(0))
+                        .build();
+                productContexts.add(pContext);
+            }
+
             for(int i = 0; i < product.size(); i++ ){
                 scoreUpdate(identifyService.extractJwt(request), product.get(i).getProductID());
             }
         }
 
-        return product;
+        return productContexts;
 
     }
 
-    public List productDetail(Product productID , HttpServletRequest request){
+    public ProductDetailContext productDetail(Product productID , HttpServletRequest request){
 
-        List detail = new LinkedList();
+        ProductDetailContext productDetailContext = new ProductDetailContext();
 
         //get a Product Detail
         var product = productRepository.findById(productID.getProductID());
-        detail.add(product);
 
         if(!product.isEmpty()){
-            String picture = getProductPicture(productID.getProductID());
-            String model = getModel(productID.getProductID());
 
-            var productPicture = ProductPicture.builder()
-                            .pictureName(picture)
-                            .build();
+            List<VariationModelContext> variationModelContextList = new LinkedList<>();
 
-            detail.add(productPicture);
-            //detail.add(model); //fix here
-            detail.add(getProductVariationAndModel(productID));
+            var variation = variationRepository.findByProductID(product.get().getProductID());
 
+            for(Variation element : variation){
+                var model = modelRepository.findByVariationID(element.getVariationID());
+
+                var variationModel = VariationModelContext.builder()
+                        .variation(element)
+                        .model(model)
+                        .build();
+
+                variationModelContextList.add(variationModel);
+            }
+
+            var picture = productPictureRepository.findByProductID(product.get().getProductID());
+
+            productDetailContext = ProductDetailContext.builder()
+                    .product(product)
+                    .productPicture(picture)
+                    .variationModelContext(variationModelContextList)
+                    .build();
 
             scoreUpdate(identifyService.extractJwt(request) , productID.getProductID());
             addProductReach(productID.getProductID(),product.get().getProductName() ,product.get().getProductReach(),product.get().getVendorID());
         }
 
-        return detail;
+
+        return productDetailContext;
     }
 
     public List getProductVariationAndModel(Product productID){
@@ -87,26 +116,6 @@ public class SearchService {
         }
 
         return variationModel;
-    }
-
-    public String getModel(int variationID){
-        var model = modelRepository.findByVariationID(variationID);
-
-        if(model.size() != 0){
-            return model.get(0).getModelName();
-        }else{
-            return null;
-        }
-    }
-
-    public String getProductPicture(int productID){
-        var picture = productPictureRepository.findByProductID(productID);
-
-        if(picture.size() != 0){
-            return picture.get(0).getPictureName();
-        }else{
-            return null;
-        }
     }
 
     public void scoreUpdate(int customerID , int productID){
@@ -147,20 +156,67 @@ public class SearchService {
         productRepository.save(product);
     }
 
-    public List<Product> getPopular(HttpServletRequest request){
+    public List<ProductContext> getPopular(HttpServletRequest request){
         var product = productRepository.findAllWithMostSold();
 
-        return product;
+        List<ProductContext> productContexts = new LinkedList<>();
+
+        for(Product element : product){
+            int variationPrice = variationRepository.findCheapest(element.getProductID());
+
+            var picture = productPictureRepository.findByProductID(element.getProductID());
+
+            var pContext = ProductContext.builder()
+                    .product(element)
+                    .price(variationPrice)
+                    .productPicture(picture.get(0))
+                    .build();
+            productContexts.add(pContext);
+        }
+
+        return productContexts;
     }
 
-    public List<Product> getRecommend(HttpServletRequest request){
+    public List<ProductContext> getRecommend(HttpServletRequest request){
 
         var recommend = productRepository.findAllWithScore(identifyService.extractJwt(request));
 
-        if(recommend.size() < 10){
+        List<ProductContext> productContexts = new LinkedList<>();
+
+        if(recommend.size() < 10){ //New user less score = less recommend so use most sold instead
             recommend = productRepository.findAllWithMostSold();
+
+            for(Product element : recommend){
+
+                int variationPrice = variationRepository.findCheapest(element.getProductID());
+                var picture = productPictureRepository.findByProductID(element.getProductID());
+
+                var pContext = ProductContext.builder()
+                        .product(element)
+                        .price(variationPrice)
+                        .productPicture(picture.get(0))
+                        .build();
+                productContexts.add(pContext);
+
+            }
+            return productContexts;
         }
 
-        return recommend;
+        for(Product element : recommend){
+
+            int variationPrice = variationRepository.findCheapest(element.getProductID());
+            var picture = productPictureRepository.findByProductID(element.getProductID());
+
+            var pContext = ProductContext.builder()
+                    .product(element)
+                    .price(variationPrice)
+                    .productPicture(picture.get(0))
+                    .build();
+            productContexts.add(pContext);
+
+        }
+
+        return productContexts;
     }
+
 }

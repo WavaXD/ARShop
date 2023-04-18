@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface ModelRepository extends JpaRepository<Model,Integer> {
 
-    List<Model> findByVariationID(int variationID);
+    Model findByVariationID(int variationID);
 }

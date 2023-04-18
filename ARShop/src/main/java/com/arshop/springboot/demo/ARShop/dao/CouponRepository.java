@@ -7,7 +7,13 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface CouponRepository extends JpaRepository<Coupon,Integer> {
+//fix subquery can't list
+    @Query("Select c From Coupon c Where c.couponID = :couponID AND c.vendorID = :vendorID")
+    Coupon findAvailableCoupon(int couponID, int vendorID);
 
-    @Query("Select c From Coupon c Where c.couponID = (Select b.couponID From CouponDetail b Where b.customerID = :customerID) AND c.vendorID = :vendorID")
-    List<Coupon> findAvailableCoupon(int customerID, int vendorID);
+    void deleteByCouponID(int couponID);
+
+    List<Coupon> findByVendorID(int vendorID);
+
+    Coupon findByCouponID(int couponID);
 }

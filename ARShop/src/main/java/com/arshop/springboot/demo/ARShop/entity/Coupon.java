@@ -1,8 +1,17 @@
 package com.arshop.springboot.demo.ARShop.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
+
+@Data
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name="coupon")
 public class Coupon {
 
@@ -20,46 +29,8 @@ public class Coupon {
     @Column(name="Max_Discount")
     private int maxDiscount;
 
-    public Coupon() {
-    }
-
-    public Coupon(int vendorID, int discountValue, int maxDiscount) {
-        this.vendorID = vendorID;
-        this.discountValue = discountValue;
-        this.maxDiscount = maxDiscount;
-    }
-
-    public int getCouponID() {
-        return couponID;
-    }
-
-    public void setCouponID(int couponID) {
-        this.couponID = couponID;
-    }
-
-    public int getVendorID() {
-        return vendorID;
-    }
-
-    public void setVendorID(int vendorID) {
-        this.vendorID = vendorID;
-    }
-
-    public int getDiscountValue() {
-        return discountValue;
-    }
-
-    public void setDiscountValue(int discountValue) {
-        this.discountValue = discountValue;
-    }
-
-    public int getMaxDiscount() {
-        return maxDiscount;
-    }
-
-    public void setMaxDiscount(int maxDiscount) {
-        this.maxDiscount = maxDiscount;
-    }
+    @Column(name="Expire_Date")
+    private Date expireDate;
 
     @Override
     public String toString() {

@@ -1,9 +1,11 @@
 package com.arshop.springboot.demo.ARShop.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 
 import java.util.Date;
 
+@Builder
 @Entity
 @Table(name="productorder")
 public class Order {
