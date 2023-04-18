@@ -1,20 +1,20 @@
 import 'dart:convert';
 
-ProductDetaillrequest productDetaillrequestFromJson(String str) =>
-    ProductDetaillrequest.fromJson(json.decode(str));
+ProductDetailRequest productDetailRequestFromJson(String str) =>
+    ProductDetailRequest.fromJson(json.decode(str));
 
-String productDetaillrequestToJson(ProductDetaillrequest data) =>
+String productDetailRequestToJson(ProductDetailRequest data) =>
     json.encode(data.toJson());
 
-class ProductDetaillrequest {
-  ProductDetaillrequest({
+class ProductDetailRequest {
+  ProductDetailRequest({
     required this.productId,
   });
 
   int productId;
 
-  factory ProductDetaillrequest.fromJson(Map<String, dynamic> json) =>
-      ProductDetaillrequest(
+  factory ProductDetailRequest.fromJson(Map<String, dynamic> json) =>
+      ProductDetailRequest(
         productId: json["productID"],
       );
 

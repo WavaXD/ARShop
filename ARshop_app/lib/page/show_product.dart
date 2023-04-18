@@ -1,3 +1,5 @@
+import 'package:ARshop_App/api/API_Service.dart';
+import 'package:ARshop_App/models/product_response.dart';
 import 'package:ARshop_App/page/ar_preview.dart';
 import 'package:ARshop_App/page/show_reviews.dart';
 import 'package:ARshop_App/utils/consts.dart';
@@ -8,13 +10,19 @@ import 'package:ARshop_App/widget_common/sliding_panel_info_product.dart';
 import 'package:intl/intl.dart';
 
 class show_product extends StatefulWidget {
-  const show_product({super.key});
+  final int productId;
+  const show_product({Key? key, required this.productId}) : super(key: key);
 
   @override
   State<show_product> createState() => _show_productState();
 }
 
 class _show_productState extends State<show_product> {
+  //เรียกใช้ API Service
+  // late Future<PurpleProductDetailResponse> modelproducts;
+  // late Future<FluffyProductDetailResponse> variationproducts;
+  late Future<TentacledProductDetailResponse> products;
+
   final controller = GroupButtonController();
   final _panelController = PanelController();
   double price = 1500;
@@ -22,6 +30,14 @@ class _show_productState extends State<show_product> {
   int _currentIndex = 0;
   double _initialRating = 4.5;
   int color_type = 0;
+  @override
+  void initState() {
+    // modelproducts = APIService.getModelProductDetails(widget.productId);
+    // variationproducts = APIService.getVariationProductDetails(widget.productId);
+    products = APIService.getProductDetails(widget.productId);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     String formatted = formatter.format(price);

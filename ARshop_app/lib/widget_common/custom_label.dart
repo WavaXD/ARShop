@@ -51,7 +51,7 @@ class _popular_productState extends State<popular_product> {
     return SizedBox(
       width: size.width,
       child: Container(
-        margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+        margin: const EdgeInsets.fromLTRB(20, 0, 10, 0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

@@ -23,8 +23,9 @@ class PopularProductCard extends StatelessWidget {
             bool result = await SharedService.isLoggedIn();
             if (result) {
               await Navigator.of(context).push(MaterialPageRoute(
-                builder: (BuildContext context) =>
-                    show_product(), // wait add Notification page
+                builder: (BuildContext context) => show_product(
+                  productId: popularProducts.product.productId,
+                ), // wait add Notification page
               ));
             } else {
               await Navigator.of(context).push(MaterialPageRoute(
@@ -55,7 +56,7 @@ class PopularProductCard extends StatelessWidget {
                   // color: Colors.amber,
                   child: Container(
                     child: Text(
-                      popularProducts.productName,
+                      popularProducts.product.productName,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
@@ -70,7 +71,7 @@ class PopularProductCard extends StatelessWidget {
                   // color: Colors.amber,
                   child: Container(
                     child: Text(
-                      '${popularProducts.productReach.toStringAsFixed(2)} บาท',
+                      '${popularProducts.price.toStringAsFixed(2)} บาท',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(

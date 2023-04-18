@@ -122,8 +122,52 @@ class APIService {
     }
   }
 
-  //product detail
-  static Future<ProductDetaillResponseClass> getProductDetails(
+//   //product detail model
+//   static Future<PurpleProductDetailResponse> getModelProductDetails(
+//       int productId) async {
+//     var url = Uri.http(Config_api.apiURL, Config_api.productDetailAPI,
+//         {'product_id': productId.toString()});
+//     var loginDetails = await SharedService.loginDetails();
+//     Map<String, String> requestHeaders = {
+//       'Content-Type': 'application/json',
+//       'Authorization': 'Bearer ${loginDetails!.token}'
+//     };
+//     var response = await client.post(
+//       url,
+//       headers: requestHeaders,
+//     );
+
+//     if (response.statusCode == 200) {
+//       return PurpleProductDetailResponse.fromJson(jsonDecode((response.body)));
+//     } else {
+//       throw Exception('Failed to load Purple details');
+//     }
+//   }
+
+// //get product detail variation
+//   static Future<FluffyProductDetailResponse> getVariationProductDetails(
+//       int productId) async {
+//     var url = Uri.http(Config_api.apiURL, Config_api.productDetailAPI,
+//         {'product_id': productId.toString()});
+//     var loginDetails = await SharedService.loginDetails();
+//     Map<String, String> requestHeaders = {
+//       'Content-Type': 'application/json',
+//       'Authorization': 'Bearer ${loginDetails!.token}'
+//     };
+//     var response = await client.post(
+//       url,
+//       headers: requestHeaders,
+//     );
+
+//     if (response.statusCode == 200) {
+//       return FluffyProductDetailResponse.fromJson(jsonDecode((response.body)));
+//     } else {
+//       throw Exception('Failed to load Fluffy details');
+//     }
+//   }
+
+  //get_product_detail product
+  static Future<TentacledProductDetailResponse> getProductDetails(
       int productId) async {
     var url = Uri.http(Config_api.apiURL, Config_api.productDetailAPI,
         {'product_id': productId.toString()});
@@ -132,16 +176,19 @@ class APIService {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ${loginDetails!.token}'
     };
-    var response = await client.get(
-      url,
-      headers: requestHeaders,
-    );
+    var response = await http.post(url, headers: requestHeaders);
 
     if (response.statusCode == 200) {
-      return ProductDetaillResponseClass.fromJson(
-          jsonDecode(json.encode(response.body)));
+      List<dynamic> jsonResponse = json.decode(response.body);
+      PurpleProductDetailResponse purpleResponse =
+          PurpleProductDetailResponse.fromJson(jsonResponse[0]);
+      FluffyProductDetailResponse fluffyResponse =
+          FluffyProductDetailResponse.fromJson(jsonResponse[1]);
+      TentacledProductDetailResponse tentacledResponse =
+          TentacledProductDetailResponse.fromJson(jsonResponse[2]);
+      return tentacledResponse;
     } else {
-      throw Exception('Failed to load product details');
+      throw Exception('Failed to load Product detail details');
     }
   }
 
@@ -167,7 +214,7 @@ class APIService {
     }
   }
 
-  //get_popular_product
+//get_popular_product
   static Future<List<PopularProductResponse>> getPopularProduct(
       {required int limit}) async {
     var url = Uri.http(Config_api.apiURL, Config_api.poppularProductAPI);
@@ -180,9 +227,9 @@ class APIService {
 
     if (response.statusCode == 200) {
       var decodedData = jsonDecode(response.body);
-      List<PopularProductResponse> popularProducts =
+      List<PopularProductResponse> popularProduct =
           popularProductResponseFromJson(json.encode(decodedData));
-      return popularProducts;
+      return popularProduct;
     } else {
       throw Exception(
           'Failed to load popular products ${response.statusCode} ${loginDetails!.token}');

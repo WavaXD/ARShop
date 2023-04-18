@@ -35,9 +35,9 @@ class _show_reviewsState extends State<show_reviews> {
                     iconSize: 25.0,
                     color: Color.fromARGB(255, 23, 43, 77),
                     onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (BuildContext context) => show_product(),
-                      ));
+                      // Navigator.of(context).push(MaterialPageRoute(
+                      //   builder: (BuildContext context) => show_product(),
+                      // ));
                     },
                   ),
                 ),

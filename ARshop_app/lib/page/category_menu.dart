@@ -102,6 +102,13 @@ class catagory_menu extends StatelessWidget {
                       print('Tapped Category 7');
                     },
                   ),
+                  CategoryCard(
+                    icon: Icons.more_horiz_outlined,
+                    title: 'เพิ่มเติม',
+                    onTap: () {
+                      print('Tapped Category 8');
+                    },
+                  ),
                 ],
               ),
             ),

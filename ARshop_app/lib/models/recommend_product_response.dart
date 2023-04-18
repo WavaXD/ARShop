@@ -9,11 +9,30 @@ String recommendProductResponseToJson(List<RecommendProductResponse> data) =>
 
 class RecommendProductResponse {
   RecommendProductResponse({
+    required this.product,
+    required this.price,
+  });
+
+  Product product;
+  int price;
+
+  factory RecommendProductResponse.fromJson(Map<String, dynamic> json) =>
+      RecommendProductResponse(
+        product: Product.fromJson(json["product"]),
+        price: json["price"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "product": product.toJson(),
+        "price": price,
+      };
+}
+
+class Product {
+  Product({
     required this.productId,
     required this.productName,
-    // required this.productPrice,
-    // required this.productQuanity,
-    this.productDetail,
+    required this.productDetail,
     required this.vendorId,
     required this.productReach,
     required this.soldQuanity,
@@ -21,19 +40,14 @@ class RecommendProductResponse {
 
   int productId;
   String productName;
-  // int productPrice;
-  // int productQuanity;
-  dynamic productDetail;
+  String productDetail;
   int vendorId;
   int productReach;
   int soldQuanity;
 
-  factory RecommendProductResponse.fromJson(Map<String, dynamic> json) =>
-      RecommendProductResponse(
+  factory Product.fromJson(Map<String, dynamic> json) => Product(
         productId: json["productID"],
         productName: json["productName"],
-        // productPrice: json["productPrice"],
-        // productQuanity: json["productQuanity"],
         productDetail: json["productDetail"],
         vendorId: json["vendorID"],
         productReach: json["productReach"],
@@ -43,8 +57,6 @@ class RecommendProductResponse {
   Map<String, dynamic> toJson() => {
         "productID": productId,
         "productName": productName,
-        // "productPrice": productPrice,
-        // "productQuanity": productQuanity,
         "productDetail": productDetail,
         "vendorID": vendorId,
         "productReach": productReach,

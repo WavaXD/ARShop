@@ -1,7 +1,3 @@
-// To parse this JSON data, do
-//
-//     final popularProductResponse = popularProductResponseFromJson(jsonString);
-
 import 'dart:convert';
 
 List<PopularProductResponse> popularProductResponseFromJson(String str) =>
@@ -13,6 +9,27 @@ String popularProductResponseToJson(List<PopularProductResponse> data) =>
 
 class PopularProductResponse {
   PopularProductResponse({
+    required this.product,
+    required this.price,
+  });
+
+  Product product;
+  int price;
+
+  factory PopularProductResponse.fromJson(Map<String, dynamic> json) =>
+      PopularProductResponse(
+        product: Product.fromJson(json["product"]),
+        price: json["price"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "product": product.toJson(),
+        "price": price,
+      };
+}
+
+class Product {
+  Product({
     required this.productId,
     required this.productName,
     this.productDetail,
@@ -23,13 +40,12 @@ class PopularProductResponse {
 
   int productId;
   String productName;
-  dynamic productDetail;
+  String? productDetail;
   int vendorId;
   int productReach;
   int soldQuanity;
 
-  factory PopularProductResponse.fromJson(Map<String, dynamic> json) =>
-      PopularProductResponse(
+  factory Product.fromJson(Map<String, dynamic> json) => Product(
         productId: json["productID"],
         productName: json["productName"],
         productDetail: json["productDetail"],

@@ -41,7 +41,7 @@ class RecommendProductCard extends StatelessWidget {
                   // color: Colors.amber,
                   child: Container(
                     child: Text(
-                      recommendProduct.productName,
+                      recommendProduct.product.productName,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
@@ -56,12 +56,12 @@ class RecommendProductCard extends StatelessWidget {
                   // color: Colors.amber,
                   child: Container(
                     child: Text(
-                      '${recommendProduct.productReach.toStringAsFixed(2)} บาท',
+                      '${recommendProduct.price.toStringAsFixed(2)} บาท',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
-                          color: textgrey,
-                          fontSize: 18,
+                          color: textnavy,
+                          fontSize: 16,
                           fontFamily: 'LINESeedSansTHRg'),
                     ),
                   ),
