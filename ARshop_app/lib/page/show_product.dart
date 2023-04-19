@@ -281,7 +281,7 @@ class _show_productState extends State<show_product> {
                     return Container(
                       child: ListTile(
                         leading: Text(
-                          'ราคา ${detail_price?.toStringAsFixed(2)} บาท',
+                          'ราคา ${formatter.format(detail_price)} บาท',
                           style: TextStyle(color: textnavy, fontSize: 22),
                         ),
                       ),

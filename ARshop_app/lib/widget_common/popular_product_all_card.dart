@@ -3,7 +3,7 @@ import 'package:ARshop_App/widget_common/custom_label.dart';
 import 'package:flutter/material.dart';
 import 'package:ARshop_App/models/recommend_product_response.dart';
 import 'package:ARshop_App/utils/consts.dart';
-
+import 'package:intl/intl.dart';
 import '../models/popular_product_response.dart';
 
 class AllPopularProductCard extends StatelessWidget {
@@ -13,6 +13,7 @@ class AllPopularProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var formatter = NumberFormat('###,###.00');
     return Padding(
       padding: const EdgeInsets.fromLTRB(0, 10, 5, 10),
       child: Material(
@@ -72,7 +73,7 @@ class AllPopularProductCard extends StatelessWidget {
                   // color: Colors.amber,
                   child: Container(
                     child: Text(
-                      '${popularProducts.price.toStringAsFixed(2)} บาท',
+                      '${formatter.format(popularProducts.price)} บาท',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(

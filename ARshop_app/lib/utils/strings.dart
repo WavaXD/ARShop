@@ -62,3 +62,22 @@ const model_sofa = [
   // 'asset/3Dmodels/table/table3/table3_ver2.glb',
   // 'asset/3Dmodels/chair/chair3/Chair.glb'
 ];
+
+final items = [
+  {
+    'image': 'assets/images/img1.png',
+    'name': 'Modernform Sofa COLLY',
+    'price': '9,999',
+  },
+  {
+    'image': 'assets/images/img2.png',
+    'name': 'Modernform Sofa VIVA',
+    'price': '19,999',
+  },
+  {
+    'image': 'assets/images/img3.png',
+    'name': 'Modernform Sofa MONO',
+    'price': '24,999',
+  },
+  // เพิ่มข้อมูลเพิ่มเติมได้ตามต้องการ
+];

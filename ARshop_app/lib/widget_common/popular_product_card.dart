@@ -3,6 +3,7 @@ import 'package:ARshop_App/api/API_Service.dart';
 import 'package:ARshop_App/models/popular_product_response.dart';
 import 'package:ARshop_App/models/recommend_product_response.dart';
 import 'package:ARshop_App/service/shared_service.dart';
+import 'package:intl/intl.dart';
 
 class PopularProductCard extends StatelessWidget {
   final PopularProductResponse popularProducts;
@@ -11,6 +12,7 @@ class PopularProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var formatter = NumberFormat('#,##0.00');
     return Padding(
       padding: const EdgeInsets.fromLTRB(0, 10, 5, 10),
       child: Material(
@@ -61,7 +63,7 @@ class PopularProductCard extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                           color: textnavy,
-                          fontSize: 15,
+                          fontSize: 16,
                           fontFamily: 'LINESeedSansTH'),
                     ),
                   ),
@@ -71,13 +73,13 @@ class PopularProductCard extends StatelessWidget {
                   // color: Colors.amber,
                   child: Container(
                     child: Text(
-                      '${popularProducts.price.toStringAsFixed(2)} บาท',
+                      '${formatter.format(popularProducts.price)} บาท',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
-                          color: textgrey,
+                          color: textblue,
                           fontSize: 14,
-                          fontFamily: 'LINESeedSansTHRg'),
+                          fontFamily: 'LINESeedSansTH'),
                     ),
                   ),
                 ),

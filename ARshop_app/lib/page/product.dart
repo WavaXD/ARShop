@@ -128,14 +128,14 @@ class _product_pageState extends State<product_page> {
                   VxSwiper.builder(
                     aspectRatio: 16 / 9,
                     autoPlay: true,
-                    height: 150,
+                    height: 140,
                     itemCount: slidersList.length,
                     enlargeCenterPage: true,
                     itemBuilder: (context, index) {
                       return Container(
                         child: Image.asset(
                           slidersList[index],
-                          fit: BoxFit.fill,
+                          fit: BoxFit.cover,
                         )
                             .box
                             .rounded
@@ -152,18 +152,21 @@ class _product_pageState extends State<product_page> {
                       });
                     },
                   ),
-                  Positioned(
-                      child: DotsIndicator(
-                    dotsCount: slidersList.length,
-                    position: _currentIndex.toDouble(),
-                    decorator: DotsDecorator(
-                      activeColor: textnavy,
-                      activeSize: const Size(5.0, 5.0),
-                      size: const Size(5.0, 5.0),
-                      activeShape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5.0)),
-                    ),
-                  )),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 10),
+                    child: Positioned(
+                        child: DotsIndicator(
+                      dotsCount: slidersList.length,
+                      position: _currentIndex.toDouble(),
+                      decorator: DotsDecorator(
+                        activeColor: textnavy,
+                        activeSize: const Size(5.0, 5.0),
+                        size: const Size(5.0, 5.0),
+                        activeShape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(5.0)),
+                      ),
+                    )),
+                  ),
                   Row(
                     children: [catagory_menu()],
                   )

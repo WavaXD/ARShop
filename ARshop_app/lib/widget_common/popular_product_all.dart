@@ -20,7 +20,7 @@ class AllPopularProduct extends StatelessWidget {
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
             crossAxisSpacing: 10,
-            childAspectRatio: 2 / 3,
+            childAspectRatio: 1 / 1,
           ),
           itemCount: popularProducts.length.clamp(0, 50),
           itemBuilder: (context, index) {

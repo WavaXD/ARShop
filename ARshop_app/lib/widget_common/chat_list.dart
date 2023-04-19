@@ -1,8 +1,8 @@
 import 'package:ARshop_App/utils/consts.dart';
 import 'package:material_symbols_icons/rounded.dart';
 
-class nofification_list extends StatelessWidget {
-  const nofification_list({super.key});
+class chat_list extends StatelessWidget {
+  const chat_list({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class nofification_list extends StatelessWidget {
                           leading: Wrap(
                             children: [
                               Icon(
-                                MaterialSymbols.campaign,
+                                MaterialSymbols.chat_bubble,
                                 color: textblue,
                               ),
                               SizedBox(
@@ -59,7 +59,7 @@ class nofification_list extends StatelessWidget {
                               child: Container(
                                 width: 300,
                                 child: Text(
-                                  'ขอบคุณที่สนใจสั่งซื้อสินค้าของเรา ของมีจำนวนจำกัด ',
+                                  'ขอบคุณมากครับ ',
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(

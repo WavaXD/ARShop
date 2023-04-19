@@ -17,7 +17,7 @@ class PopularProduct extends StatelessWidget {
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
               crossAxisSpacing: 10,
-              childAspectRatio: 1 / 1,
+              childAspectRatio: 0.95,
             ),
             itemCount: popularProducts.length.clamp(0, 12),
             itemBuilder: (context, index) {

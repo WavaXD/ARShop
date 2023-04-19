@@ -1,3 +1,5 @@
+import 'package:ARshop_App/page/chat.dart';
+import 'package:ARshop_App/page/fav_page.dart';
 import 'package:ARshop_App/page/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:ARshop_App/service/shared_service.dart';
@@ -15,8 +17,8 @@ class Homepage extends StatefulWidget {
 class _HomepageState extends State<Homepage> {
   static final List<Widget> _widgetOptions = <Widget>[
     product_page(),
-    const Text('Favorite'),
-    const Text('Chat'),
+    fav_page(),
+    chat_page(),
     profile(),
   ];
 

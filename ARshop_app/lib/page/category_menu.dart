@@ -11,7 +11,7 @@ class catagory_menu extends StatelessWidget {
       width: size.width,
       height: 250,
       child: Container(
-        margin: const EdgeInsets.fromLTRB(20, 10, 20, 0),
+        margin: const EdgeInsets.fromLTRB(20, 10, 15, 0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

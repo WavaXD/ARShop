@@ -54,6 +54,7 @@ dependencies:
   arcore_flutter_plugin: ^0.1.0
   sliding_up_panel: ^2.0.0+1
   shimmer: ^2.0.0
+  flutter_spinkit: ^5.1.0
 
   
 
@@ -132,7 +133,12 @@ flutter:
   assets:
     - asset/icon_arshop.png
     - asset/ads_1.jpg
+    - asset/ads_2.jpg
+    - asset/ads_3.jpg
     - asset/product.jpg
+    - asset/image(1).png
+    - asset/image(4).png
+    - asset/image(3).png
     
     - asset/3Dmodels/sofa/sofa1/
     - asset/3Dmodels/sofa/sofa2/

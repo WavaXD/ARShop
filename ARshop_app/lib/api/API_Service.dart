@@ -100,8 +100,7 @@ class APIService {
   }
 
   //search
-  static Future<List<SearchResponseModel>> getSearchItem(
-      SearchModel model) async {
+  static Future<List<SearchResponse>> getSearchItem(SearchRequest model) async {
     var url = Uri.http(Config_api.apiURL, Config_api.searchAPI);
     var loginDetails = await SharedService.loginDetails();
     Map<String, String> requestHeaders = {
@@ -115,7 +114,7 @@ class APIService {
     );
     if (response.statusCode == 200) {
       final responseData = response.body;
-      final searchResponseModels = searchResponseModelFromJson(responseData);
+      final searchResponseModels = searchResponseFromJson(responseData);
       return searchResponseModels;
     } else {
       throw Exception('Failed to search product');

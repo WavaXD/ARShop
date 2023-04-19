@@ -3,14 +3,17 @@ import 'package:ARshop_App/widget_common/custom_label.dart';
 import 'package:flutter/material.dart';
 import 'package:ARshop_App/models/recommend_product_response.dart';
 import 'package:ARshop_App/utils/consts.dart';
+import 'package:intl/intl.dart';
 
 class RecommendProductCard extends StatelessWidget {
   final RecommendProductResponse recommendProduct;
+
   const RecommendProductCard({Key? key, required this.recommendProduct})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var formatter = NumberFormat('#,##0.00');
     return Padding(
       padding: const EdgeInsets.fromLTRB(0, 10, 5, 10),
       child: Material(
@@ -59,7 +62,7 @@ class RecommendProductCard extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                           color: textnavy,
-                          fontSize: 14,
+                          fontSize: 16,
                           fontFamily: 'LINESeedSansTH'),
                     ),
                   ),
@@ -69,13 +72,13 @@ class RecommendProductCard extends StatelessWidget {
                   // color: Colors.amber,
                   child: Container(
                     child: Text(
-                      '${recommendProduct.price.toStringAsFixed(2)} บาท',
+                      '${formatter.format(recommendProduct.price)} บาท',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
-                          color: textnavy,
-                          fontSize: 16,
-                          fontFamily: 'LINESeedSansTHRg'),
+                          color: textblue,
+                          fontSize: 14,
+                          fontFamily: 'LINESeedSansTH'),
                     ),
                   ),
                 ),

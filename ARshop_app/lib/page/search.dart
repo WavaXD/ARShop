@@ -5,58 +5,54 @@ import 'package:ARshop_App/page/product.dart';
 import 'package:flutter/material.dart';
 import 'package:ARshop_App/utils/consts.dart';
 import 'package:ARshop_App/api/API_Service.dart';
+import 'package:material_symbols_icons/sharp.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class search_page extends StatefulWidget {
   search_page({Key? key}) : super(key: key);
-  List<String> _data = [];
-  Timer? _debounce;
-  String searchProuct = "";
 
   @override
   State<search_page> createState() => _search_pageState();
 }
 
 class _search_pageState extends State<search_page> {
-  final focusNode = FocusNode();
-  final TextEditingController searchController = TextEditingController();
-  List<String> _data = [];
-  List<String> _searchHistory = [];
-
-  void _loadSearchHistory() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    _searchHistory = prefs.getStringList("search_history") ?? [];
-  }
-
-  void _saveSearchHistory() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setStringList("search_history", _searchHistory);
-  }
-
+  late TextEditingController searchController;
+  late String lastSearch;
+  List<SearchResponse> searchResults = [];
+  Timer? debounceTimer;
   @override
   void initState() {
     super.initState();
-    _loadSearchHistory();
+    searchController = TextEditingController();
+    lastSearch = '';
+    setState(() {
+      searchResults = [];
+    });
   }
 
-  Future<void> _searchProduct(String searchText) async {
-    if (searchText.isEmpty) {
-      setState(() {
-        widget._data = _searchHistory;
-      });
+  @override
+  void dispose() {
+    searchController.dispose();
+    super.dispose();
+  }
+
+  Future<void> searchProduct(String query) async {
+    if (query.isEmpty) {
       return;
     }
-
-    final model = SearchModel(productName: searchText);
+    setState(() {
+      lastSearch = query;
+    });
+    final model = SearchRequest(productName: query);
     try {
-      final searchResult = await APIService.getSearchItem(model);
+      final results = await APIService.getSearchItem(model);
+      print('result: $results');
       setState(() {
-        widget._data = searchResult.map((e) => e.product.productName).toList();
+        searchResults = results ?? [];
+        print('$searchResults');
       });
-      _searchHistory.add(searchText);
-      _saveSearchHistory();
     } catch (e) {
-      print(e.toString());
+      print('Error: $e และ $query');
     }
   }
 
@@ -99,90 +95,71 @@ class _search_pageState extends State<search_page> {
           ),
           child: Row(
             children: [
-              Padding(
-                padding: EdgeInsets.only(left: 10, right: 5),
-                child: Icon(
-                  Icons.search_rounded,
-                  color: Color.fromARGB(255, 32, 57, 197),
-                ),
-              ),
               Expanded(
-                child: TextFormField(
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  decoration: InputDecoration(
-                    hintText: "ค้นหาสินค้า...",
-                    hintStyle: TextStyle(color: textgrey),
-                    contentPadding: EdgeInsets.only(bottom: 9),
-                    border: InputBorder.none,
-                  ),
-                  autofocus: false,
-                  keyboardType: TextInputType.text,
-                  controller: searchController,
-                  onChanged: (text) {
-                    if (widget._debounce?.isActive ?? false) {
-                      widget._debounce!.cancel();
-                    }
-                    widget._debounce =
-                        Timer(const Duration(milliseconds: 500), () {
-                      _searchProduct(text);
-                    });
-                  },
-                ),
-              ),
+                  child: TextFormField(
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      decoration: InputDecoration(
+                        hintText: "ค้นหาสินค้า...",
+                        hintStyle: TextStyle(color: textgrey, fontSize: 15),
+                        border: InputBorder.none,
+                        prefixIcon: Icon(
+                          Icons.search,
+                          color: textblue,
+                        ),
+                        suffixIcon: IconButton(
+                          onPressed: () => searchController.clear(),
+                          icon: Icon(
+                            Icons.clear,
+                            color: textblue,
+                          ),
+                        ),
+                      ),
+                      autofocus: false,
+                      keyboardType: TextInputType.text,
+                      controller: searchController,
+                      onChanged: (searchController) {
+                        if (debounceTimer?.isActive ?? false)
+                          debounceTimer!.cancel();
+                        debounceTimer =
+                            Timer(const Duration(milliseconds: 500), () {
+                          if (searchController.isNotEmpty) {
+                            searchProduct(searchController);
+                            print('$searchController');
+                          }
+                        });
+                      })),
             ],
           ),
         ),
       ),
       body: Column(
         children: [
-          _searchHistory.isNotEmpty
-              ? Padding(
-                  padding: const EdgeInsets.only(left: 16.0, top: 8.0),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      'คำค้นหาล่าสุด',
-                      style: TextStyle(fontSize: 14.0),
-                    ),
-                  ),
-                )
-              : SizedBox.shrink(),
-          _searchHistory.isNotEmpty
-              ? Expanded(
-                  child: ListView.builder(
+          Expanded(
+            child: searchResults.isNotEmpty
+                ? ListView.builder(
+                    itemCount: searchResults.length,
                     itemBuilder: (context, index) {
-                      final item = _searchHistory[index];
-                      return ListTile(
-                        title: Text(item),
-                        onTap: () {
-                          searchController.text = item;
-                          _searchProduct(item);
-                        },
+                      final result = searchResults[index];
+                      return Card(
+                        child: ListTile(
+                          title: Text(result.product.productName),
+                          onTap: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => show_product(
+                                    productId: result.product.productId)),
+                          ),
+                          trailing: Icon(MaterialSymbols.navigate_next),
+                        ),
                       );
                     },
-                    itemCount: _searchHistory.length,
-                  ),
-                )
-              : SizedBox.shrink(),
-          Expanded(
-            child: ListView.separated(
-              itemBuilder: (context, index) {
-                final item = widget._data[index];
-                return ListTile(
-                  title: Text(item),
-                  onTap: () {
-                    searchController.text = item;
-                    _searchProduct(item);
-                    _saveSearchHistory();
-                  },
-                );
-              },
-              separatorBuilder: (context, index) {
-                return Divider();
-              },
-              itemCount: widget._data.length,
-            ),
-          )
+                  )
+                : lastSearch.isNotEmpty
+                    ? const Center(
+                        child: Text('ไม่พบสินค้าที่ค้นหา'),
+                      )
+                    : const SizedBox.shrink(),
+          ),
         ],
       ),
     );

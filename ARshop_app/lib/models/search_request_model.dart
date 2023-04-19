@@ -1,18 +1,18 @@
 import 'dart:convert';
 
-SearchModel searchRequestModelFromJson(String str) =>
-    SearchModel.fromJson(json.decode(str));
+SearchRequest searchRequestFromJson(String str) =>
+    SearchRequest.fromJson(json.decode(str));
 
-String searchRequestModelToJson(SearchModel data) => json.encode(data.toJson());
+String searchRequestToJson(SearchRequest data) => json.encode(data.toJson());
 
-class SearchModel {
-  SearchModel({
+class SearchRequest {
+  SearchRequest({
     required this.productName,
   });
 
   String productName;
 
-  factory SearchModel.fromJson(Map<String, dynamic> json) => SearchModel(
+  factory SearchRequest.fromJson(Map<String, dynamic> json) => SearchRequest(
         productName: json["productName"],
       );
 
