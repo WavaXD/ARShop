@@ -1,6 +1,6 @@
 class Config_api {
   static const String appName = "ARshop";
-  static const String apiURL = "43.206.97.62:8080";
+  static const String apiURL = "35.78.187.241:8080";
   static const String loginAPI = "/api/v1/auth/authenticate";
   static const String registerAPI = "/api/v1/auth/register";
   static const String searchAPI = "/api/v1/search";
