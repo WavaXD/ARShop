@@ -12,6 +12,7 @@ import 'package:ARshop_App/models/product_response.dart';
 import 'package:ARshop_App/service/shared_service.dart';
 import 'package:ARshop_App/utils/consts.dart';
 import 'package:ARshop_App/models/popular_product_response.dart';
+import 'package:ARshop_App/models/AddProductToCartRequest.dart';
 import 'package:http/http.dart' as http;
 
 class APIService {
@@ -186,6 +187,37 @@ class APIService {
     } else {
       throw Exception(
           'Failed to load popular products ${response.statusCode} ${loginDetails!.token}');
+    }
+  }
+
+//add product to cart
+  static Future<void> addProductToCart({
+    required int productId,
+    required int variationId,
+    required int vendorId,
+    required int variationQuantity,
+  }) async {
+    var url = Uri.http(Config_api.apiURL, Config_api.addProductToCartAPI);
+    var loginDetails = await SharedService.loginDetails();
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ${loginDetails!.token}',
+    };
+    var response = await client.post(
+      url,
+      headers: requestHeaders,
+      body: jsonEncode(
+        <String, dynamic>{
+          'productId': productId,
+          'variationId': variationId,
+          'vendorId': vendorId,
+          'variationQuantity': variationQuantity,
+        },
+      ),
+    );
+
+    if (response.statusCode != 200) {
+      throw Exception('Failed to add product to cart');
     }
   }
 }

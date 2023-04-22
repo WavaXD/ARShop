@@ -1,10 +1,65 @@
+import 'package:ARshop_App/api/API_Service.dart';
+import 'package:ARshop_App/models/AddProductToCartRequest.dart';
 import 'package:ARshop_App/utils/consts.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
-class SlidingBottomSheet extends StatelessWidget {
-  SlidingBottomSheet({super.key});
-  List Color_types = ['ขาว', 'แดง'];
+class SlidingBottomSheet extends StatefulWidget {
+  final int productId;
+  final String productName;
+  final int variationId1;
+  final int variationQuanity1;
+  final String variationName1;
+  final int variationPrice1;
+  final int variationId2;
+  final int variationQuanity2;
+  final String variationName2;
+  final int variationPrice2;
+  final int vendorId;
+
+  SlidingBottomSheet({
+    Key? key,
+    required this.productId,
+    required this.productName,
+    required this.variationId1,
+    required this.variationQuanity1,
+    required this.variationName1,
+    required this.variationPrice1,
+    required this.variationId2,
+    required this.variationQuanity2,
+    required this.variationName2,
+    required this.variationPrice2,
+    required this.vendorId,
+  }) : super(key: key) {
+    _types = [variationName1, variationName2];
+    _types_price = [variationPrice1, variationPrice2];
+    _types_variation = [variationId1, variationId2];
+  }
+
+  late final List _types;
+  late final List<int> _types_price;
+  late final List<int> _types_variation;
+
+  @override
+  _SlidingBottomSheetState createState() => _SlidingBottomSheetState();
+}
+
+class _SlidingBottomSheetState extends State<SlidingBottomSheet> {
+  late String _selectedType;
+  late int _selectedTypePrice;
+  late int _selectedTypeVariation;
+  int _selectedQuantity = 1;
+  late int price_total = _selectedTypePrice;
+  final formatter = NumberFormat('#,###.00', 'en_US');
+
+  @override
+  void initState() {
+    _selectedType = widget.variationName1;
+    _selectedTypePrice = widget.variationPrice1;
+    _selectedTypeVariation = widget.variationId1;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,52 +90,53 @@ class SlidingBottomSheet extends StatelessWidget {
           Row(
             children: [
               Text(
-                'สี :',
-                style: TextStyle(fontSize: 16),
-              ),
-              SizedBox(
-                width: 30,
-              ),
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 8),
-                padding: EdgeInsets.all(13),
-                decoration: BoxDecoration(
-                    color: Color(0xFF031C3C),
-                    borderRadius: BorderRadius.circular(20)),
-              ),
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 8),
-                padding: EdgeInsets.all(13),
-                decoration: BoxDecoration(
-                    color: Color(0xFF031C3C),
-                    borderRadius: BorderRadius.circular(20)),
-              ),
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 8),
-                padding: EdgeInsets.all(13),
-                decoration: BoxDecoration(
-                    color: Color(0xFF031C3C),
-                    borderRadius: BorderRadius.circular(20)),
-              )
-            ],
-          ),
-          Row(
-            children: [
-              Text(
-                "ขนาด :",
+                "สี",
                 style: TextStyle(fontSize: 16),
               ),
               SizedBox(width: 30),
-              for (int i = 0; i < Color_types.length; i++)
-                Container(
-                  margin: EdgeInsets.symmetric(horizontal: 8),
-                  padding: EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: Color(0xFFF7F8FA),
-                    borderRadius: BorderRadius.circular(30),
+              Container(
+                height: 50,
+                width: MediaQuery.of(context).size.width - 100,
+                child: Expanded(
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
+                    itemCount: widget._types.length,
+                    itemBuilder: (context, index) {
+                      return TextButton(
+                        onPressed: () {
+                          setState(() {
+                            _selectedType = widget._types[index];
+                            _selectedTypePrice = widget._types_price[index];
+                            _selectedTypeVariation =
+                                widget._types_variation[index];
+                            price_total = _selectedTypePrice;
+                            print(_selectedTypeVariation);
+                          });
+                        },
+                        child: Container(
+                          margin: EdgeInsets.symmetric(horizontal: 8),
+                          padding: EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                            color: _selectedType == widget._types[index]
+                                ? textnavy
+                                : Color(0xFFF7F8FA),
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                          child: Text(
+                            widget._types[index],
+                            style: TextStyle(
+                              color: _selectedType == widget._types[index]
+                                  ? Colors.white
+                                  : textblue,
+                            ),
+                          ),
+                        ),
+                      );
+                    },
                   ),
-                  child: Text(Color_types[i]),
-                )
+                ),
+              ),
             ],
           ),
           Row(
@@ -97,17 +153,32 @@ class SlidingBottomSheet extends StatelessWidget {
                 decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(20)),
-                child: Icon(
-                  CupertinoIcons.minus,
-                  size: 18,
-                  color: textblue,
+                child: GestureDetector(
+                  onTap: () {
+                    if (_selectedQuantity > 1) {
+                      setState(() {
+                        _selectedQuantity--;
+                        price_total = price_total - _selectedTypePrice;
+                      });
+                    } else {
+                      setState(() {
+                        _selectedQuantity = 1;
+                      });
+                    }
+                    ;
+                  },
+                  child: Icon(
+                    CupertinoIcons.minus,
+                    size: 18,
+                    color: textblue,
+                  ),
                 ),
               ),
               SizedBox(
                 height: 5,
               ),
               Text(
-                "01",
+                "$_selectedQuantity",
                 style: TextStyle(fontSize: 16),
               ),
               SizedBox(
@@ -118,10 +189,18 @@ class SlidingBottomSheet extends StatelessWidget {
                 decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(20)),
-                child: Icon(
-                  CupertinoIcons.plus,
-                  size: 18,
-                  color: textblue,
+                child: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      _selectedQuantity += 1;
+                      price_total = _selectedQuantity * _selectedTypePrice;
+                    });
+                  },
+                  child: Icon(
+                    CupertinoIcons.plus,
+                    size: 18,
+                    color: textblue,
+                  ),
                 ),
               ),
             ],
@@ -137,7 +216,7 @@ class SlidingBottomSheet extends StatelessWidget {
                 style: TextStyle(fontSize: 20),
               ),
               Text(
-                '189' + ' บาท',
+                '${formatter.format(price_total)} บาท',
                 style: TextStyle(color: Colors.red, fontSize: 20),
               )
             ],
@@ -146,7 +225,28 @@ class SlidingBottomSheet extends StatelessWidget {
             height: 30,
           ),
           InkWell(
-            onTap: () {},
+            onTap: () async {
+              await APIService.addProductToCart(
+                      productId: widget.productId,
+                      variationId: _selectedTypeVariation,
+                      vendorId: widget.vendorId,
+                      variationQuantity: _selectedQuantity)
+                  .then((value) {
+                Navigator.pop(context);
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    content: Row(
+                      children: <Widget>[
+                        Icon(Icons.check, color: Colors.green),
+                        SizedBox(width: 10),
+                        Text('เพิ่มสินค้าสำเร็จ'),
+                      ],
+                    ),
+                  ),
+                );
+              });
+            },
             child: Container(
               padding: EdgeInsets.symmetric(vertical: 15, horizontal: 120),
               decoration: BoxDecoration(

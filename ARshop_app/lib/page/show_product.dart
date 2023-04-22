@@ -508,13 +508,54 @@ class _show_productState extends State<show_product> {
                   ),
                 ),
                 InkWell(
-                  onTap: () {
-                    showModalBottomSheet(
-                        backgroundColor: Colors.transparent,
+                  onTap: () async {
+                    try {
+                      final productDetailResponse =
+                          await APIService.getProductDetails(
+                              ProductDetailRequest(
+                                  productId: widget.productId));
+                      showModalBottomSheet(
                         context: context,
                         builder: (context) {
-                          return SlidingBottomSheet();
-                        });
+                          return SlidingBottomSheet(
+                            productId: productDetailResponse.product.productId,
+                            productName:
+                                productDetailResponse.product.productName,
+                            variationId1: productDetailResponse
+                                .variationModelContext[0].variation.variationId,
+                            variationQuanity1: productDetailResponse
+                                .variationModelContext[0]
+                                .variation
+                                .variationQuanity,
+                            variationName1: productDetailResponse
+                                .variationModelContext[0]
+                                .variation
+                                .variationName,
+                            variationPrice1: productDetailResponse
+                                .variationModelContext[0]
+                                .variation
+                                .variationPrice,
+                            variationId2: productDetailResponse
+                                .variationModelContext[1].variation.variationId,
+                            variationQuanity2: productDetailResponse
+                                .variationModelContext[1]
+                                .variation
+                                .variationQuanity,
+                            variationName2: productDetailResponse
+                                .variationModelContext[1]
+                                .variation
+                                .variationName,
+                            variationPrice2: productDetailResponse
+                                .variationModelContext[1]
+                                .variation
+                                .variationPrice,
+                            vendorId: productDetailResponse.product.vendorId,
+                          );
+                        },
+                      );
+                    } catch (e) {
+                      return print("Error: $e");
+                    }
                   },
                   child: Column(
                     children: [

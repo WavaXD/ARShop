@@ -136,9 +136,9 @@ flutter:
     - asset/ads_2.jpg
     - asset/ads_3.jpg
     - asset/product.jpg
-    - asset/image(1).png
-    - asset/image(4).png
-    - asset/image(3).png
+    - asset/image (1).png
+    - asset/image (2).png
+    - asset/image (3).png
     
     - asset/3Dmodels/sofa/sofa1/
     - asset/3Dmodels/sofa/sofa2/

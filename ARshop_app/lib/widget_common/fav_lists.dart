@@ -8,17 +8,17 @@ class fav_list extends StatelessWidget {
     {
       'name': 'Modernform Sofa COLLY',
       'price': 29900,
-      'image': 'asset/image(1).png',
+      'image': 'asset/image (1).png',
     },
     {
       'name': 'Modernform Sofa NEW FABRIC',
       'price': 25500,
-      'image': 'asset/image(3).png',
+      'image': 'asset/image (2).png',
     },
     {
       'name': 'Modernform Sofa SET 3+2+1',
       'price': 100000,
-      'image': 'asset/image(4).png',
+      'image': 'asset/image (3).png',
     },
   ];
 
