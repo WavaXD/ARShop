@@ -14,4 +14,6 @@ public interface OrderDetailRepository extends JpaRepository<OrderDetail,Integer
 
     @Query("Select c from OrderDetail c where c.cartID = :cartID AND c.orderID = 0")
     List<OrderDetail> findByCartID(int cartID);
+
+    List<OrderDetail> findByOrderID(int orderID);
 }

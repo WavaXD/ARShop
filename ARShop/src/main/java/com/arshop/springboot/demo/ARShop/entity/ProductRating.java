@@ -11,13 +11,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="favorite")
-public class Favorite {
+@Table(name="productrating")
+public class ProductRating {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="Favorite_ID")
-    private int favoriteID;
+    @Column(name="Rating_ID")
+    private int ratingID;
 
     @Column(name="Customer_ID")
     private int customerID;
@@ -25,4 +25,12 @@ public class Favorite {
     @Column(name="Product_ID")
     private int productID;
 
+    @Column(name="Detail_ID")
+    private int detailID;
+
+    @Column(name="Rating_Value")
+    private float ratingValue;
+
+    @Column(name="Rating_Comment")
+    private String ratingComment;
 }

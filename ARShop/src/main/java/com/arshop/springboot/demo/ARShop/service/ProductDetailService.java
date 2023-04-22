@@ -51,6 +51,11 @@ public class ProductDetailService {
                 deleteItem(tempID);
                 inCart = true;
             }else{
+
+                if(productDetail.getVariationQuanity() == 0){
+                    throw new IllegalArgumentException();
+                }
+
                 var cartProduct = OrderDetail.builder()
                         .detailID(tempID)
                         .customerID(identifyService.extractJwt(request))

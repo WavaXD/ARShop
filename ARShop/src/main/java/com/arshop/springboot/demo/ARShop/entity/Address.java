@@ -1,10 +1,13 @@
 package com.arshop.springboot.demo.ARShop.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Builder
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,7 +21,7 @@ public class Address {
     private int addressID;
 
     @Column(name="Customer_ID")
-    private int customerId;
+    private int customerID;
 
     @Column(name="Receiver_Name")
     private String receiverName;
@@ -39,6 +42,9 @@ public class Address {
     private String detail;
 
     @Column(name="Is_Default")
-    private boolean isDefault;
+    private boolean defaultAddress;
+
+    @Column(name="Is_Home")
+    private boolean homeAddress;
 
 }

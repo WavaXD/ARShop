@@ -10,4 +10,7 @@ public interface ProductPictureRepository extends JpaRepository<ProductPicture,I
 
     List<ProductPicture> findByProductID(int productID);
 
+    @Query("Select c From ProductPicture c")
+    List<ProductPicture> findAll();
+
 }

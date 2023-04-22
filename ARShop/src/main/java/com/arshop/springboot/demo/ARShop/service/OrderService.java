@@ -164,10 +164,13 @@ public class OrderService {
             throw new IllegalArgumentException("Not your order !");
         }
 
+        var orderDetail = orderDetailRepository.findByOrderID(orderID);
+
         var address = addressRepository.findByAddressID(order.getAddressID());
 
         var orderContext = OrderContext.builder()
                 .productOrder(order)
+                .orderDetails(orderDetail)
                 .address(address)
                 .build();
 
