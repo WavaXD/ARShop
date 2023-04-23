@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:ARshop_App/api/config.dart';
+import 'package:ARshop_App/models/GetProductsinCart.dart';
 import 'package:ARshop_App/models/login_request.dart';
 import 'package:ARshop_App/models/login_response.dart';
 import 'package:ARshop_App/models/recommend_product_response.dart';
@@ -208,16 +209,43 @@ class APIService {
       headers: requestHeaders,
       body: jsonEncode(
         <String, dynamic>{
-          'productId': productId,
-          'variationId': variationId,
-          'vendorId': vendorId,
-          'variationQuantity': variationQuantity,
+          'productID': productId,
+          'variationID': variationId,
+          'vendorID': vendorId,
+          'variationQuanity': variationQuantity,
         },
       ),
     );
 
-    if (response.statusCode != 200) {
-      throw Exception('Failed to add product to cart');
+    if (response.statusCode == 200) {
+      print(
+          '${loginDetails!.token} sucess value ${productId}, ${variationId}, ${vendorId}, ${variationId} ');
+    } else if (response.statusCode != 200) {
+      throw Exception('Fail to add product');
+    }
+  }
+
+  //getProductsIncart
+  static Future<List<GetProductInCartResponse>> getProductInCart() async {
+    var url = Uri.http(Config_api.apiURL, Config_api.showProductInCartAPI);
+    var loginDetails = await SharedService.loginDetails();
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ${loginDetails!.token}'
+    };
+    var response = await client.get(url, headers: requestHeaders);
+
+    if (response.statusCode == 200) {
+      var decodedData = jsonDecode(response.body);
+      List<GetProductInCartResponse> productInCart =
+          List<GetProductInCartResponse>.from(
+              decodedData.map((x) => GetProductInCartResponse.fromJson(x)));
+      print(
+          'Failed to load product in cart ${response.statusCode} ${loginDetails!.token}');
+      return productInCart;
+    } else {
+      throw Exception(
+          'Failed to load product in cart ${response.statusCode} ${loginDetails!.token}');
     }
   }
 }

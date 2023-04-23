@@ -1,14 +1,39 @@
+// To parse this JSON data, do
+//
+//     final getProductInCartResponse = getProductInCartResponseFromJson(jsonString);
+
 import 'dart:convert';
 
-List<GetProductInCartRequest> getProductInCartRequestFromJson(String str) =>
-    List<GetProductInCartRequest>.from(
-        json.decode(str).map((x) => GetProductInCartRequest.fromJson(x)));
+List<GetProductInCartResponse> getProductInCartResponseFromJson(String str) =>
+    List<GetProductInCartResponse>.from(
+        json.decode(str).map((x) => GetProductInCartResponse.fromJson(x)));
 
-String getProductInCartRequestToJson(List<GetProductInCartRequest> data) =>
+String getProductInCartResponseToJson(List<GetProductInCartResponse> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class GetProductInCartRequest {
-  GetProductInCartRequest({
+class GetProductInCartResponse {
+  GetProductInCartResponse({
+    required this.orderDetail,
+    required this.price,
+  });
+
+  OrderDetail orderDetail;
+  int price;
+
+  factory GetProductInCartResponse.fromJson(Map<String, dynamic> json) =>
+      GetProductInCartResponse(
+        orderDetail: OrderDetail.fromJson(json["orderDetail"]),
+        price: json["price"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "orderDetail": orderDetail.toJson(),
+        "price": price,
+      };
+}
+
+class OrderDetail {
+  OrderDetail({
     required this.detailId,
     required this.customerId,
     required this.productId,
@@ -28,8 +53,7 @@ class GetProductInCartRequest {
   int cartId;
   int variationQuanity;
 
-  factory GetProductInCartRequest.fromJson(Map<String, dynamic> json) =>
-      GetProductInCartRequest(
+  factory OrderDetail.fromJson(Map<String, dynamic> json) => OrderDetail(
         detailId: json["detailID"],
         customerId: json["customerID"],
         productId: json["productID"],

@@ -37,7 +37,7 @@ class _HomepageState extends State<Homepage> {
 
     if (!result) {
       await Navigator.of(context).push(MaterialPageRoute(
-        builder: (BuildContext context) => login(), // wait add Cart page
+        builder: (BuildContext context) => login(),
       ));
     }
   }

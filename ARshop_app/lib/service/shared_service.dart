@@ -10,10 +10,16 @@ import 'package:api_cache_manager/models/cache_db_model.dart';
 
 class SharedService {
   static Future<bool> isLoggedIn() async {
-    var isKeyExist =
-        await APICacheManager().isAPICacheKeyExist('login_details');
-
-    return isKeyExist;
+    try {
+      var cacheData = await APICacheManager().getCacheData('login_details');
+      var loginResponse = loginResponseFromJson(cacheData.syncData);
+      if (loginResponse.token != null) {
+        return true;
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+    return false;
   }
 
   static Future<LoginResponse?> loginDetails() async {
@@ -40,7 +46,7 @@ class SharedService {
   static Future<void> logout(BuildContext context) async {
     await APICacheManager().deleteCache('login_details');
     Navigator.of(context).push(MaterialPageRoute(
-      builder: (BuildContext context) => Homepage(),
+      builder: (BuildContext context) => login(),
     ));
   }
 

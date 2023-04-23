@@ -6,6 +6,8 @@ import 'package:ARshop_App/utils/consts.dart';
 
 import 'package:snippet_coder_utils/FormHelper.dart';
 
+import '../service/shared_service.dart';
+
 class login extends StatefulWidget {
   @override
   LoginPage createState() => LoginPage();
@@ -47,10 +49,21 @@ class LoginPage extends State<login> {
                       icon: Icon(Icons.arrow_back_ios),
                       iconSize: 25.0,
                       color: Color.fromARGB(255, 23, 43, 77),
-                      onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (BuildContext context) => Homepage(),
-                        ));
+                      onPressed: () async {
+                        Future<void> checkloginStatus() async {
+                          bool result = await SharedService.isLoggedIn();
+
+                          if (!result) {
+                            await Navigator.of(context).push(MaterialPageRoute(
+                              builder: (BuildContext context) => Homepage(),
+                            ));
+                          } else {
+                            await Navigator.of(context)
+                                .pushReplacement(MaterialPageRoute(
+                              builder: (BuildContext context) => login(),
+                            ));
+                          }
+                        }
                       },
                     ),
                   ),

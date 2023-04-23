@@ -246,6 +246,8 @@ class _SlidingBottomSheetState extends State<SlidingBottomSheet> {
                   ),
                 );
               });
+              print(
+                  '${widget.productId} , ${_selectedTypeVariation} , ${widget.vendorId} , ${_selectedQuantity}');
             },
             child: Container(
               padding: EdgeInsets.symmetric(vertical: 15, horizontal: 120),
