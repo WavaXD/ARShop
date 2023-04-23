@@ -118,10 +118,13 @@ class _cart_bucketState extends State<cart_bucket> {
                     child: Column(
                       children: [
                         ListTile(
-                          leading: Text('test'),
+                          leading: Text('รอชื่อร้านจาก API อย่างเดียว'),
                           trailing: TextButton(
                             onPressed: () {},
-                            child: Text('แก้ไข'),
+                            child: Text(
+                              'แก้ไข',
+                              style: TextStyle(color: textnavy),
+                            ),
                           ),
                         ),
                         ListTile(
@@ -146,25 +149,85 @@ class _cart_bucketState extends State<cart_bucket> {
                               IconButton(
                                 icon: Icon(Icons.remove),
                                 onPressed: () {
-                                  setState(() {
-                                    if (inCartProduct
-                                            .orderDetail.variationQuanity >
-                                        1) {
+                                  if (inCartProduct
+                                          .orderDetail.variationQuanity >
+                                      1) {
+                                    setState(() {
                                       inCartProduct
                                           .orderDetail.variationQuanity -= 1;
-                                    }
-                                  });
+                                    });
+                                    APIService.addProductToCart(
+                                        productId:
+                                            inCartProduct.orderDetail.productId,
+                                        variationId: inCartProduct
+                                            .orderDetail.variationId,
+                                        vendorId:
+                                            inCartProduct.orderDetail.vendorId,
+                                        variationQuantity: inCartProduct
+                                            .orderDetail.variationQuanity);
+                                  } else {
+                                    showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return AlertDialog(
+                                            content: Text(
+                                                'ยืนยันที่จะลบสินค้าหรือไม่?'),
+                                            actions: [
+                                              TextButton(
+                                                child: Text('ยกเลิก'),
+                                                onPressed: () =>
+                                                    Navigator.pop(context),
+                                              ),
+                                              TextButton(
+                                                child: Text('ยืนยัน'),
+                                                onPressed: () async {
+                                                  await APIService
+                                                      .deleteProductInCart(
+                                                          productId:
+                                                              inCartProduct
+                                                                  .orderDetail
+                                                                  .productId,
+                                                          variationId:
+                                                              inCartProduct
+                                                                  .orderDetail
+                                                                  .variationId,
+                                                          vendorId:
+                                                              inCartProduct
+                                                                  .orderDetail
+                                                                  .vendorId,
+                                                          variationQuantity: 0);
+                                                  Navigator.of(context)
+                                                      .pushReplacement(
+                                                          MaterialPageRoute(
+                                                              builder: (BuildContext
+                                                                      context) =>
+                                                                  cart_bucket()));
+                                                },
+                                              )
+                                            ],
+                                          );
+                                        });
+                                  }
                                 },
                               ),
                               Text(
                                   '${inCartProduct.orderDetail.variationQuanity}'),
                               IconButton(
                                 icon: Icon(Icons.add),
-                                onPressed: () {
+                                onPressed: () async {
                                   setState(() {
                                     inCartProduct
                                         .orderDetail.variationQuanity += 1;
                                   });
+                                  await APIService.deleteProductInCart(
+                                      productId:
+                                          inCartProduct.orderDetail.productId,
+                                      variationId:
+                                          inCartProduct.orderDetail.variationId,
+                                      vendorId:
+                                          inCartProduct.orderDetail.vendorId,
+                                      variationQuantity: inCartProduct
+                                          .orderDetail.variationQuanity);
                                 },
                               ),
                             ],

@@ -1,7 +1,10 @@
+import 'package:ARshop_App/models/GetProfile.dart';
 import 'package:ARshop_App/page/product.dart';
 import 'package:ARshop_App/service/shared_service.dart';
 import 'package:ARshop_App/utils/consts.dart';
 import 'package:material_symbols_icons/rounded.dart';
+
+import '../api/API_Service.dart';
 
 class profile extends StatefulWidget {
   const profile({super.key});
@@ -11,7 +14,9 @@ class profile extends StatefulWidget {
 }
 
 class _profileState extends State<profile> {
+  late final GetProfileResponse _getprofile;
   String _username = 'Palm Siriphun';
+  @override
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,14 +55,28 @@ class _profileState extends State<profile> {
               Card(
                 elevation: 0.10,
                 child: ListTile(
-                  titleAlignment: ListTileTitleAlignment.threeLine,
-                  leading: CircleAvatar(
-                      radius: 20, backgroundImage: NetworkImage('')),
-                  title: Text(
-                    'Palm Siriphun',
-                    style: TextStyle(fontSize: 18, color: textnavy),
-                  ),
-                ),
+                    titleAlignment: ListTileTitleAlignment.threeLine,
+                    leading: CircleAvatar(
+                        radius: 20, backgroundImage: NetworkImage('')),
+                    title: FutureBuilder<GetProfileResponse>(
+                        future: APIService.getUserProfile(),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            final profile = snapshot.data!;
+                            return Text(
+                              profile.name,
+                              style: TextStyle(color: textnavy, fontSize: 22),
+                            );
+                          } else if (snapshot.hasError) {
+                            return Center(
+                              child: Text('Error: ${snapshot.error}'),
+                            );
+                          } else {
+                            return Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
+                        })),
               ),
               Row(
                 children: [

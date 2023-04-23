@@ -539,6 +539,7 @@ class _registerState extends State<register> {
                                   setState(() {
                                     isAPIcallProcess = true;
                                   });
+
                                   String email = emailController.text;
                                   String username = usernameController.text;
                                   String telephone = telController.text;
@@ -550,93 +551,48 @@ class _registerState extends State<register> {
                                       customerBirthdateController.text;
                                   RegisterRequestModel model =
                                       RegisterRequestModel(
-                                          customerEmail: email,
-                                          customerPassword: password,
-                                          customerConfirmPassword:
-                                              confirmpassword,
-                                          customerName: username,
-                                          customerTel: telephone,
-                                          customerGender: gender,
-                                          customerBirthdate: customerBirthdate);
-                                  APIService.register(model)
-                                      .then((response) => {
-                                            if (response.token != null)
-                                              {
-                                                showDialog(
-                                                  context: context,
-                                                  builder:
-                                                      (BuildContext context) {
-                                                    return AlertDialog(
-                                                      content: Container(
-                                                        child: Text(
-                                                            'สมัครสมาชิคสำเร็จ'),
-                                                      ),
-                                                    );
-                                                  },
-                                                ),
-                                                Future.delayed(
-                                                  Duration(milliseconds: 2),
-                                                ).then((value) => {
-                                                      Navigator.push(
-                                                          context,
-                                                          MaterialPageRoute(
-                                                              builder:
-                                                                  (context) =>
-                                                                      Homepage()))
-                                                    })
-                                                // showDialog(
-                                                //     context: context,
-                                                //     builder:
-                                                //         (BuildContext context) {
-                                                //       return AlertDialog(
-                                                //         title: Text(
-                                                //             Config_api.appName),
-                                                //         content: Text(
-                                                //             "สมัครสมาชิกสำเร็จ"),
-                                                //       );
-                                                //     }),
-                                                // Future.delayed(Duration(seconds: 1),
-                                                //     () {
-                                                //   Navigator.of(context).pop();
-                                                //   Navigator.of(context)
-                                                //       .push(MaterialPageRoute(
-                                                //     builder:
-                                                //         (BuildContext context) =>
-                                                //             login(),
-                                                //   ));
-                                                // })
-                                              }
-                                            else
-                                              {
-                                                // showDialog(
-                                                //     context: context,
-                                                //     builder:
-                                                //         (BuildContext context) {
-                                                //       return AlertDialog(
-                                                //         title: Text(
-                                                //             Config_api.appName),
-                                                //         content: Text(
-                                                //             "สมัครสมาชิกไม่สำเร็จ โปรดลองใหม่อีกครั้ง"),
-                                                //       );
-                                                //     }),
-                                                // Future.delayed(Duration(seconds: 1),
-                                                //     () {
-                                                //   Navigator.of(context).pop();
-                                                //   Navigator.of(context)
-                                                //       .push(MaterialPageRoute(
-                                                //     builder:
-                                                //         (BuildContext context) =>
-                                                //             register(),
-                                                //   ));
-                                                // })
-                                                print('no sucess')
-                                              }
-                                          });
+                                    customerEmail: email,
+                                    customerPassword: password,
+                                    customerConfirmPassword: confirmpassword,
+                                    customerName: username,
+                                    customerTel: telephone,
+                                    customerGender: gender,
+                                    customerBirthdate: customerBirthdate,
+                                  );
 
-                                  Navigator.of(context).pop();
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (BuildContext context) => login(),
-                                  ));
+                                  var response =
+                                      await APIService.register(model);
+                                  if (response != null &&
+                                      response.token != null) {
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          title: Text(Config_api.appName),
+                                          content: Text("สมัครสมาชิกสำเร็จ"),
+                                        );
+                                      },
+                                    );
+                                    Future.delayed(Duration(seconds: 1), () {
+                                      Navigator.of(context)
+                                          .push(MaterialPageRoute(
+                                        builder: (BuildContext context) =>
+                                            login(),
+                                      ));
+                                    });
+                                  } else {
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          title: Text(Config_api.appName),
+                                          content: Text(
+                                            "สมัครสมาชิกไม่สำเร็จ โปรดลองใหม่อีกครั้ง",
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  }
                                 }
                               },
                               child: Text(

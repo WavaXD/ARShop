@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:ARshop_App/api/config.dart';
+import 'package:ARshop_App/models/DeleteProductInCartRequest.dart';
 import 'package:ARshop_App/models/GetProductsinCart.dart';
 import 'package:ARshop_App/models/login_request.dart';
 import 'package:ARshop_App/models/login_response.dart';
@@ -15,6 +16,8 @@ import 'package:ARshop_App/utils/consts.dart';
 import 'package:ARshop_App/models/popular_product_response.dart';
 import 'package:ARshop_App/models/AddProductToCartRequest.dart';
 import 'package:http/http.dart' as http;
+
+import '../models/GetProfile.dart';
 
 class APIService {
   static var client = http.Client();
@@ -64,7 +67,7 @@ class APIService {
   }
 
 //register
-  static Future<RegisterResponseModel> register(
+  static Future<RegisterResponseModel?> register(
       RegisterRequestModel model) async {
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
@@ -77,11 +80,17 @@ class APIService {
       body: jsonEncode(model.toJson()),
     );
 
-    return registerResponseModel(response.body);
+    if (response.statusCode == 200) {
+      var jsonResponse = json.decode(response.body);
+      if (jsonResponse != null) {
+        return RegisterResponseModel.fromJson(jsonResponse);
+      }
+    }
+    return null;
   }
 
 //logout
-  static Future<String> getUserProfile(LoginRequest model) async {
+  static Future<GetProfileResponse> getUserProfile() async {
     var loginDetails = await SharedService.loginDetails();
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
@@ -95,9 +104,9 @@ class APIService {
     );
 
     if (response.statusCode == 200) {
-      return response.body;
+      return getProfileResponseFromJson(response.body);
     } else {
-      return "";
+      throw Exception('Failed to show Profile');
     }
   }
 
@@ -246,6 +255,40 @@ class APIService {
     } else {
       throw Exception(
           'Failed to load product in cart ${response.statusCode} ${loginDetails!.token}');
+    }
+  }
+
+  //DeleteProductsInCart
+  static Future<void> deleteProductInCart({
+    required int productId,
+    required int variationId,
+    required int vendorId,
+    required int variationQuantity,
+  }) async {
+    var url = Uri.http(Config_api.apiURL, Config_api.deleteProductInCartAPI);
+    var loginDetails = await SharedService.loginDetails();
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ${loginDetails!.token}',
+    };
+    var response = await client.post(
+      url,
+      headers: requestHeaders,
+      body: jsonEncode(
+        <String, dynamic>{
+          'productID': productId,
+          'variationID': variationId,
+          'vendorID': vendorId,
+          'variationQuanity': variationQuantity,
+        },
+      ),
+    );
+
+    if (response.statusCode == 200) {
+      print(
+          '${loginDetails!.token} sucess value ${productId}, ${variationId}, ${vendorId}, ${variationQuantity} ');
+    } else if (response.statusCode != 200) {
+      throw Exception('Fail to delete product');
     }
   }
 }
