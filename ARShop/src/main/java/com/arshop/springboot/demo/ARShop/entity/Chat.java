@@ -1,9 +1,18 @@
 package com.arshop.springboot.demo.ARShop.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
+@Builder
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name="Chat")
 public class Chat {
@@ -23,66 +32,9 @@ public class Chat {
     private String chatDetail;
 
     @Column(name="Chat_Time")
-    private Date chatTime;
+    private Timestamp chatTime;
 
-    public Chat() {
-    }
+    @Column(name="Chat_File")
+    private String chatFile;
 
-    public Chat(int customerID, int vendorID, String chatDetail, Date chatTime) {
-        this.customerID = customerID;
-        this.vendorID = vendorID;
-        this.chatDetail = chatDetail;
-        this.chatTime = chatTime;
-    }
-
-    public int getChatID() {
-        return chatID;
-    }
-
-    public void setChatID(int chatID) {
-        this.chatID = chatID;
-    }
-
-    public int getCustomerID() {
-        return customerID;
-    }
-
-    public void setCustomerID(int customerID) {
-        this.customerID = customerID;
-    }
-
-    public int getVendorID() {
-        return vendorID;
-    }
-
-    public void setVendorID(int vendorID) {
-        this.vendorID = vendorID;
-    }
-
-    public String getChatDetail() {
-        return chatDetail;
-    }
-
-    public void setChatDetail(String chatDetail) {
-        this.chatDetail = chatDetail;
-    }
-
-    public Date getChatTime() {
-        return chatTime;
-    }
-
-    public void setChatTime(Date chatTime) {
-        this.chatTime = chatTime;
-    }
-
-    @Override
-    public String toString() {
-        return "Chat{" +
-                "chatID=" + chatID +
-                ", customerID=" + customerID +
-                ", vendorID=" + vendorID +
-                ", chatDetail='" + chatDetail + '\'' +
-                ", chatTime=" + chatTime +
-                '}';
-    }
 }

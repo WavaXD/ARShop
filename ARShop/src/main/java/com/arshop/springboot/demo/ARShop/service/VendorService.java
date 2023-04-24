@@ -12,14 +12,15 @@ public class VendorService {
         this.vendorRepository = vendorRepository;
     }
 
-    public Vendor getVendor(Vendor vendorDetail){
-        var vendor = vendorRepository.findByVendorID(vendorDetail.getVendorID());
+    public Vendor getVendor(int vendorID){
+        var vendor = vendorRepository.findByVendorID(vendorID);
 
         System.out.println(vendor);
 
         if(vendor != null){
             System.out.println("Im not null");
             var vendorBuilder = Vendor.builder()
+                    .vendorID(vendor.getVendorID())
                     .vendorName(vendor.getVendorName())
                     .vendorTel(vendor.getVendorTel())
                     .build();

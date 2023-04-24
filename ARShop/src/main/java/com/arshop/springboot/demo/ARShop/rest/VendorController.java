@@ -14,9 +14,9 @@ public class VendorController {
         this.vendorService = vendorService;
     }
 
-    @PostMapping("/detail")
-    public Vendor getVendor(@RequestBody Vendor vendorDetail){
-        return vendorService.getVendor(vendorDetail);
+    @GetMapping("/{vendorID}")
+    public Vendor getVendor(@PathVariable int vendorID){
+        return vendorService.getVendor(vendorID);
     }
 
 }

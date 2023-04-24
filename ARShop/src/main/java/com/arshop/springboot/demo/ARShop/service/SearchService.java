@@ -219,4 +219,45 @@ public class SearchService {
         return productContexts;
     }
 
+    public List<ProductContext> getByCategory(int categoryID){
+
+        List<ProductContext> productContexts = new LinkedList<>();
+
+        var product = productRepository.findWithCategory(categoryID);
+
+        for(Product element : product){
+            int variationPrice = variationRepository.findCheapest(element.getProductID());
+            var picture = productPictureRepository.findByProductID(element.getProductID());
+
+            var pContext = ProductContext.builder()
+                    .product(element)
+                    .price(variationPrice)
+                    .productPicture(picture.get(0))
+                    .build();
+            productContexts.add(pContext);
+        }
+
+        return productContexts;
+    }
+
+    public List<ProductContext> getByVendor(int vendorID){
+        List<ProductContext> productContexts = new LinkedList<>();
+
+        var product = productRepository.findByVendorID(vendorID);
+
+        for(Product element : product){
+            int variationPrice = variationRepository.findCheapest(element.getProductID());
+            var picture = productPictureRepository.findByProductID(element.getProductID());
+
+            var pContext = ProductContext.builder()
+                    .product(element)
+                    .price(variationPrice)
+                    .productPicture(picture.get(0))
+                    .build();
+            productContexts.add(pContext);
+        }
+
+        return productContexts;
+    }
+
 }

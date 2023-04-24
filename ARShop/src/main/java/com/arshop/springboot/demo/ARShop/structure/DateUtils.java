@@ -19,11 +19,18 @@ public class DateUtils {
     }
 
     @Bean
+    public LocalDateTime beanLocalDateTime(){
+        LocalDateTime localDate = LocalDateTime.now();
+        return localDate;
+    }
+
+    @Bean
     public Date asDate(LocalDate localDate) {
         return Date.from(localDate.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
     }
 
-    public static Date asDate(LocalDateTime localDateTime) {
+    @Bean
+    public static Date asDateTime(LocalDateTime localDateTime) {
         return Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
     }
 

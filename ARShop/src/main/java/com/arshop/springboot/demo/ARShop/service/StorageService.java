@@ -30,7 +30,7 @@ public class StorageService {
 
         File fileObj = convertMultiPartFileToFile(file);
 
-        //Check if file is image of null
+        //Check if file is image or null
         try{
             BufferedImage bImage = null;
             bImage = ImageIO.read(fileObj);
@@ -42,7 +42,8 @@ public class StorageService {
         s3Client.putObject(new PutObjectRequest(bucketName, "images/"+fileName, fileObj));
         String imageUrl = s3Client.getUrl(bucketName, "images/"+fileName).toString();
         fileObj.delete();
-        return s3Client.getUrl(bucketName, "images/"+fileName).toString();  // waiting for get vendor
+        //return s3Client.getUrl(bucketName, "images/"+fileName).toString();
+        return imageUrl;
     }
 
 

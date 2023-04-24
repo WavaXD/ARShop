@@ -37,4 +37,14 @@ public class SearchController {
         return searchService.getRecommend(request);
     }
 
+    @GetMapping("/category/{categoryID}")
+    public List<ProductContext> getByCategory(@PathVariable int categoryID,HttpServletRequest request){
+        return searchService.getByCategory(categoryID);
+    }
+
+    @GetMapping("/search/vendor/{vendorID}")
+    public List<ProductContext> getByVendor(@PathVariable int vendorID, HttpServletRequest request){
+        return searchService.getByVendor(vendorID);
+    }
+
 }
