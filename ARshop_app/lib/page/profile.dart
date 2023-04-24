@@ -1,4 +1,5 @@
 import 'package:ARshop_App/models/GetProfile.dart';
+import 'package:ARshop_App/page/edit_profile.dart';
 import 'package:ARshop_App/page/product.dart';
 import 'package:ARshop_App/service/shared_service.dart';
 import 'package:ARshop_App/utils/consts.dart';
@@ -29,13 +30,16 @@ class _profileState extends State<profile> {
           style: TextStyle(color: textnavy),
         ),
         actions: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Icon(
-              Icons.settings_outlined,
-              color: textnavy,
-            ),
-          ),
+          IconButton(
+              padding: EdgeInsets.only(right: 20),
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (BuildContext context) => edit_profile()));
+              },
+              icon: Icon(
+                Icons.settings_outlined,
+                color: textnavy,
+              )),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Icon(
@@ -54,29 +58,47 @@ class _profileState extends State<profile> {
             children: [
               Card(
                 elevation: 0.10,
-                child: ListTile(
-                    titleAlignment: ListTileTitleAlignment.threeLine,
-                    leading: CircleAvatar(
-                        radius: 20, backgroundImage: NetworkImage('')),
-                    title: FutureBuilder<GetProfileResponse>(
-                        future: APIService.getUserProfile(),
-                        builder: (context, snapshot) {
-                          if (snapshot.hasData) {
-                            final profile = snapshot.data!;
-                            return Text(
-                              profile.name,
-                              style: TextStyle(color: textnavy, fontSize: 22),
-                            );
-                          } else if (snapshot.hasError) {
-                            return Center(
-                              child: Text('Error: ${snapshot.error}'),
-                            );
-                          } else {
-                            return Center(
-                              child: CircularProgressIndicator(),
-                            );
-                          }
-                        })),
+                child: Card(
+                  color: textblue,
+                  child: ListTile(
+                      titleAlignment: ListTileTitleAlignment.threeLine,
+                      // leading: CircleAvatar(
+                      //     radius: 20, backgroundImage: NetworkImage('')),
+                      title: FutureBuilder<GetProfileResponse>(
+                          future: APIService.getUserProfile(),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              final profile = snapshot.data!;
+                              return Container(
+                                padding: EdgeInsets.only(top: 15),
+                                height: 100,
+                                child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        'สวัสดีคุณ',
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 22),
+                                      ),
+                                      Text(
+                                        profile.name,
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 18),
+                                      ),
+                                    ]),
+                              );
+                            } else if (snapshot.hasError) {
+                              return Center(
+                                child: Text('Error: ${snapshot.error}'),
+                              );
+                            } else {
+                              return Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            }
+                          })),
+                ),
               ),
               Row(
                 children: [
@@ -259,6 +281,8 @@ class _profileState extends State<profile> {
                 ),
               ),
               Container(
+                width: MediaQuery.of(context).size.width - 20,
+                height: 60,
                 child: TextButton(
                   onPressed: () async {
                     SharedService.logout(context);

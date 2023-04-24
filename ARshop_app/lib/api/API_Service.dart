@@ -17,7 +17,9 @@ import 'package:ARshop_App/models/popular_product_response.dart';
 import 'package:ARshop_App/models/AddProductToCartRequest.dart';
 import 'package:http/http.dart' as http;
 
+import '../models/GetAddressResponse.dart';
 import '../models/GetProfile.dart';
+import '../models/GetVendorResponse.dart';
 
 class APIService {
   static var client = http.Client();
@@ -89,7 +91,7 @@ class APIService {
     return null;
   }
 
-//logout
+//getProfile
   static Future<GetProfileResponse> getUserProfile() async {
     var loginDetails = await SharedService.loginDetails();
     Map<String, String> requestHeaders = {
@@ -105,6 +107,27 @@ class APIService {
 
     if (response.statusCode == 200) {
       return getProfileResponseFromJson(response.body);
+    } else {
+      throw Exception('Failed to show Profile');
+    }
+  }
+
+  //getAddress
+  static Future<List<GetAddressResponse>> getAddressUser() async {
+    var loginDetails = await SharedService.loginDetails();
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ${loginDetails!.token}'
+    };
+    var url = Uri.http(Config_api.apiURL, Config_api.userAddress);
+
+    var response = await client.get(
+      url,
+      headers: requestHeaders,
+    );
+
+    if (response.statusCode == 200) {
+      return getAddressResponseFromJson(response.body);
     } else {
       throw Exception('Failed to show Profile');
     }
@@ -289,6 +312,29 @@ class APIService {
           '${loginDetails!.token} sucess value ${productId}, ${variationId}, ${vendorId}, ${variationQuantity} ');
     } else if (response.statusCode != 200) {
       throw Exception('Fail to delete product');
+    }
+  }
+
+  //get_Vendor
+  static Future<GetVendorResponse> getVendorDetails(int vendorId) async {
+    var loginDetails = await SharedService.loginDetails();
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ${loginDetails!.token}'
+    };
+
+    var url = Uri.http(
+        Config_api.apiURL, Config_api.getVendorDetailAPI + vendorId.toString());
+
+    var response = await client.get(
+      url,
+      headers: requestHeaders,
+    );
+
+    if (response.statusCode == 200) {
+      return getVendorResponseFromJson(response.body);
+    } else {
+      throw Exception('Failed to get vendor details');
     }
   }
 }

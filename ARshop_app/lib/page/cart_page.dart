@@ -60,6 +60,16 @@ class _cart_bucketState extends State<cart_bucket> {
 
   @override
   Widget build(BuildContext context) {
+    double total = 0;
+    for (var i = 0; i < inCartProducts.length; i++) {
+      var inCartProduct = inCartProducts[i];
+      var productDetail = productDetails[i];
+
+      total +=
+          (productDetail.variationModelContext[0].variation.variationPrice *
+              inCartProduct.orderDetail.variationQuanity);
+    }
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -242,7 +252,7 @@ class _cart_bucketState extends State<cart_bucket> {
           }),
       bottomNavigationBar: Container(
           padding: EdgeInsets.only(left: 25, top: 0, right: 10, bottom: 0),
-          height: 50,
+          height: 100,
           width: MediaQuery.of(context).size.width,
           child: Stack(
             children: [
@@ -279,7 +289,7 @@ class _cart_bucketState extends State<cart_bucket> {
                               Text(
                                 'เลือกส่วนลด',
                                 style: TextStyle(
-                                  color: textnavy,
+                                  color: textgrey,
                                   fontFamily: 'LINESeedSansTHRg',
                                 ),
                               ),
@@ -295,6 +305,55 @@ class _cart_bucketState extends State<cart_bucket> {
                   ),
                 ],
               ),
+              Padding(
+                padding: const EdgeInsets.only(top: 40),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'ทั้งหมด',
+                      style: TextStyle(
+                          color: textnavy,
+                          fontSize: 18,
+                          fontFamily: 'LINESeedSansTHRg'),
+                    ),
+                    Expanded(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Wrap(
+                            crossAxisAlignment: WrapCrossAlignment.center,
+                            children: [
+                              Text(
+                                'ยอดรวม : ',
+                                style: TextStyle(
+                                    color: textnavy,
+                                    fontFamily: 'LINESeedSansTHRg'),
+                              ),
+                              Text(
+                                '${formatter.format(total)} บาท ',
+                                style: TextStyle(
+                                    color: Color.fromRGBO(243, 107, 107, 100),
+                                    fontSize: 22),
+                              ),
+                              TextButton(
+                                  style: TextButton.styleFrom(
+                                    backgroundColor: textnavy,
+                                  ),
+                                  onPressed: () {},
+                                  child: Text(
+                                    'ซื้อสินค้า',
+                                    style: TextStyle(color: Colors.white),
+                                  ))
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              )
             ],
           )),
     );
