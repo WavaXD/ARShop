@@ -1,6 +1,6 @@
 class Config_api {
   static const String appName = "แจ้งเตือน";
-  static const String apiURL = "35.78.80.4:8080";
+  static const String apiURL = "35.72.163.109:8080";
   static const String loginAPI = "/api/v1/auth/authenticate";
   static const String registerAPI = "/api/v1/auth/register";
   static const String searchAPI = "/api/v1/search";
@@ -18,5 +18,6 @@ class Config_api {
   static const String processOrderAPI = "api/v1/order/process";
   static const String getOrderAPI = "api/v1/order/orders";
   static const String getOrderDetailAPI = "/api/v1/order/2";
-  static const String getVendorDetailAPI = "/api/v1/vendor";
+  static const String getVendorDetailAPI = "/api/v1/vendor/";
+  static const String getCategoryAPI = "/api/v1/category/";
 }

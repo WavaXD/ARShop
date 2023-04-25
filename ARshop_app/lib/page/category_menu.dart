@@ -1,3 +1,4 @@
+import 'package:ARshop_App/page/show_by_category.dart';
 import 'package:flutter/material.dart';
 import 'package:ARshop_App/utils/app_layout.dart';
 
@@ -57,56 +58,104 @@ class catagory_menu extends StatelessWidget {
                     icon: Icons.chair_outlined,
                     title: 'โซฟา',
                     onTap: () {
-                      print('Tapped Category 1');
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  showAllCategory(
+                                    categoryId: 1,
+                                  )));
                     },
                   ),
                   CategoryCard(
                     icon: Icons.chair_alt_rounded,
                     title: 'เก้าอี้',
                     onTap: () {
-                      print('Tapped Category 2');
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  showAllCategory(
+                                    categoryId: 2,
+                                  )));
                     },
                   ),
                   CategoryCard(
                     icon: Icons.table_restaurant_outlined,
                     title: 'โต๊ะ',
                     onTap: () {
-                      print('Tapped Category 3');
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  showAllCategory(
+                                    categoryId: 3,
+                                  )));
                     },
                   ),
                   CategoryCard(
                     icon: Icons.door_sliding_outlined,
                     title: 'ตู้และชั้นวาง',
                     onTap: () {
-                      print('Tapped Category 4');
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  showAllCategory(
+                                    categoryId: 4,
+                                  )));
                     },
                   ),
                   CategoryCard(
                     icon: Icons.bed_rounded,
                     title: 'เตียง',
                     onTap: () {
-                      print('Tapped Category 5');
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  showAllCategory(
+                                    categoryId: 5,
+                                  )));
                     },
                   ),
                   CategoryCard(
                     icon: Icons.light_rounded,
                     title: 'โคมไฟ',
                     onTap: () {
-                      print('Tapped Category 6');
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  showAllCategory(
+                                    categoryId: 6,
+                                  )));
                     },
                   ),
                   CategoryCard(
                     icon: Icons.tv_outlined,
                     title: 'โทรทัศน์',
                     onTap: () {
-                      print('Tapped Category 7');
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  showAllCategory(
+                                    categoryId: 7,
+                                  )));
                     },
                   ),
                   CategoryCard(
                     icon: Icons.more_horiz_outlined,
-                    title: 'เพิ่มเติม',
+                    title: 'อื่นๆ',
                     onTap: () {
-                      print('Tapped Category 8');
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  showAllCategory(
+                                    categoryId: 8,
+                                  )));
                     },
                   ),
                 ],

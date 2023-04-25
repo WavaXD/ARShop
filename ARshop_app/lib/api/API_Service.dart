@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:ARshop_App/api/config.dart';
 import 'package:ARshop_App/models/DeleteProductInCartRequest.dart';
+import 'package:ARshop_App/models/GetCategoryResponse.dart';
 import 'package:ARshop_App/models/GetProductsinCart.dart';
 import 'package:ARshop_App/models/login_request.dart';
 import 'package:ARshop_App/models/login_response.dart';
@@ -316,15 +317,15 @@ class APIService {
   }
 
   //get_Vendor
-  static Future<GetVendorResponse> getVendorDetails(int vendorId) async {
+  static Future<GetVendorResponse> getVendorDetailsByVendorId(
+      int vendorId) async {
     var loginDetails = await SharedService.loginDetails();
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ${loginDetails!.token}'
     };
-
     var url = Uri.http(
-        Config_api.apiURL, Config_api.getVendorDetailAPI + vendorId.toString());
+        Config_api.apiURL, Config_api.getVendorDetailAPI + '$vendorId');
 
     var response = await client.get(
       url,
@@ -335,6 +336,32 @@ class APIService {
       return getVendorResponseFromJson(response.body);
     } else {
       throw Exception('Failed to get vendor details');
+    }
+  }
+
+  //get_Category
+  static Future<List<GetCategoryResponse>> getCategory(int categoryId) async {
+    var loginDetails = await SharedService.loginDetails();
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ${loginDetails!.token}'
+    };
+    var url =
+        Uri.http(Config_api.apiURL, Config_api.getCategoryAPI + '$categoryId');
+
+    var response = await client.get(
+      url,
+      headers: requestHeaders,
+    );
+
+    if (response.statusCode == 200) {
+      if (response.body != null) {
+        return getCategoryResponseFromJson(response.body);
+      } else {
+        throw Exception('Response is null');
+      }
+    } else {
+      throw Exception('Failed to get Category details');
     }
   }
 }

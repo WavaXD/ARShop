@@ -1,5 +1,6 @@
 import 'package:ARshop_App/api/API_Service.dart';
 import 'package:ARshop_App/models/GetProductsinCart.dart';
+import 'package:ARshop_App/models/GetVendorResponse.dart';
 import 'package:ARshop_App/utils/consts.dart';
 import 'package:material_symbols_icons/sharp.dart';
 import 'package:material_symbols_icons/sharp_suffix.dart';
@@ -18,6 +19,7 @@ class cart_bucket extends StatefulWidget {
 class _cart_bucketState extends State<cart_bucket> {
   late List<GetProductInCartResponse> inCartProducts = [];
   late List<ProductDetailResponse> productDetails;
+  late Map<int, GetVendorResponse> vendorDetails;
   var formatter = NumberFormat('#,##0.00');
   @override
   void initState() {
@@ -30,12 +32,31 @@ class _cart_bucketState extends State<cart_bucket> {
       // Load products in cart
       inCartProducts = await APIService.getProductInCart();
       if (inCartProducts != null) {
+        // Load vendor details
+        final vendorIds = Set<int>.from(
+            inCartProducts.map((product) => product.orderDetail.vendorId));
+        vendorDetails = await getVendorDetails(vendorIds.toList());
+
         // Load product details
         productDetails = await getProductDetails(inCartProducts);
         setState(() {});
       }
     } catch (e) {
       print('Failed to load cart products: $e $inCartProducts');
+    }
+  }
+
+  Future<Map<int, GetVendorResponse>> getVendorDetails(
+      List<int> vendorIds) async {
+    try {
+      final vendorDetails = await Future.wait(vendorIds.map((vendorId) async {
+        return APIService.getVendorDetailsByVendorId(vendorId);
+      }));
+      return Map<int, GetVendorResponse>.fromIterable(vendorDetails,
+          key: (vendor) => vendor.vendorId, value: (vendor) => vendor);
+    } catch (e) {
+      print('Failed to load vendor details: $e');
+      return {};
     }
   }
 
@@ -124,11 +145,13 @@ class _cart_bucketState extends State<cart_bucket> {
                 itemBuilder: (BuildContext context, int index) {
                   final inCartProduct = inCartProducts[index];
                   final productDetail = productDetails[index];
+                  final vendorDetail =
+                      vendorDetails[inCartProduct.orderDetail.vendorId];
                   return Card(
                     child: Column(
                       children: [
                         ListTile(
-                          leading: Text('รอชื่อร้านจาก API อย่างเดียว'),
+                          leading: Text('${vendorDetail!.vendorName}'),
                           trailing: TextButton(
                             onPressed: () {},
                             child: Text(
