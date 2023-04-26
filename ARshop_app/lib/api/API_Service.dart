@@ -70,7 +70,7 @@ class APIService {
   }
 
 //register
-  static Future<RegisterResponseModel?> register(
+  static Future<RegisterResponseModel> register(
       RegisterRequestModel model) async {
     Map<String, String> requestHeaders = {
       'Content-Type': 'application/json',
@@ -89,7 +89,8 @@ class APIService {
         return RegisterResponseModel.fromJson(jsonResponse);
       }
     }
-    return null;
+
+    throw Exception('Failed to register');
   }
 
 //getProfile

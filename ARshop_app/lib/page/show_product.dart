@@ -482,63 +482,65 @@ class _show_productState extends State<show_product> {
               ],
             ),
             Container(
-              height: 170,
-              child: Card(
-                child: InkWell(
-                  onTap: () {},
-                  child: Column(
-                    children: [
-                      ListTile(
-                        titleAlignment: ListTileTitleAlignment.threeLine,
-                        leading: CircleAvatar(
-                            radius: 20, backgroundImage: NetworkImage('')),
-                        title: Text(
-                          'Palm Siriphun',
-                          style: TextStyle(
-                              fontFamily: 'LINESeedSansTHRg',
-                              fontSize: 18,
-                              color: textnavy),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Card(
+                  child: InkWell(
+                    onTap: () {},
+                    child: Column(
+                      children: [
+                        ListTile(
+                          titleAlignment: ListTileTitleAlignment.threeLine,
+                          leading: CircleAvatar(
+                              radius: 20, backgroundImage: NetworkImage('')),
+                          title: Text(
+                            'Palm Siriphun',
+                            style: TextStyle(
+                                fontFamily: 'LINESeedSansTH',
+                                fontSize: 18,
+                                color: textnavy),
+                          ),
                         ),
-                      ),
-                      Container(
-                        padding: EdgeInsets.only(left: 15, right: 15),
-                        child: Row(
-                          children: [
-                            Text('คะแนน'),
-                            Padding(padding: EdgeInsets.only(left: 5)),
-                            RatingBar.builder(
-                              initialRating:
-                                  _initialRating, // use product rating from data
-                              minRating: 1,
-                              direction: Axis.horizontal,
-                              allowHalfRating: true,
-                              itemCount: 5,
-                              itemSize: 15.0,
-                              itemBuilder: (context, _) => Icon(
-                                Icons.star,
-                                color: Colors.amber,
+                        Container(
+                          padding: EdgeInsets.only(left: 15, right: 15),
+                          child: Row(
+                            children: [
+                              Text('คะแนน'),
+                              Padding(padding: EdgeInsets.only(left: 5)),
+                              RatingBar.builder(
+                                initialRating:
+                                    _initialRating, // use product rating from data
+                                minRating: 1,
+                                direction: Axis.horizontal,
+                                allowHalfRating: true,
+                                itemCount: 5,
+                                itemSize: 15.0,
+                                itemBuilder: (context, _) => Icon(
+                                  Icons.star,
+                                  color: Colors.amber,
+                                ),
+                                onRatingUpdate: (rating) {
+                                  print(rating);
+                                },
                               ),
-                              onRatingUpdate: (rating) {
-                                print(rating);
-                              },
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                      ListTile(
-                        titleAlignment: ListTileTitleAlignment.threeLine,
-                        title: Text(
-                          comment,
-                          softWrap: true,
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 3,
-                          style: TextStyle(
-                              fontFamily: 'LINESeedSansTHRg',
-                              fontSize: 16,
-                              color: textgrey),
+                        ListTile(
+                          titleAlignment: ListTileTitleAlignment.threeLine,
+                          title: Text(
+                            comment,
+                            softWrap: true,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 3,
+                            style: TextStyle(
+                                fontFamily: 'LINESeedSansTHRg',
+                                fontSize: 16,
+                                color: textgrey),
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),

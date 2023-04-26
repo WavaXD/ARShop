@@ -444,6 +444,7 @@ class _registerState extends State<register> {
                                   return null;
                                 },
                                 obscureText: true,
+                                controller: passwordController,
                                 decoration: InputDecoration(
                                     isDense: true,
                                     filled: true,
@@ -501,6 +502,7 @@ class _registerState extends State<register> {
                                   return null;
                                 },
                                 obscureText: true,
+                                controller: confirmPasswordController,
                                 decoration: InputDecoration(
                                     isDense: true,
                                     filled: true,
@@ -543,17 +545,16 @@ class _registerState extends State<register> {
                                   String email = emailController.text;
                                   String username = usernameController.text;
                                   String telephone = telController.text;
-                                  String password = passwordController.text;
-                                  String confirmpassword =
-                                      confirmPasswordController.text;
+                                  confirmPasswordController.text;
                                   String gender = customerGenderController.text;
                                   String customerBirthdate =
                                       customerBirthdateController.text;
                                   RegisterRequestModel model =
                                       RegisterRequestModel(
                                     customerEmail: email,
-                                    customerPassword: password,
-                                    customerConfirmPassword: confirmpassword,
+                                    customerPassword: passwordController.text,
+                                    customerConfirmPassword:
+                                        confirmPasswordController.text,
                                     customerName: username,
                                     customerTel: telephone,
                                     customerGender: gender,
