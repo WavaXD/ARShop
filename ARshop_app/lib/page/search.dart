@@ -36,8 +36,44 @@ class _search_pageState extends State<search_page> {
     super.dispose();
   }
 
+  List<SearchResponse> sortSearchResult(
+      String query, List<SearchResponse> results) {
+    if (query.isEmpty || results.isEmpty) {
+      return results;
+    }
+
+    // หาความใกล้เคียงของตัวอักษร
+    final queryLength = query.length;
+    final matchedResults = results
+        .where((result) => result.product.productName
+            .toLowerCase()
+            .contains(query.toLowerCase()))
+        .toList();
+
+    // เรียงลำดับตามความใกล้เคียงของตัวอักษร
+    matchedResults.sort((a, b) {
+      final aIndex =
+          a.product.productName.toLowerCase().indexOf(query.toLowerCase());
+      final bIndex =
+          b.product.productName.toLowerCase().indexOf(query.toLowerCase());
+      if (aIndex == bIndex) {
+        // ถ้าตำแหน่งของตัวอักษรตรงกันให้เรียงตามอัลฟาเบ็ติคอลล์ (alphabetical order)
+        return a.product.productName
+            .toLowerCase()
+            .compareTo(b.product.productName.toLowerCase());
+      } else {
+        // ถ้าตำแหน่งของตัวอักษรไม่ตรงกันให้เรียงตามตำแหน่งที่ใกล้เคียงที่สุดก่อน
+        final aDistance = (aIndex - queryLength).abs();
+        final bDistance = (bIndex - queryLength).abs();
+        return aDistance.compareTo(bDistance);
+      }
+    });
+
+    return matchedResults;
+  }
+
   Future<void> searchProduct(String query) async {
-    if (query.isEmpty) {
+    if (query == null || query.isEmpty) {
       return;
     }
     setState(() {
@@ -97,37 +133,37 @@ class _search_pageState extends State<search_page> {
             children: [
               Expanded(
                   child: TextFormField(
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                      decoration: InputDecoration(
-                        hintText: "ค้นหาสินค้า...",
-                        hintStyle: TextStyle(color: textgrey, fontSize: 15),
-                        border: InputBorder.none,
-                        prefixIcon: Icon(
-                          Icons.search,
-                          color: textblue,
-                        ),
-                        suffixIcon: IconButton(
-                          onPressed: () => searchController.clear(),
-                          icon: Icon(
-                            Icons.clear,
-                            color: textblue,
-                          ),
-                        ),
-                      ),
-                      autofocus: false,
-                      keyboardType: TextInputType.text,
-                      controller: searchController,
-                      onChanged: (searchController) {
-                        if (debounceTimer?.isActive ?? false)
-                          debounceTimer!.cancel();
-                        debounceTimer =
-                            Timer(const Duration(milliseconds: 500), () {
-                          if (searchController.isNotEmpty) {
-                            searchProduct(searchController);
-                            print('$searchController');
-                          }
-                        });
-                      })),
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                decoration: InputDecoration(
+                  hintText: "ค้นหาสินค้า...",
+                  hintStyle: TextStyle(color: textgrey, fontSize: 15),
+                  border: InputBorder.none,
+                  prefixIcon: Icon(
+                    Icons.search,
+                    color: textblue,
+                  ),
+                  suffixIcon: IconButton(
+                    onPressed: () => searchController.clear(),
+                    icon: Icon(
+                      Icons.clear,
+                      color: textblue,
+                    ),
+                  ),
+                ),
+                autofocus: false,
+                keyboardType: TextInputType.text,
+                controller: searchController,
+                onChanged: (searchController) {
+                  if (searchController.isNotEmpty) {
+                    searchProduct(searchController);
+                    print('$searchController');
+                  } else {
+                    setState(() {
+                      searchResults = [];
+                    });
+                  }
+                },
+              )),
             ],
           ),
         ),
@@ -146,8 +182,9 @@ class _search_pageState extends State<search_page> {
                           onTap: () => Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => show_product(
-                                    productId: result.product.productId)),
+                              builder: (context) => show_product(
+                                  productId: result.product.productId),
+                            ),
                           ),
                           trailing: Icon(MaterialSymbols.navigate_next),
                         ),
