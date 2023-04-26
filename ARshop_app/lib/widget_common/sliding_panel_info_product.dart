@@ -32,9 +32,21 @@ class SlidingBottomSheet extends StatefulWidget {
     required this.variationPrice2,
     required this.vendorId,
   }) : super(key: key) {
-    _types = [variationName1, variationName2];
-    _types_price = [variationPrice1, variationPrice2];
-    _types_variation = [variationId1, variationId2];
+    _types = [];
+    _types_price = [];
+    _types_variation = [];
+
+    if (variationName1.isNotEmpty) {
+      _types.add(variationName1);
+      _types_price.add(variationPrice1);
+      _types_variation.add(variationId1);
+    }
+
+    if (variationName2.isNotEmpty) {
+      _types.add(variationName2);
+      _types_price.add(variationPrice2);
+      _types_variation.add(variationId2);
+    }
   }
 
   late final List _types;

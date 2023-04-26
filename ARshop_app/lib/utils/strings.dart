@@ -42,7 +42,6 @@ const comment =
 const model_sofa = [
   // 'asset/3Dmodels/sofa/sofa1/sofa1_ver1_update.glb',
   // 'asset/3Dmodels/sofa/sofa1/sofa1_ver2.glb',
-  // 'https://arshopimage.s3.ap-southeast-1.amazonaws.com/models/sofa1_ver1_update.glb'
   'asset/3Dmodels/sofa/sofa2/sofa2_ver1.glb',
   'asset/3Dmodels/sofa/sofa2/sofa2_ver2.glb',
   // 'asset/3Dmodels/sofa/sofa3/sofa3_ver1.glb',

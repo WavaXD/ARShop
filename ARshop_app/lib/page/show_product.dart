@@ -54,6 +54,73 @@ class _show_productState extends State<show_product> {
   Widget build(BuildContext context) {
     String formatted = formatter.format(price);
     final size = AppLayout.getSize(context);
+    List<String> model_to_show = [];
+    if (widget.productId == 6) {
+      model_to_show.addAll([
+        'asset/3Dmodels/sofa/sofa2/sofa2_ver1.glb',
+        'asset/3Dmodels/sofa/sofa2/sofa2_ver2.glb'
+      ]);
+    } else if (widget.productId == 43) {
+      model_to_show.addAll([
+        'asset/3Dmodels/sofa/sofa1/sofa1_ver1_update.glb',
+        'asset/3Dmodels/sofa/sofa1/sofa1_ver2.glb',
+      ]);
+    } else if (widget.productId == 44) {
+      model_to_show.addAll([
+        'asset/3Dmodels/sofa/sofa3/sofa3_ver1.glb',
+      ]);
+    } else if (widget.productId == 1) {
+      model_to_show.addAll([
+        'asset/3Dmodels/table/table1/table1_ver1.glb',
+        'asset/3Dmodels/table/table1/table1_ver2.glb',
+      ]);
+    } else if (widget.productId == 2) {
+      model_to_show.addAll([
+        'asset/3Dmodels/chair/chair1/chair1_ver1.glb',
+        'asset/3Dmodels/chair/chair1/chair1_ver2.glb',
+      ]);
+    } else if (widget.productId == 30) {
+      model_to_show.addAll([
+        'asset/3Dmodels/chair/chair2/chair2_ver1.glb',
+        'asset/3Dmodels/chair/chair2/chair2_ver2.glb',
+        // 'asset/3Dmodels/chair/chair3/chair3_ver1.glb',
+        // 'asset/3Dmodels/chair/chair3/chair3_ver2.glb',
+        // 'asset/3Dmodels/table/table1/table1_ver1.glb',
+        // 'asset/3Dmodels/table/table1/table1_ver2.glb',
+        // 'asset/3Dmodels/table/table2/table2_ver1.glb',
+        // 'asset/3Dmodels/table/table2/table2_ver2.glb',
+        // 'asset/3Dmodels/table/table3/table3_ver1.glb',
+        // 'asset/3Dmodels/table/table3/table3_ver2.glb',
+        // 'asset/3Dmodels/chair/chair3/Chair.glb'
+      ]);
+    } else if (widget.productId == 40) {
+      model_to_show.addAll([
+        'asset/3Dmodels/chair/chair3/chair3_ver1.glb',
+        'asset/3Dmodels/chair/chair3/chair3_ver2.glb',
+        // 'asset/3Dmodels/table/table1/table1_ver1.glb',
+        // 'asset/3Dmodels/table/table1/table1_ver2.glb',
+        // 'asset/3Dmodels/table/table2/table2_ver1.glb',
+        // 'asset/3Dmodels/table/table2/table2_ver2.glb',
+        // 'asset/3Dmodels/table/table3/table3_ver1.glb',
+        // 'asset/3Dmodels/table/table3/table3_ver2.glb',
+        // 'asset/3Dmodels/chair/chair3/Chair.glb'
+      ]);
+    } else if (widget.productId == 37) {
+      model_to_show.addAll([
+        'asset/3Dmodels/table/table1/table1_ver1.glb',
+        'asset/3Dmodels/table/table1/table1_ver2.glb',
+      ]);
+    } else if (widget.productId == 37) {
+      model_to_show.addAll([
+        'asset/3Dmodels/table/table2/table2_ver1.glb',
+        'asset/3Dmodels/table/table2/table2_ver2.glb',
+        // 'asset/3Dmodels/table/table3/table3_ver1.glb',
+        // 'asset/3Dmodels/table/table3/table3_ver2.glb',
+        // 'asset/3Dmodels/chair/chair3/Chair.glb'
+      ]);
+    } else {
+      model_to_show.addAll(['asset/3Dmodels/chair/chair3/Chair.glb']);
+    }
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -139,13 +206,13 @@ class _show_productState extends State<show_product> {
               child: SizedBox(
                 child: Container(
                   child: VxSwiper.builder(
-                    itemCount: model_sofa.length,
+                    itemCount: model_to_show.length,
                     enlargeCenterPage: false,
                     itemBuilder: (context, index) {
                       return ModelViewer(
                         loading: Loading.lazy,
                         backgroundColor: Colors.white,
-                        src: model_sofa[index],
+                        src: model_to_show[index],
                         ar: true,
                         arScale: ArScale.fixed,
                         arPlacement: ArPlacement.floor,
@@ -517,38 +584,61 @@ class _show_productState extends State<show_product> {
                       showModalBottomSheet(
                         context: context,
                         builder: (context) {
+                          int? variationId1, variationQuanity1, variationPrice1;
+                          String? variationName1;
+                          int? variationId2, variationQuanity2, variationPrice2;
+                          String? variationName2;
+
+                          if (productDetailResponse
+                                  .variationModelContext.length >
+                              0) {
+                            variationId1 = productDetailResponse
+                                .variationModelContext[0].variation.variationId;
+                            variationQuanity1 = productDetailResponse
+                                .variationModelContext[0]
+                                .variation
+                                .variationQuanity;
+                            variationName1 = productDetailResponse
+                                .variationModelContext[0]
+                                .variation
+                                .variationName;
+                            variationPrice1 = productDetailResponse
+                                .variationModelContext[0]
+                                .variation
+                                .variationPrice;
+                          }
+
+                          if (productDetailResponse
+                                  .variationModelContext.length >
+                              1) {
+                            variationId2 = productDetailResponse
+                                .variationModelContext[1].variation.variationId;
+                            variationQuanity2 = productDetailResponse
+                                .variationModelContext[1]
+                                .variation
+                                .variationQuanity;
+                            variationName2 = productDetailResponse
+                                .variationModelContext[1]
+                                .variation
+                                .variationName;
+                            variationPrice2 = productDetailResponse
+                                .variationModelContext[1]
+                                .variation
+                                .variationPrice;
+                          }
+
                           return SlidingBottomSheet(
                             productId: productDetailResponse.product.productId,
                             productName:
                                 productDetailResponse.product.productName,
-                            variationId1: productDetailResponse
-                                .variationModelContext[0].variation.variationId,
-                            variationQuanity1: productDetailResponse
-                                .variationModelContext[0]
-                                .variation
-                                .variationQuanity,
-                            variationName1: productDetailResponse
-                                .variationModelContext[0]
-                                .variation
-                                .variationName,
-                            variationPrice1: productDetailResponse
-                                .variationModelContext[0]
-                                .variation
-                                .variationPrice,
-                            variationId2: productDetailResponse
-                                .variationModelContext[1].variation.variationId,
-                            variationQuanity2: productDetailResponse
-                                .variationModelContext[1]
-                                .variation
-                                .variationQuanity,
-                            variationName2: productDetailResponse
-                                .variationModelContext[1]
-                                .variation
-                                .variationName,
-                            variationPrice2: productDetailResponse
-                                .variationModelContext[1]
-                                .variation
-                                .variationPrice,
+                            variationId1: variationId1 ?? 0,
+                            variationQuanity1: variationQuanity1 ?? 0,
+                            variationName1: variationName1 ?? '',
+                            variationPrice1: variationPrice1 ?? 0,
+                            variationId2: variationId2 ?? 0,
+                            variationQuanity2: variationQuanity2 ?? 0,
+                            variationName2: variationName2 ?? '',
+                            variationPrice2: variationPrice2 ?? 0,
                             vendorId: productDetailResponse.product.vendorId,
                           );
                         },
