@@ -95,7 +95,7 @@ class catagory_menu extends StatelessWidget {
                   ),
                   CategoryCard(
                     icon: Icons.door_sliding_outlined,
-                    title: 'ตู้และชั้นวาง',
+                    title: 'ตู้และชั้น',
                     onTap: () {
                       Navigator.push(
                           context,

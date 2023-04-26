@@ -18,7 +18,7 @@ class chat_list extends StatelessWidget {
                 child: ListTile(
                   leading: Text(
                     'ข้อความล่าสุด',
-                    style: TextStyle(fontSize: 16, color: textnavy),
+                    style: TextStyle(fontSize: 18, color: textnavy),
                   ),
                   trailing: InkWell(
                     onTap: () {},
@@ -42,7 +42,10 @@ class chat_list extends StatelessWidget {
                               SizedBox(
                                 width: 10,
                               ),
-                              Text('ณ เณอ | Chor Cher')
+                              Text(
+                                'ณ เณอ | Chor Cher',
+                                style: TextStyle(fontSize: 18),
+                              )
                             ],
                           ),
                           trailing: Wrap(
@@ -64,6 +67,7 @@ class chat_list extends StatelessWidget {
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
                                     fontFamily: 'LINESeedSansTHRg',
+                                    fontSize: 16,
                                     color: textgrey,
                                   ),
                                 ),
@@ -82,6 +86,7 @@ class chat_list extends StatelessWidget {
                               textAlign: TextAlign.right,
                               style: TextStyle(
                                 fontFamily: 'LINESeedSansTHRg',
+                                fontSize: 16,
                                 color: textgrey,
                               ),
                             ),

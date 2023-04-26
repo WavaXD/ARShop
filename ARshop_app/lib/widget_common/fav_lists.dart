@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ARshop_App/utils/consts.dart';
+import 'package:intl/intl.dart';
 
 class fav_list extends StatelessWidget {
   fav_list({super.key});
@@ -24,6 +25,7 @@ class fav_list extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var formatter = NumberFormat('#,##0.00');
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
@@ -80,7 +82,7 @@ class fav_list extends StatelessWidget {
                               ),
                               SizedBox(height: 10),
                               Text(
-                                'ราคา ${items[index]['price']} บาท',
+                                '${formatter.format(items[index]['price'])}',
                                 style: TextStyle(color: textnavy, fontSize: 14),
                               ),
                             ],

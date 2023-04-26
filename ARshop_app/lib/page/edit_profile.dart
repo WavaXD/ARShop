@@ -55,43 +55,6 @@ class _edit_profileState extends State<edit_profile> {
         ),
         body: Column(
           children: [
-            ListTile(
-                titleAlignment: ListTileTitleAlignment.threeLine,
-                leading:
-                    CircleAvatar(radius: 20, backgroundImage: NetworkImage('')),
-                title: FutureBuilder<GetProfileResponse>(
-                    future: APIService.getUserProfile(),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        final profile = snapshot.data!;
-                        return Container(
-                          padding: EdgeInsets.only(top: 15),
-                          height: 100,
-                          child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'สวัสดีคุณ',
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 22),
-                                ),
-                                Text(
-                                  profile.name,
-                                  style: TextStyle(
-                                      color: Colors.white, fontSize: 18),
-                                ),
-                              ]),
-                        );
-                      } else if (snapshot.hasError) {
-                        return Center(
-                          child: Text('Error: ${snapshot.error}'),
-                        );
-                      } else {
-                        return Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      }
-                    })),
             Container(
               width: MediaQuery.of(context).size.width,
               child: Card(

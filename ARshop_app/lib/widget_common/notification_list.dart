@@ -18,7 +18,7 @@ class nofification_list extends StatelessWidget {
                 child: ListTile(
                   leading: Text(
                     'ข้อความล่าสุด',
-                    style: TextStyle(fontSize: 16, color: textnavy),
+                    style: TextStyle(fontSize: 18, color: textnavy),
                   ),
                   trailing: InkWell(
                     onTap: () {},
@@ -38,11 +38,15 @@ class nofification_list extends StatelessWidget {
                               Icon(
                                 MaterialSymbols.campaign,
                                 color: textblue,
+                                size: 30,
                               ),
                               SizedBox(
                                 width: 10,
                               ),
-                              Text('ณ เณอ | Chor Cher')
+                              Text(
+                                'ณ เณอ | Chor Cher',
+                                style: TextStyle(fontSize: 18),
+                              )
                             ],
                           ),
                           trailing: Wrap(
@@ -63,6 +67,7 @@ class nofification_list extends StatelessWidget {
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
+                                    fontSize: 16,
                                     fontFamily: 'LINESeedSansTHRg',
                                     color: textgrey,
                                   ),
@@ -81,6 +86,7 @@ class nofification_list extends StatelessWidget {
                               '30 มี.ค. 2022',
                               textAlign: TextAlign.right,
                               style: TextStyle(
+                                fontSize: 16,
                                 fontFamily: 'LINESeedSansTHRg',
                                 color: textgrey,
                               ),

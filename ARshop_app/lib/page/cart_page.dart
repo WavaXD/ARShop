@@ -151,7 +151,10 @@ class _cart_bucketState extends State<cart_bucket> {
                     child: Column(
                       children: [
                         ListTile(
-                          leading: Text('${vendorDetail!.vendorName}'),
+                          leading: Text(
+                            '${vendorDetail!.vendorName}',
+                            style: TextStyle(fontSize: 20, color: textnavy),
+                          ),
                           trailing: TextButton(
                             onPressed: () {},
                             child: Text(
@@ -167,13 +170,16 @@ class _cart_bucketState extends State<cart_bucket> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                  '${productDetail.variationModelContext[0].variation.variationName}'),
+                                '${productDetail.variationModelContext[0].variation.variationName}',
+                                style:
+                                    TextStyle(fontFamily: 'LINESeedSansTHRg'),
+                              ),
                               Text(
-                                '${formatter.format(productDetail.variationModelContext[0].variation.variationPrice * inCartProduct.orderDetail.variationQuanity)} บาท',
+                                'ราคา ${formatter.format(productDetail.variationModelContext[0].variation.variationPrice * inCartProduct.orderDetail.variationQuanity)} บาท',
                                 style: TextStyle(
-                                  fontSize: 16.0,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'LINESeedSansTHRg'),
                               ),
                             ],
                           ),
