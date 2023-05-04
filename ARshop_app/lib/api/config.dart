@@ -1,6 +1,6 @@
 class Config_api {
   static const String appName = "แจ้งเตือน";
-  static const String apiURL = "35.72.163.109:8080";
+  static const String apiURL = "3.112.27.15:8080";
   static const String loginAPI = "/api/v1/auth/authenticate";
   static const String registerAPI = "/api/v1/auth/register";
   static const String searchAPI = "/api/v1/search";

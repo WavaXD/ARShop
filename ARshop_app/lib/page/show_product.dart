@@ -216,7 +216,7 @@ class _show_productState extends State<show_product> {
                         ar: true,
                         arScale: ArScale.fixed,
                         arPlacement: ArPlacement.floor,
-                        autoRotate: false,
+                        autoRotate: true,
                         cameraControls: true,
                         disableZoom: true,
                         reveal: Reveal.auto,
