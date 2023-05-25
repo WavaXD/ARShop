@@ -5,7 +5,6 @@ import 'package:flutter/services.dart';
 import 'package:ARshop_App/page/login.dart';
 import 'package:ARshop_App/page/splash_page.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:ARshop_App/page/register.dart';
 import 'package:arcore_flutter_plugin/arcore_flutter_plugin.dart';
 import 'package:vector_math/vector_math_64.dart' as vector;
 

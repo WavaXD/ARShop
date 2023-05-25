@@ -199,7 +199,7 @@ class APIService {
       return recommendProduct;
     } else {
       throw Exception(
-          'Failed to load popular products ${response.statusCode} ${loginDetails!.token}');
+          'Failed to load popular products ${response.statusCode} ${loginDetails.token}');
     }
   }
 
@@ -221,7 +221,7 @@ class APIService {
       return popularProduct;
     } else {
       throw Exception(
-          'Failed to load popular products ${response.statusCode} ${loginDetails!.token}');
+          'Failed to load popular products ${response.statusCode} ${loginDetails.token}');
     }
   }
 
@@ -253,7 +253,7 @@ class APIService {
 
     if (response.statusCode == 200) {
       print(
-          '${loginDetails!.token} sucess value ${productId}, ${variationId}, ${vendorId}, ${variationId} ');
+          '${loginDetails.token} sucess value ${productId}, ${variationId}, ${vendorId}, ${variationId} ');
     } else if (response.statusCode != 200) {
       throw Exception('Fail to add product');
     }
@@ -275,11 +275,11 @@ class APIService {
           List<GetProductInCartResponse>.from(
               decodedData.map((x) => GetProductInCartResponse.fromJson(x)));
       print(
-          'Failed to load product in cart ${response.statusCode} ${loginDetails!.token}');
+          'Failed to load product in cart ${response.statusCode} ${loginDetails.token}');
       return productInCart;
     } else {
       throw Exception(
-          'Failed to load product in cart ${response.statusCode} ${loginDetails!.token}');
+          'Failed to load product in cart ${response.statusCode} ${loginDetails.token}');
     }
   }
 
@@ -311,7 +311,7 @@ class APIService {
 
     if (response.statusCode == 200) {
       print(
-          '${loginDetails!.token} sucess value ${productId}, ${variationId}, ${vendorId}, ${variationQuantity} ');
+          '${loginDetails.token} sucess value ${productId}, ${variationId}, ${vendorId}, ${variationQuantity} ');
     } else if (response.statusCode != 200) {
       throw Exception('Fail to delete product');
     }

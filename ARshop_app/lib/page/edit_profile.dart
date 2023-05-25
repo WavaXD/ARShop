@@ -107,7 +107,7 @@ class _edit_profileState extends State<edit_profile> {
                 future: APIService.getUserProfile(),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
-                    final profile = snapshot!.data;
+                    final profile = snapshot.data;
                     return Container(
                       width: MediaQuery.of(context).size.width,
                       child: Card(

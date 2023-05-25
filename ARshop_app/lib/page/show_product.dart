@@ -7,7 +7,6 @@ import 'package:ARshop_App/utils/consts.dart';
 import 'package:ARshop_App/widget_common/sliding_panel_info_product.dart';
 import 'package:material_symbols_icons/outlined_suffix.dart';
 import 'package:material_symbols_icons/rounded.dart';
-import 'package:ARshop_App/widget_common/sliding_panel_info_product.dart';
 import 'package:intl/intl.dart';
 
 class show_product extends StatefulWidget {
@@ -311,9 +310,8 @@ class _show_productState extends State<show_product> {
             FutureBuilder(
                 future: products,
                 builder: (context, snapshot) {
-                  final detail_product =
-                      snapshot?.data?.product.productDetail ??
-                          'ไม่มีรายละเอียดสินค้า';
+                  final detail_product = snapshot.data?.product.productDetail ??
+                      'ไม่มีรายละเอียดสินค้า';
                   if (snapshot.hasData) {
                     return Container(
                       alignment: Alignment.centerLeft,
