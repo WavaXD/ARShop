@@ -152,6 +152,7 @@ class LoginPage extends State<login> {
                               if (value!.isEmpty) {
                                 return 'กรุณากรอกรหัสผ่านผู้ใช้งาน';
                               }
+                              return null;
                             },
                             controller: passwordController,
                             obscureText: hidePassword,

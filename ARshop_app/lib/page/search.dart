@@ -84,7 +84,7 @@ class _search_pageState extends State<search_page> {
       final results = await APIService.getSearchItem(model);
       print('result: $results');
       setState(() {
-        searchResults = results ?? [];
+        searchResults = results;
         print('$searchResults');
       });
     } catch (e) {
